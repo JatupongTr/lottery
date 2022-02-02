@@ -1,0 +1,76 @@
+<div class="container">
+  <form (ngSubmit)="onSaveList(f)" #f="ngForm">
+    <div class="row">
+      <div class="col-md-12 row">
+        <div class="radio d-flex">
+          <div
+            class="form-check form-check-inline"
+            *ngFor="let category of categories"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              id="{{ category.code }}"
+              autocomplete="off"
+              value="{{ category.name }}"
+              name="categories"
+              ngModel
+              required
+            />
+            <label
+              class="btn btn-outline-primary"
+              for="{{ category.code }}"
+              >{{ category.description }}</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row" style="text-align: center">
+        <label for="inputNo" class="col-md-4 col-form-label">เลข</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control"
+            id="inputNo"
+            name="list_no"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3 row" style="text-align: center">
+        <label for="inputPrice" class="col-md-4 col-form-label">ราคา</label>
+        <div class="col-md-8">
+          <input
+            type="number"
+            class="form-control"
+            id="inputPrice"
+            name="price"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3 row" style="text-align: center">
+        <label for="inputDiscount" class="col-md-4 col-form-label"
+          >ส่วนลด (%)</label
+        >
+        <div class="col-md-8">
+          <input
+            type="number"
+            class="form-control"
+            id="inputDiscount"
+            name="discount"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-md-12">
+          <button class="btnAdd" type="submit">+ เพิ่มเลข</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

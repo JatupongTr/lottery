@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12">
+    <img
+      [src]="agent.imagePath"
+      alt="{{ agent.name }}"
+      class="profile img-responsive"
+      style="max-height: 300px"
+    />
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-md-12">
+    <h1>รหัสตัวแทน: {{ agent.code }}</h1>
+    <h1>ชื่อ: {{ agent.name }}</h1>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn btn-success" (click)="onEditAgent()">
+      แก้ไข
+    </button>
+    <button class="btn btn-primary" (click)="onAddLists()">
+      เพิ่มโพย
+    </button>
+    <button class="btn btn-danger">
+      ลบ
+    </button>
+  </div>
+</div>

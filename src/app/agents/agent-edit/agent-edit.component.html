@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-12">
+    <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="code">รหัสตัวแทน</label>
+            <input type="text" id="code" formControlName="code" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="name">ชื่อตัวแทน</label>
+            <input type="text" id="name" formControlName="name" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="imgUrl">Image URL</label>
+            <input type="text" id="imgUrl" formControlName="imagePath" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <img src="" alt="" class="img-responsive">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

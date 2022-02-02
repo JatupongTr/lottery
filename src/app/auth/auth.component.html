@@ -1,0 +1,76 @@
+<div class="container-fluid">
+
+  <div class="position-absolute top-50 start-50 translate-middle" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+    <div class="container position-absolute top-50 start-50 translate-middle">
+      <div class="alert alert-danger" *ngIf="error">
+        <p>{{ error }}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-12 login">
+          <p>{{ isLoginMode ? 'Login' : 'Sign Up'}}</p>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="email"
+            ngModel
+            name="email"
+            required
+          />
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="password"
+            name="password"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckIndeterminate"
+            />
+            <label class="form-check-label" for="flexCheckIndeterminate">
+              Remember me
+            </label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <a class="forgetPassword">Forgot password?</a>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btnLogin" type="submit" [disabled]="!authForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up'}}</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btnBack" type="button" (click)="onSwitchMode()">
+            <span class="material-icons"> keyboard_backspace </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

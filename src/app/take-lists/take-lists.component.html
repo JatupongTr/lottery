@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="col-md-12" style="text-align: center">
+    <p>จดหวย</p>
+  </div>
+</div>
+<form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mb-3 row header" style="text-align: center">
+          <label for="code" class="col-md-2 col-form-label">ตัวแทน</label>
+          <div class="col-md-2">
+            <input
+              style="text-transform: uppercase; text-align: center"
+              type="text"
+              class="form-control"
+              id="code"
+              formControlName="code"
+              placeholder="รหัสตัวแทน"
+            />
+          </div>
+          <div class="col-md-2 btnSelected">
+            <input
+              type="button"
+              value="2 ตัว"
+              class="btn btn-primary select-number"
+              (click)="onSelect('two-numbers')"
+            />
+          </div>
+          <div class="col-md-2 btnSelected">
+            <input
+              type="button"
+              value="3 ตัว"
+              class="btn btn-primary select-number"
+              (click)="onSelect('three-numbers')"
+            />
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <br />
+      <div class="row">
+        <div class="col-md-4">
+          <div *ngIf="selectNumbersType === 'two-numbers'">
+            <!-- Two numbers -->
+            <app-two-numbers></app-two-numbers>
+            <app-running></app-running>
+            <!-- <div class="container">
+              <div class="row">
+                <div class="col-ms-12">
+                  <div class="radio d-flex">
+                    <div
+                      class="form-check form-check-inline"
+                      *ngFor="let data of categoriesTwo"
+                    >
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        id="{{ data.code }}"
+                        autocomplete="off"
+                        value="{{ data.name }}"
+                      />
+                      <label
+                        for="{{ data.description }}"
+                        class="btn btn-outline-primary"
+                      >{{ data.description }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="inputPrice" class="col-md-4 col-form-label">เลข</label>
+                <div class="col-md-8">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputPrice"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="inputPrice" class="col-md-4 col-form-label">ราคา</label>
+                <div class="col-md-8">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputPrice"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="inputDiscount" class="col-md-4 col-form-label"
+                  >ส่วนลด (%)</label
+                >
+                <div class="col-md-8">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inputDiscount"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md-12">
+                  <button class="btnAdd" type="button">+ เพิ่มเลข</button>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div *ngIf="selectNumbersType !== 'two-numbers'">
+            <!-- Running number -->
+            <app-three-numbers></app-three-numbers>
+          </div>
+        </div>
+        <div class="col-md-8 position-relative">
+          <div class="list">
+            <p>โพย</p>
+          </div>
+          <!-- table -->
+          <table class="table table-borderless">
+            <thead>
+              <th>เลข</th>
+              <th>ประเภท</th>
+              <th>ราคา</th>
+              <th>ส่วนลด</th>
+              <th>ราคาสุทธิ</th>
+              <th></th>
+            </thead>
+            <tbody formArrayName="itemLists">
+              <tr
+                *ngFor="
+                  let data of lists
+                    | paginate: { itemsPerPage: 10, currentPage: p }
+                "
+              >
+                <td>
+                  {{ data.list_no }}
+                </td>
+                <td>
+                  {{ data.category }}
+                </td>
+                <td>
+                  {{ data.price }}
+                </td>
+                <td>
+                  {{ data.discount }}
+                </td>
+                <td>
+                  {{ data.netPrice }}
+                </td>
+                <td>
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="onRemove(data)"
+                  >
+                    ลบ
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <pagination-controls
+                  (pageChange)="p = $event"
+                ></pagination-controls>
+              </div>
+              <div class="col-md-6">
+                <div class="submitList" style="float: right">
+                  <button class="btn btn-primary" type="submit">
+                    + เพิ่มโพย
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
