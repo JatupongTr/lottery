@@ -12,25 +12,37 @@ import { TakeListsComponent } from './take-lists/take-lists.component';
 import { AgentDetailComponent } from './agents/agent-detail/agent-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  {
-    path: 'agents',
-    component: AgentsComponent,
-    children: [
-      { path: '', component: AgentStartComponent },
-      { path: 'new', component: AgentEditComponent },
-      { path: ':id', component: AgentDetailComponent },
-      { path: ':id/edit', component: AgentEditComponent },
-    ],
-  },
-  { path: 'prize', component: PrizesComponent },
-  { path: 'overviews', component: OverviewsComponent },
-  { path: 'agents/:id/lists', component: TakeListsComponent },
+
+  // {
+  //   path: 'agents',
+  //   component: AgentsComponent,
+  //   children: [
+  //     { path: '', component: AgentStartComponent },
+  //     { path: 'new', component: AgentEditComponent },
+  //     { path: ':id', component: AgentDetailComponent },
+  //     { path: ':id/edit', component: AgentEditComponent },
+  //   ],
+  // },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
+
+  {
+    path: 'menu',
+    component: DashboardComponent,
+    children: [
+      { path: 'prize', component: PrizesComponent },
+      { path: 'overviews', component: OverviewsComponent },
+      { path: 'agents/new', component: AgentEditComponent },
+      { path: 'agents/:id', component: AgentDetailComponent },
+      { path: 'agents/:id/edit', component: AgentEditComponent },
+      { path: 'agents/:id/lists', component: TakeListsComponent }
+    ]
+
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
