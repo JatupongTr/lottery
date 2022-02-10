@@ -62,27 +62,42 @@ export class TakeListsComponent implements OnInit, OnDestroy {
   }
 
   onAddTwo() {
-
+    (<FormArray>this.agentForm.get('itemLists')).push(
+      new FormGroup({
+       list_no: new FormControl('null'),
+       prise: new FormControl('null'),
+       discount: new FormControl('null'),
+       netPrise: new FormControl('null'),
+       cateogry: new FormControl('null')
+      })
+    )
   }
 
   onSubmit() {
-    console.log(this.agentForm);
+    this.agentsService.updateAgent(this.id, this.agentForm.value)
   }
 
   private initForm() {
     let agentCode = '';
     let itemLists = new FormArray([]);
+
     const agent = this.agentsService.getAgent(this.id);
     agentCode = agent.code;
-    itemLists.push(
-      new FormGroup({
-        list_no: new FormControl('null'),
-        price: new FormControl('null'),
-        discount: new FormControl('null'),
-        netPrice: new FormControl('null'),
-        category: new FormControl('null')
-      })
-    )
+
+    if (agent['itemLists']) {
+      for (let itemList of agent.itemLists) {
+        itemLists.push(
+          new FormGroup({
+            list_no: new FormControl(itemList.list_no),
+            prize: new FormControl(itemList.price),
+            discount: new FormControl(itemList.discount),
+            netPrice: new FormControl(itemList.netPrice),
+            category: new FormControl(itemList.category)
+          })
+        )
+      }
+    }
+
 
     this.agentForm = new FormGroup({
       code: new FormControl(agentCode),

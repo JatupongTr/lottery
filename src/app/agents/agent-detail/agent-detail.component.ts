@@ -33,6 +33,6 @@ export class AgentDetailComponent implements OnInit {
   }
 
   onAddLists() {
-    this.router.navigate(['lists'], {relativeTo: this.route})
+    this.router.navigate(['add-lists'], {relativeTo: this.route})
   }
 }

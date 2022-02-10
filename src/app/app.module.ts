@@ -38,6 +38,7 @@ import { AgentStartComponent } from './agents/agent-start/agent-start.component'
 import { AgentItemComponent } from './agents/agent-list/agent-item/agent-item.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 import { PrizesComponent } from './prizes/prizes.component';
+import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists.component';
 
 
 
@@ -60,7 +61,8 @@ import { PrizesComponent } from './prizes/prizes.component';
     AgentItemComponent,
     OverviewsComponent,
     LoadingSpinnerComponent,
-    PrizesComponent
+    PrizesComponent,
+    AgentAddListsComponent
   ],
   imports: [
     BrowserModule,

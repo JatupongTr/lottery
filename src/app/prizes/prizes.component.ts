@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prizes.component.css']
 })
 export class PrizesComponent implements OnInit {
-
+  prizeForm: FormControl;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  onSubmit() {}
 
 }

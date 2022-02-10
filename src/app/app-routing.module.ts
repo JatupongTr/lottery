@@ -1,3 +1,4 @@
+import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists.component';
 import { PrizesComponent } from './prizes/prizes.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -12,7 +13,7 @@ import { TakeListsComponent } from './take-lists/take-lists.component';
 import { AgentDetailComponent } from './agents/agent-detail/agent-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: 'agents',
     component: AgentsComponent,
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: ':id/edit', component: AgentEditComponent },
     ],
   },
+  { path: 'agents/:id/add-lists', component: AgentAddListsComponent},
   { path: 'prize', component: PrizesComponent },
   { path: 'overviews', component: OverviewsComponent },
   { path: 'agents/:id/lists', component: TakeListsComponent },
