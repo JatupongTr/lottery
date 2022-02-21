@@ -2,7 +2,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { AgentsService } from '../agents.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Agent } from '../agent.model';
 
 @Component({
@@ -26,6 +26,7 @@ export class AgentAddListsComponent implements OnInit {
   selectType: string = 'two-numbers';
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private agentsService: AgentsService
   ) {}
 
@@ -44,16 +45,18 @@ export class AgentAddListsComponent implements OnInit {
     (<FormArray>this.itemListForm.get('itemLists')).push(
       new FormGroup({
         'two-numbers': new FormGroup({
-          category: new FormControl('2 ตัวบน'),
-          number: new FormControl(null, Validators.required),
-          price: new FormControl(null, Validators.required),
-          discount: new FormControl(null, Validators.required),
-        }),
+          'list_no_two': new FormControl(null),
+          'category_two': new FormControl(null),
+          'price_two': new FormControl(0),
+          'discount_two': new FormControl(0),
+        })
       })
-    );
+    )
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.router.navigate(['summarize'], {relativeTo: this.route})
+  }
 
   private initForm() {
     let agentCode = '';
@@ -65,13 +68,13 @@ export class AgentAddListsComponent implements OnInit {
         agentItemLists.push(
           new FormGroup({
             'two-numbers': new FormGroup({
-              category: new FormControl('2 ตัวบน'),
-              number: new FormControl(null, Validators.required),
-              price: new FormControl(null, Validators.required),
-              discount: new FormControl(null, Validators.required),
-            }),
+              'list_no_two': new FormControl(itemList.list_no),
+              'category_two': new FormControl(itemList.category),
+              'price_two': new FormControl(itemList.price),
+              'discount_two': new FormControl(itemList.discount)
+            })
           })
-        );
+        )
       }
     }
 

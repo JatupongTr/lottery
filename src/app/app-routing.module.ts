@@ -1,3 +1,4 @@
+import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists.component';
 import { PrizesComponent } from './prizes/prizes.component';
 import { OverviewsComponent } from './overviews/overviews.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'agents/:id', component: AgentDetailComponent },
       { path: 'agents/:id/edit', component: AgentEditComponent },
       { path: 'agents/:id/lists', component: AgentAddListsComponent },
+      { path: 'agents/:id/lists/summarize', component: AgentSummarizeComponent }
     ],
   },
 ];

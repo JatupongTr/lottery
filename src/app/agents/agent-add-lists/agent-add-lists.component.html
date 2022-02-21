@@ -39,264 +39,225 @@
   </div>
   <mat-divider></mat-divider>
   <br />
-  <div class="row" formArrayName="itemLists">
-    <div *ngFor="let itemListCtrl of itemListForm.get('itemLists')['controls']; let i = index" [formGroupName]="i">
-      <div class="col-md-4">
-        <div *ngIf="selectType === 'two-numbers'">
-          <!-- top down -->
-          <div class="row" formGroupName="two-numbers">
-            <div class="col-md-12">
-              <div class="radio d-flex justify-content-between">
-                <div
-                  class="form-check form-check-inline"
-                  *ngFor="let data of twoCategories"
-                >
-                  <input
-                    type="radio"
-                    class="btn-check"
-                    formControlName="category"
-                    id="{{ data }}"
-                    autocomplete="off"
-                    [value]="data"
-                  />
-                  <label class="btn btn-outline-primary" for="{{ data }}">{{
-                    data
-                  }}</label>
-                </div>
-              </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputNumber" class="col-md-4 col-form-label"
-                  >เลข</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputNumber"
-                    formControlName="numbers"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputPrice" class="col-md-4 col-form-label"
-                  >ราคา</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="inputPrice"
-                    formControlName="price"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputDiscount" class="col-md-4 col-form-label"
-                  >ส่วนลด (%)</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="inputDiscount"
-                    formControlName="discount"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 row">
-                <div class="col-md-12">
-                  <button
-                    class="btnAdd"
-                    type="button"
-                    (click)="onAddTwoNumbers()"
-                  >
-                    + เพิ่มเลข
-                  </button>
-                </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div *ngIf="selectType === 'two-numbers'">
+        <!-- top down -->
+        <div class="row" formGroupName="two-numbers">
+          <div class="col-md-12">
+            <div class="radio d-flex justify-content-between">
+              <div
+                class="form-check form-check-inline"
+                *ngFor="let data of twoCategories"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  formControlName="category_two"
+                  id="{{ data }}"
+                  autocomplete="off"
+                  [value]="data"
+                />
+                <label class="btn btn-outline-primary" for="{{ data }}">{{
+                  data
+                }}</label>
               </div>
             </div>
-          </div>
-          <!-- running -->
-          <div class="row" formGroupName="running-numbers">
-            <div class="col-md-12">
-              <div class="radio d-flex justify-content-between">
-                <div
-                  class="form-check form-check-inline"
-                  *ngFor="let data of runningCategories"
-                >
-                  <input
-                    type="radio"
-                    class="btn-check"
-                    formControlName="category"
-                    id="{{ data }}"
-                    autocomplete="off"
-                    [value]="data"
-                  />
-                  <label class="btn btn-outline-primary" for="{{ data }}">{{
-                    data
-                  }}</label>
-                </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputNumber" class="col-md-4 col-form-label"
+                >เลข</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNumber"
+                  formControlName="list_no_two"
+                />
               </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputNumber" class="col-md-4 col-form-label"
-                  >เลข</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputNumber"
-                    formControlName="numbers"
-                  />
-                </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputPrice" class="col-md-4 col-form-label"
+                >ราคา</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputPrice"
+                  formControlName="price_two"
+                />
               </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputPrice" class="col-md-4 col-form-label"
-                  >ราคา</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="inputPrice"
-                    formControlName="price"
-                  />
-                </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputDiscount" class="col-md-4 col-form-label"
+                >ส่วนลด (%)</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputDiscount"
+                  formControlName="discount_two"
+                />
               </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputDiscount" class="col-md-4 col-form-label"
-                  >ส่วนลด (%)</label
+            </div>
+            <div class="mb-3 row">
+              <div class="col-md-12">
+                <button
+                  class="btnAdd"
+                  type="button"
+                  (click)="onAddTwoNumbers()"
                 >
-                <div class="col-md-8">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="inputDiscount"
-                    formControlName="discount"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 row">
-                <div class="col-md-12">
-                  <button class="btnAdd" type="button">+ เพิ่มเลข</button>
-                </div>
+                  + เพิ่มเลข
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <!-- end running-numbers -->
-        <!-- end two-numbers -->
-        <!-- start three-numbers -->
-        <div *ngIf="selectType !== 'two-numbers'">
-          <div class="row" formGroupName="three-numbers">
-            <div class="col-md-12 row">
-              <div class="radio row g-2 d-flex justify-content-between">
-                <div
-                  class="form-check form-check-inline col-5"
-                  *ngFor="let data of threeCategories"
-                >
-                  <input
-                    type="radio"
-                    class="btn-check"
-                    formControlName="category"
-                    id="{{ data }}"
-                    autocomplete="off"
-                    [value]="data"
-                  />
-                  <label class="btn btn-outline-primary" for="{{ data }}">{{
-                    data
-                  }}</label>
-                </div>
+        <!-- running -->
+        <div class="row" formGroupName="running-numbers">
+          <div class="col-md-12">
+            <div class="radio d-flex justify-content-between">
+              <div
+                class="form-check form-check-inline"
+                *ngFor="let data of runningCategories"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  formControlName="category"
+                  id="{{ data }}"
+                  autocomplete="off"
+                  [value]="data"
+                />
+                <label class="btn btn-outline-primary" for="{{ data }}">{{
+                  data
+                }}</label>
               </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputNumber" class="col-md-4 col-form-label"
-                  >เลข</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputNumber"
-                    formControlName="numbers"
-                  />
-                </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputNumber" class="col-md-4 col-form-label"
+                >เลข</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNumber"
+                  formControlName="numbers"
+                />
               </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputPrice" class="col-md-4 col-form-label"
-                  >ราคา</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="inputPrice"
-                    formControlName="price"
-                  />
-                </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputPrice" class="col-md-4 col-form-label"
+                >ราคา</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputPrice"
+                  formControlName="price"
+                />
               </div>
-              <div class="mb-3 row" style="text-align: center">
-                <label for="inputDiscount" class="col-md-4 col-form-label"
-                  >ส่วนลด (%)</label
-                >
-                <div class="col-md-8">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="inputDiscount"
-                    formControlName="discount"
-                  />
-                </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputDiscount" class="col-md-4 col-form-label"
+                >ส่วนลด (%)</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputDiscount"
+                  formControlName="discount"
+                />
               </div>
-              <div class="mb-3 row">
-                <div class="col-md-12">
-                  <button class="btnAdd" type="button">+ เพิ่มเลข</button>
-                </div>
+            </div>
+            <div class="mb-3 row">
+              <div class="col-md-12">
+                <button class="btnAdd" type="button">+ เพิ่มเลข</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- end three number -->
-      <div class="col-md-1">
-        <mat-divider vertical="true" style="height: 100%"></mat-divider>
-      </div>
-      <div class="col-md-7">
-        <p style="text-align: center">โพย</p>
-        <!-- table -->
-        <table class="table table-borderless">
-          <thead>
-            <th>#</th>
-            <th>เลข</th>
-            <th>ประเภท</th>
-            <th>ราคา</th>
-            <th>ส่วนลด</th>
-            <th>ราคาสุทธิ</th>
-            <th></th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{i + 1}}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button mat-raised-button color="warn">ลบ</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="submitList" style="float: right">
-                <button class="btn btn-primary" type="submit">+ เพิ่มโพย</button>
+      <!-- end running-numbers -->
+      <!-- end two-numbers -->
+      <!-- start three-numbers -->
+      <div *ngIf="selectType !== 'two-numbers'">
+        <div class="row" formGroupName="three-numbers">
+          <div class="col-md-12 row">
+            <div class="radio row g-2 d-flex justify-content-between">
+              <div
+                class="form-check form-check-inline col-5"
+                *ngFor="let data of threeCategories"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  formControlName="category"
+                  id="{{ data }}"
+                  autocomplete="off"
+                  [value]="data"
+                />
+                <label class="btn btn-outline-primary" for="{{ data }}">{{
+                  data
+                }}</label>
+              </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputNumber" class="col-md-4 col-form-label"
+                >เลข</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNumber"
+                  formControlName="numbers"
+                />
+              </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputPrice" class="col-md-4 col-form-label"
+                >ราคา</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputPrice"
+                  formControlName="price"
+                />
+              </div>
+            </div>
+            <div class="mb-3 row" style="text-align: center">
+              <label for="inputDiscount" class="col-md-4 col-form-label"
+                >ส่วนลด (%)</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputDiscount"
+                  formControlName="discount"
+                />
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <div class="col-md-12">
+                <button class="btnAdd" type="button">+ เพิ่มเลข</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <!-- end three number -->
+    <div class="col-md-8">
+      <button type="submit" class="btn btn-primary">เพิ่มโพย</button>
     </div>
   </div>
 </form>

@@ -39,6 +39,9 @@ import { AgentItemComponent } from './agents/agent-list/agent-item/agent-item.co
 import { OverviewsComponent } from './overviews/overviews.component';
 import { PrizesComponent } from './prizes/prizes.component';
 import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists.component';
+import { AgentsService } from './agents/agents.service';
+import { PrizesService } from './prizes/prizes.service';
+import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 
 
 
@@ -62,7 +65,8 @@ import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists
     OverviewsComponent,
     LoadingSpinnerComponent,
     PrizesComponent,
-    AgentAddListsComponent
+    AgentAddListsComponent,
+    AgentSummarizeComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,7 @@ import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists
     MatSortModule,
     MatPaginatorModule,
   ],
-  providers: [],
+  providers: [AgentsService, PrizesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="col-md-12" style="text-align: center">
+    <p>โพย</p>
+  </div>
+</div>
+<form [formGroup]="summarizeForm">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mb-3 row header" style="text-align: center">
+        <label for="code" class="col-md-2 col-form-label">ตัวแทน</label>
+        <div class="col-md-2">
+          <input
+            style="text-transform: uppercase; text-align: center"
+            type="text"
+            class="form-control"
+            id="code"
+            formControlName="code"
+            placeholder="รหัสตัวแทน"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="list-table mt-3 mb-3" style="height: 40vh">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="list_no">
+            <th mat-header-cell *matHeaderCellDef>เลข</th>
+            <td mat-cell *matCellDef="let data">{{ data.list_no }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>ประเภท</th>
+            <td mat-cell *matCellDef="let data">{{ data.category }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>ราคา</th>
+            <td mat-cell *matCellDef="let data">{{ data.price }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="discount">
+            <th mat-header-cell *matHeaderCellDef>ส่วนลด</th>
+            <td mat-cell *matCellDef="let data">{{ data.discount }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="netPrice">
+            <th mat-header-cell *matHeaderCellDef>ราคาสุทธิ</th>
+            <td mat-cell *matCellDef="let data">{{ data.netPrice }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>action</th>
+            <td mat-cell *matCellDef="">
+              <button mat-icon-button color="warn" class="material-icons-outlined">
+
+                 <mat-icon class="mat-18">delete</mat-icon>
+
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[5]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="list-table" style="height: 40vh">
+        <div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="mb-3 row" style="text-align: center;">
+                  <label for="total" class="col-md-4 col-form-label">ยอดรวม</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" id="total">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="three_top" class="col-md-4 col-form-label">3 ตัวบน</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="three_top">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="three_todd" class="col-md-4 col-form-label">3 ตัวโต๊ด</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="three_todd">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="three_first" class="col-md-4 col-form-label">3 ตัวหน้า</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="three_first">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="three_last" class="col-md-4 col-form-label">3 ตัวท้าย</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="three_last">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="three_down" class="col-md-4 col-form-label">3 ตัวล่าง</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="three_down">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="two_top" class="col-md-4 col-form-label">2 ตัวบน</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="two_top">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="two_down" class="col-md-4 col-form-label">2 ตัวล่าง</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="two_down">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="running_down" class="col-md-4 col-form-label">วิ่งล่าง</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="running_down">
+                </div>
+              </div>
+
+              <div class="mb-3 row" style="text-align: center;">
+                <label for="running_top" class="col-md-4 col-form-label">วิ่งบน</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="running_top">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <mat-divider
+        [vertical]="true"
+        style="height: 80vh; float: left"
+      ></mat-divider>
+    </div>
+    <div class="col-md-3">
+      <div class="clearLists position-relative" style="height: 40vh">
+        <button
+          class="btn btn-danger position-absolute top-50 start-40 translate-middle"
+        >
+          ล้างโพย
+        </button>
+      </div>
+      <div class="end position-relative" style="height: 50vh">
+        <button
+          class="btn btn-primary position-absolute top-50 start-40 translate-middle"
+        >
+          จบรายการ
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

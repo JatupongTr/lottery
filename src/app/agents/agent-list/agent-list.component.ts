@@ -11,7 +11,7 @@ import { AgentsService } from '../agents.service';
 })
 export class AgentListComponent implements OnInit {
   agents: Agent[];
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
+  id: number;
 
   constructor(
     private agentsService: AgentsService,
@@ -28,7 +28,15 @@ export class AgentListComponent implements OnInit {
     this.agents = this.agentsService.getAgents();
   }
 
+  onEditAgent() {
+    this.router.navigate(['edit'], {relativeTo: this.route})
+  }
+
   onNewAgent() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  onAddLists() {
+    this.router.navigate(['lists'], {relativeTo: this.route})
   }
 }
