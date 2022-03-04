@@ -23,7 +23,7 @@ export class AgentDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
-          this.agent = this.agentsService.getAgent(this.id)
+          // this.agent = this.agentsService.getAgent(this.id)
         }
       )
   }

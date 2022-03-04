@@ -1,3 +1,6 @@
+import { environment } from './../environments/environment.prod';
+import { ListsService } from './take-lists/lists.service';
+import { LotteriesService } from './shared/lotteries.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -38,10 +41,10 @@ import { AgentStartComponent } from './agents/agent-start/agent-start.component'
 import { AgentItemComponent } from './agents/agent-list/agent-item/agent-item.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 import { PrizesComponent } from './prizes/prizes.component';
-import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists.component';
 import { AgentsService } from './agents/agents.service';
 import { PrizesService } from './prizes/prizes.service';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
+import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 
 
 
@@ -65,8 +68,8 @@ import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summariz
     OverviewsComponent,
     LoadingSpinnerComponent,
     PrizesComponent,
-    AgentAddListsComponent,
-    AgentSummarizeComponent
+    AgentSummarizeComponent,
+    AgentCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -88,8 +91,9 @@ import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summariz
     MatInputModule,
     MatSortModule,
     MatPaginatorModule,
+
   ],
-  providers: [AgentsService, PrizesService],
+  providers: [AgentsService, PrizesService, LotteriesService, ListsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

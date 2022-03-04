@@ -1,5 +1,5 @@
+import { TakeListsComponent } from './take-lists/take-lists.component';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
-import { AgentAddListsComponent } from './agents/agent-add-lists/agent-add-lists.component';
 import { PrizesComponent } from './prizes/prizes.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -10,6 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AgentEditComponent } from './agents/agent-edit/agent-edit.component';
 import { AgentsComponent } from './agents/agents.component';
 import { AgentDetailComponent } from './agents/agent-detail/agent-detail.component';
+import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
@@ -22,10 +23,10 @@ const routes: Routes = [
       { path: 'prize', component: PrizesComponent },
       { path: 'overviews', component: OverviewsComponent },
       { path: 'agents', component: AgentsComponent },
-      { path: 'agents/new', component: AgentEditComponent },
+      { path: 'agents/new', component: AgentCreateComponent },
       { path: 'agents/:id', component: AgentDetailComponent },
-      { path: 'agents/:id/edit', component: AgentEditComponent },
-      { path: 'agents/:id/lists', component: AgentAddListsComponent },
+      { path: 'agents/edit/:agentId', component: AgentCreateComponent },
+      { path: 'agents/:id/lists', component: TakeListsComponent },
       { path: 'agents/:id/lists/summarize', component: AgentSummarizeComponent }
     ],
   },

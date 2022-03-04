@@ -1,5 +1,3 @@
-import { Category } from './category.model';
-
 export class Lottery {
   public list_no: string;
   public price: number;
