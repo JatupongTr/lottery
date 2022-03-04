@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overviews.component.css']
 })
 export class OverviewsComponent implements OnInit {
-
+  
   constructor() { }
-
+  
   ngOnInit(): void {
   }
-
+  
+  selected: Date | null;
 }
