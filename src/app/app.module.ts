@@ -93,7 +93,7 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
     MatPaginatorModule,
 
   ],
-  providers: [AgentsService, PrizesService, LotteriesService, ListsService],
+  providers: [AgentsService, PrizesService, LotteriesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

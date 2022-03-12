@@ -3,7 +3,7 @@
     <p>จดหวย</p>
   </div>
 </div>
-<form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+<form (submit)="onSaveList(ListForm)" #ListForm="ngForm">
   <div class="row">
     <div class="row">
       <div class="col-md-12">
@@ -15,7 +15,8 @@
               type="text"
               class="form-control"
               id="code"
-              formControlName="code"
+              name="code"
+              [ngModel]="agent?.code"
               placeholder="รหัสตัวแทน"
             />
           </div>
@@ -45,68 +46,7 @@
             <!-- Two numbers -->
             <app-two-numbers></app-two-numbers>
             <app-running></app-running>
-            <!-- <div class="container">
-              <div>
-                <div class="row">
-                  <div class="col-ms-12">
-                    <div class="radio d-flex">
-                      <div
-                        class="form-check form-check-inline"
-                        *ngFor="let data of categoriesTwo"
-                      >
-                        <input
-                          type="radio"
-                          class="btn-check"
-                          id="{{ data.code }}"
-                          autocomplete="off"
-                          value="{{ data.name }}"
-                        />
-                        <label
-                          for="{{ data.description }}"
-                          class="btn btn-outline-primary"
-                          >{{ data.description }}</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3 row" style="text-align: center">
-                  <label for="inputPrice" class="col-md-4 col-form-label"
-                    >เลข</label
-                  >
-                  <div class="col-md-8">
-                    <input type="number" class="form-control" id="inputPrice" />
-                  </div>
-                </div>
-                <div class="mb-3 row" style="text-align: center">
-                  <label for="inputPrice" class="col-md-4 col-form-label"
-                    >ราคา</label
-                  >
-                  <div class="col-md-8">
-                    <input type="number" class="form-control" id="inputPrice" />
-                  </div>
-                </div>
-                <div class="mb-3 row" style="text-align: center">
-                  <label for="inputDiscount" class="col-md-4 col-form-label"
-                    >ส่วนลด (%)</label
-                  >
-                  <div class="col-md-8">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="inputDiscount"
-                    />
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <div class="col-md-12">
-                    <button class="btnAdd" type="button" (click)="onAddTwo()">
-                      + เพิ่มเลข
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> -->
+
           </div>
           <div *ngIf="selectNumbersType !== 'two-numbers'">
             <!-- Running number -->

@@ -1,5 +1,5 @@
 import { Category } from 'src/app/shared/category.model';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NgForm } from '@angular/forms';
 
 import { ListsService } from './lists.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -71,11 +71,23 @@ export class TakeListsComponent implements OnInit, OnDestroy {
     this.listsService.removeList(list);
   }
 
-  onSubmit() {
-    this.agentsService.addLists(this.id);
-    console.log(this.agentForm.value);
-    // this.router.navigate(['summarize'], {relativeTo: this.route})
+  onSaveList(form: NgForm) {
+    // const lists = this.listsService.getLists();
+    // this.agentsService.addLists(
+    //   this.agentId,
+    //   form.value.code,
+    //   form.value.name,
+    //   form.value.imagePath,
+    //   this.agent.itemLists
+    //  );
+    //  console.log(this.agent)
   }
+
+  // onSubmit() {
+  //   this.agentsService.addLists(this.id);
+  //   console.log(this.agentForm.value);
+  //   // this.router.navigate(['summarize'], {relativeTo: this.route})
+  // }
 
   private initForm() {
     // let agentCode = '';

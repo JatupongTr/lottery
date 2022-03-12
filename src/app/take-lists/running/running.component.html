@@ -5,22 +5,22 @@
         <div class="radio d-flex">
           <div
             class="form-check form-check-inline"
-            *ngFor="let category of categories"
+            *ngFor="let data of categories"
           >
             <input
               type="radio"
               class="btn-check"
-              id="{{ category.code }}"
+              id="{{ data.cate_id }}"
               autocomplete="off"
-              value="{{ category.name }}"
+              value="{{ data.cate_name }}"
               name="categories"
               ngModel
               required
             />
             <label
               class="btn btn-outline-primary"
-              for="{{ category.code }}"
-              >{{ category.description }}</label
+              for="{{ data.cate_id }}"
+              >{{ data.destcription }}</label
             >
           </div>
         </div>

@@ -6,8 +6,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthComponent } from './auth/auth.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { AgentEditComponent } from './agents/agent-edit/agent-edit.component';
 import { AgentsComponent } from './agents/agents.component';
 import { AgentDetailComponent } from './agents/agent-detail/agent-detail.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
@@ -26,7 +24,7 @@ const routes: Routes = [
       { path: 'agents/new', component: AgentCreateComponent },
       { path: 'agents/:id', component: AgentDetailComponent },
       { path: 'agents/edit/:agentId', component: AgentCreateComponent },
-      { path: 'agents/:id/lists', component: TakeListsComponent },
+      { path: 'agents/lists/:agentId', component: TakeListsComponent },
       { path: 'agents/:id/lists/summarize', component: AgentSummarizeComponent }
     ],
   },

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Category } from 'src/app/shared/category.model';
@@ -13,6 +14,7 @@ export class ThreeNumbersComponent implements OnInit {
 
   @ViewChild('f', { static: false }) addListForm: NgForm;
   categories: Category[];
+  private categorySub: Subscription;
   lists: List[];
 
   list_no = '';
@@ -23,7 +25,12 @@ export class ThreeNumbersComponent implements OnInit {
   constructor(public listsService: ListsService) { }
 
   ngOnInit(): void {
-    this.categories = this.listsService.getCategoriesThree()
+    this.listsService.getCategoriesThree()
+    this.categorySub = this.listsService.getCategoryUpdatedListener()
+    .subscribe((categories: Category[]) => {
+      this.categories = categories;
+
+    })
   }
   onSaveList(form: NgForm) {
     const value = form.value;

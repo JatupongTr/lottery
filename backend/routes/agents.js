@@ -51,6 +51,33 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
+router.post("/:id", (req, res, next) => {
+
+});
+
+// router.put("/list/:id", (req, res, nest) => {
+//   const list = {
+//     list_no: req.body.list_no,
+//     price: req.body.price,
+//     discount: req.body.discount,
+//     netPrice: req.body.netPrice,
+//     category: req.body.category,
+//   };
+//   const agent = new Agent({
+//     _id: req.body.id,
+//     itemLists: list
+//   })
+//   Agent.updateOne({ _id: req.params.id }, {
+//     $push: {
+//       'itemLists': {
+//         $each: [list]
+//       }
+//     }
+//   }).then(() => {
+//     console.log(agent.itemLists)
+//   })
+// });
+
 router.delete("/:id", (req, res, next) => {
   Agent.deleteOne({ _id: req.params.id })
     .then((resutl) => {

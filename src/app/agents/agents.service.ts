@@ -1,11 +1,12 @@
 import { Router } from '@angular/router';
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ListsService } from '../take-lists/lists.service';
 import { Agent } from './agent.model';
+import { List } from '../take-lists/list.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class AgentsService {
   agentChanged = new Subject<Agent[]>();
 
   private agents: Agent[] = [];
+  private lists: List[] = [];
 
   // private agents: Agent[] = [
   //   new Agent(
@@ -93,6 +95,8 @@ export class AgentsService {
       });
   }
 
+  addLists() {}
+
   deleteAgent(agentId: string) {
     this.http
       .delete('http://localhost:3000/api/agents/' + agentId)
@@ -105,21 +109,42 @@ export class AgentsService {
       });
   }
 
-  addLists(index: number) {
-    const lists = this.listsService.getLists();
-    this.agents[index].itemLists.push(...lists);
-  }
+  // addLists(id: string, code: string, name:string, imagePath: string, list: any) {
+  //   const agent: Agent = {id: id, code: code, name: name, imagePath: imagePath, itemLists: list }
+  //   this.http.put("http://localhost:3000/api/agents/lists/" + id, agent)
+  //     .subscribe(response => {
+  //       const updatedAgents = [...this.agents];
+  //       const oldAgentIndex = updatedAgents.findIndex(a => a.id === agent.id);
+  //       updatedAgents[oldAgentIndex] = agent;
+  //       this.agents = updatedAgents;
+  //       this.agentChanged.next([...this.agents])
+  //       // this.router.navigate(['/menu/agents'])
+  //     })
+  // }
 
-  updateAgent(id: string, code: string, name:string, imagePath: string, itemLists: any) {
-    const agent: Agent = {id: id, code: code, name: name, imagePath: imagePath, itemLists: itemLists }
-    this.http.put("http://localhost:3000/api/agents/" + id, agent)
-      .subscribe(response => {
+  updateAgent(
+    id: string,
+    code: string,
+    name: string,
+    imagePath: string,
+    itemLists: any
+  ) {
+    const agent: Agent = {
+      id: id,
+      code: code,
+      name: name,
+      imagePath: imagePath,
+      itemLists: itemLists,
+    };
+    this.http
+      .put('http://localhost:3000/api/agents/' + id, agent)
+      .subscribe((response) => {
         const updatedAgents = [...this.agents];
-        const oldAgentIndex = updatedAgents.findIndex(a => a.id === agent.id);
+        const oldAgentIndex = updatedAgents.findIndex((a) => a.id === agent.id);
         updatedAgents[oldAgentIndex] = agent;
         this.agents = updatedAgents;
-        this.agentChanged.next([...this.agents])
-        this.router.navigate(['/menu/agents'])
-      })
+        this.agentChanged.next([...this.agents]);
+        this.router.navigate(['/menu/agents']);
+      });
   }
 }
