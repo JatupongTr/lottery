@@ -3,7 +3,7 @@ import { ListsService } from './take-lists/lists.service';
 import { LotteriesService } from './shared/lotteries.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,7 +45,6 @@ import { AgentsService } from './agents/agents.service';
 import { PrizesService } from './prizes/prizes.service';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
-
 
 
 @NgModule({
@@ -91,9 +90,9 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
     MatInputModule,
     MatSortModule,
     MatPaginatorModule,
-
   ],
   providers: [AgentsService, PrizesService, LotteriesService],
   bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
