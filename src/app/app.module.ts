@@ -23,6 +23,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { HeaderComponent } from './header/header.component';
@@ -46,7 +49,6 @@ import { PrizesService } from './prizes/prizes.service';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +70,7 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
     LoadingSpinnerComponent,
     PrizesComponent,
     AgentSummarizeComponent,
-    AgentCreateComponent
+    AgentCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,9 +92,11 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
     MatInputModule,
     MatSortModule,
     MatPaginatorModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   providers: [AgentsService, PrizesService, LotteriesService],
   bootstrap: [AppComponent],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

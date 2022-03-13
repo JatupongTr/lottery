@@ -30,7 +30,7 @@ export class TwoNumbersComponent implements OnInit {
     this.categorySub = this.listsService.getCategoryUpdatedListener()
     .subscribe((categories: Category[]) => {
       this.categories = categories;
-
+      console.log(categories)
     })
   }
   onSaveList(form: NgForm) {

@@ -1,38 +1,43 @@
 <div class="row">
-    <div class="col">
-        <div class="d-flex">
-            <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-                <i class="fa fa-solid fa-user-group"></i>
-                <p>ตัวแทน</p>
-            </div>
-            <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-                <i class="fa-solid fa-clipboard-check"></i>
-                <p>จำนวนโพย</p>
-            </div>
-            <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-                <i class="fa-solid fa-bell"></i>
-                <p>แจ้งเตือน</p>
-            </div>
-            <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <p>รายงาน</p>
-            </div>
-        </div>
-        <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">ยอดรายได้</p>
+  <div class="col">
+    <div class="d-flex">
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
+        <i class="fa fa-solid fa-user-group"></i>
+        <p>ตัวแทน</p>
+      </div>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <p>จำนวนโพย</p>
+      </div>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
+        <i class="fa-solid fa-bell"></i>
+        <p>แจ้งเตือน</p>
+      </div>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <p>รายงาน</p>
+      </div>
     </div>
-    <div class="col">
-        <mat-card class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-            <p>ปฏิทิน</p>
-            <mat-calendar [(selected)]="selected"></mat-calendar>
-          </mat-card>
-        <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">กิจกรรม</p>
-    </div>
+    <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
+      ยอดรายได้
+    </p>
+  </div>
+  <div class="col">
+    <mat-card
+      class="w-100 m-4 border border-1 rounded-2 text-center pt-3 calendar"
+    >
+      <mat-calendar></mat-calendar>
+    </mat-card>
+    <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">กิจกรรม</p>
+  </div>
 </div>
 <div class="row">
-    <div class="col">
-        <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">ลูกค้า</p>
-    </div>
-    <div class="col">
-        <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">เลขยอดนิยม</p>
-    </div>
+  <div class="col">
+    <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">ลูกค้า</p>
+  </div>
+  <div class="col">
+    <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
+      เลขยอดนิยม
+    </p>
+  </div>
 </div>
