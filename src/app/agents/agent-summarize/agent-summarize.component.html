@@ -3,7 +3,7 @@
     <p>โพย</p>
   </div>
 </div>
-<form [formGroup]="summarizeForm">
+<form (submit)="onSaveList(ListForm)" #ListForm="ngForm">
   <div class="row">
     <div class="col-md-12">
       <div class="mb-3 row header" style="text-align: center">
@@ -14,7 +14,8 @@
             type="text"
             class="form-control"
             id="code"
-            formControlName="code"
+            name="code"
+            [ngModel]="agent?.code"
             placeholder="รหัสตัวแทน"
           />
         </div>

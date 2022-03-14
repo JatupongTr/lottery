@@ -1,9 +1,10 @@
+import { OrdersService } from 'src/app/shared/orders.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Category } from 'src/app/shared/category.model';
-import { List } from '../list.model';
-import { ListsService } from '../lists.service';
+import { ListsService } from '../../../take-lists/lists.service';
+import { Lotto } from 'src/app/shared/lotto.model';
 
 @Component({
   selector: 'app-three-numbers',
@@ -15,14 +16,14 @@ export class ThreeNumbersComponent implements OnInit {
   @ViewChild('f', { static: false }) addListForm: NgForm;
   categories: Category[];
   private categorySub: Subscription;
-  lists: List[];
+  items: Lotto[]
 
-  list_no = '';
+  lotto_no = '';
   price: number = 0;
   discount: number = 0;
-  netPrice: number = 0;
+  net_price: number = 0;
 
-  constructor(public listsService: ListsService) { }
+  constructor(public listsService: ListsService, private ordersService: OrdersService) { }
 
   ngOnInit(): void {
     this.listsService.getCategoriesThree()
@@ -35,15 +36,15 @@ export class ThreeNumbersComponent implements OnInit {
   onSaveList(form: NgForm) {
     const value = form.value;
     const total = value.price - (value.price * value.discount) / 100;
-    this.netPrice = total;
-    const newList = new List(
-      value.list_no,
+    this.net_price = total;
+    const newItem = new Lotto(
+      value.lotto_no,
       value.price,
       value.discount,
-      this.netPrice,
+      this.net_price,
       value.categories
     )
-    this.listsService.addList(newList);
+    this.ordersService.addItems(newItem)
     form.reset();
   }
 }

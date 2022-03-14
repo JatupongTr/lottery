@@ -3,7 +3,7 @@
     <p>จดหวย</p>
   </div>
 </div>
-<form (submit)="onSaveList(ListForm)" #ListForm="ngForm">
+<form (submit)="onSaveLists(ListForm)" #ListForm="ngForm">
   <div class="row">
     <div class="row">
       <div class="col-md-12">
@@ -69,12 +69,12 @@
             <tbody>
               <tr
                 *ngFor="
-                  let data of lists
+                  let data of items
                     | paginate: { itemsPerPage: 10, currentPage: p }
                 "
               >
                 <td>
-                  {{ data.list_no }}
+                  {{ data.lotto_no }}
                 </td>
                 <td>
                   {{ data.category }}
@@ -86,7 +86,7 @@
                   {{ data.discount }}
                 </td>
                 <td>
-                  {{ data.netPrice }}
+                  {{ data.net_price }}
                 </td>
                 <td>
                   <button

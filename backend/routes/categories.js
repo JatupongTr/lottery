@@ -7,7 +7,7 @@ router.post("", (req, res, next) => {
   const newCate = new Category({
     cate_id: req.body.cate_id,
     cate_name: req.body.cate_name,
-    destcription: req.body.description,
+    description: req.body.description,
   });
   newCate.save().then((category) => {
     res.status(201).json({
@@ -23,7 +23,7 @@ router.get("", (req, res, next) => {
   Category.find().then((document) => {
     res.status(200).json({
       message: "Categories fetched",
-      catories: document,
+      categories: document,
     });
   });
 });

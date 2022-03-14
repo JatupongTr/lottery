@@ -1,21 +1,15 @@
+import { Subscription } from 'rxjs';
+import { List } from './../../take-lists/list.model';
+import { ListsService } from './../../take-lists/lists.service';
+import { Agent } from './../agent.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { AgentsService } from './../agents.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router, ParamMap } from '@angular/router';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
-export interface ItemList {
-  list_no: string;
-  category: string;
-  price: number;
-  discount: number;
-  netPrice: number;
-}
-
-const LIST_DATA: ItemList[] = [
-
-];
 
 @Component({
   selector: 'app-agent-summarize',
@@ -27,23 +21,39 @@ export class AgentSummarizeComponent implements OnInit {
   id: number;
   summarizeForm: FormGroup
   displayedColumns: string[] = ['list_no', 'category', 'price', 'discount', 'netPrice', 'action']
-  dataSource = new MatTableDataSource<ItemList>(LIST_DATA);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource = new MatTableDataSource<List>();
 
-  constructor(private route: ActivatedRoute, private agentsService: AgentsService, private router: Router) { }
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator,  {static: true}) paginator: MatPaginator;
+
+  agent: Agent;
+  lists: List[]
+  private agentId: string;
+  private listChangeSub: Subscription;
+  constructor(private route: ActivatedRoute, private agentsService: AgentsService, private router: Router, private listsService: ListsService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.initForm();
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('agentId')) {
+        this.agentId = paramMap.get('agentId');
+        this.agentsService.getAgent(this.agentId).subscribe((agentData) => {
+          this.agent = {
+            id: agentData._id,
+            code: agentData.code,
+            name: agentData.name,
+            imagePath: agentData.imagePath,
+            order: agentData.order
+          };
+          console.log(this.agent)
+        });
+      }
     })
-    this.ngAfterViewInit();
 
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
-  onEnd() {
-
-  }
+  onSaveList(form: NgForm) {}
 
   private ngAfterViewInit() {
     this.dataSource.paginator = this.paginator

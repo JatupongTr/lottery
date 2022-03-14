@@ -17,15 +17,15 @@ export class ListsService {
 
   constructor(private http: HttpClient) {}
 
-  getCategoriesTwo() {
-    this.http.get<{ message: string, categories: any }>('http://localhost:3000/api/categories/two')
+  getCategories() {
+    this.http.get<{ message: string, categories: any }>('http://localhost:3000/api/categories')
       .pipe(
         map((categoryData) => {
           return categoryData.categories.map((category) => {
             return {
               cate_id: category.cate_id,
               cate_name: category.cate_name,
-              destcription: category.destcription,
+              description: category.description,
               id: category._id,
             }
           })
@@ -36,6 +36,26 @@ export class ListsService {
         this.categoriesChanged.next(this.categories)
       })
   }
+
+  getCategoriesTwo() {
+    this.http.get<{ message: string, categories: any }>("http://localhost:3000/api/categories/two")
+      .pipe(
+        map((cateData) => {
+          return cateData.categories.map(category => {
+            return {
+              cate_id: category.cate_id,
+              cate_name: category.cate_name,
+              description: category.description,
+              id: category._id
+            }
+          })
+        })
+      )
+      .subscribe((transformedData) => {
+        this.categories = transformedData;
+        return this.categoriesChanged.next(this.categories)
+      })
+  }
   getCategoriesRunning() {
     this.http.get<{ message: string, categories: any }>('http://localhost:3000/api/categories/running')
       .pipe(
@@ -44,7 +64,7 @@ export class ListsService {
             return {
               cate_id: category.cate_id,
               cate_name: category.cate_name,
-              destcription: category.destcription,
+              description: category.description,
               id: category._id,
             }
           })
@@ -63,7 +83,7 @@ export class ListsService {
             return {
               cate_id: category.cate_id,
               cate_name: category.cate_name,
-              destcription: category.destcription,
+              description: category.description,
               id: category._id,
             }
           })
@@ -71,7 +91,7 @@ export class ListsService {
       )
       .subscribe((transformedData) => {
         this.categories = transformedData;
-        this.categoriesChanged.next([...this.categories])
+        this.categoriesChanged.next(this.categories)
       })
   }
   getLists() {

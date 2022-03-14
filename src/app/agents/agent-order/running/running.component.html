@@ -2,9 +2,9 @@
   <form (ngSubmit)="onSaveList(f)" #f="ngForm">
     <div class="row">
       <div class="col-md-12 row">
-        <div class="radio row g-2">
+        <div class="radio d-flex">
           <div
-            class="col-6"
+            class="form-check form-check-inline"
             *ngFor="let data of categories"
           >
             <input
@@ -20,7 +20,7 @@
             <label
               class="btn btn-outline-primary"
               for="{{ data.cate_id }}"
-              >{{ data.destcription }}</label
+              >{{ data.description }}</label
             >
           </div>
         </div>
@@ -32,7 +32,7 @@
             type="text"
             class="form-control"
             id="inputNo"
-            name="list_no"
+            name="lotto_no"
             ngModel
             required
           />

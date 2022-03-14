@@ -46,8 +46,9 @@ export class TakeListsComponent implements OnInit, OnDestroy {
             code: agentData.code,
             name: agentData.name,
             imagePath: agentData.imagePath,
-            itemLists: agentData.itemLists,
+            order: agentData.order
           };
+          console.log(this.agent)
         });
       }
     });
@@ -89,16 +90,4 @@ export class TakeListsComponent implements OnInit, OnDestroy {
   //   // this.router.navigate(['summarize'], {relativeTo: this.route})
   // }
 
-  private initForm() {
-    // let agentCode = '';
-    // let itemLists = [];
-    // const agent = this.agentsService.getAgent(this.id);
-    // // const lists = this.listsService.getLists();
-    // agentCode = agent.code;
-    // itemLists = agent.itemLists;
-    // this.agentForm = new FormGroup({
-    //   code: new FormControl(agentCode),
-    //   itemLists: new FormControl(itemLists)
-    // });
-  }
 }

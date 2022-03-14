@@ -33,7 +33,7 @@ export class AgentCreateComponent implements OnInit {
             code: agentData.code,
             name: agentData.name,
             imagePath: agentData.imagePath,
-            itemLists: agentData.itemLists,
+            order: agentData.order
           };
         });
       } else {
@@ -56,7 +56,7 @@ export class AgentCreateComponent implements OnInit {
         form.value.code,
         form.value.name,
         form.value.imagePath,
-        form.value.itemLists
+        form.value.order
       );
     } else {
       this.agetnsService.updateAgent(
@@ -64,7 +64,7 @@ export class AgentCreateComponent implements OnInit {
         form.value.code,
         form.value.name,
         form.value.imagePath,
-        form.value.itemLists
+        form.value.order
       )
     }
     form.resetForm();

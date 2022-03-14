@@ -34,9 +34,7 @@ export class AgentListComponent implements OnInit, OnDestroy {
     this.agentsService.getAgents();
     this.agentSub = this.agentsService.getAgentUpdatedListner()
       .subscribe((agents: Agent[]) => {
-        // this.agents = agents;
         this.dataSource.data = agents;
-        console.log(agents)
       })
   }
 

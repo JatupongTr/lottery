@@ -20,7 +20,6 @@ export class AgentEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private agentsService: AgentsService,
-    private location: Location
   ) {}
 
   ngOnInit(): void {

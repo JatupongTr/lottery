@@ -17,20 +17,6 @@ export class AgentsService {
   private agents: Agent[] = [];
   private lists: List[] = [];
 
-  // private agents: Agent[] = [
-  //   new Agent(
-  //     'A0001',
-  //     'Jatupong',
-  //     'https://images.pexels.com/photos/5504764/pexels-photo-5504764.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-  //     []
-  //   ),
-  //   new Agent(
-  //     'A0002',
-  //     'Chattarin',
-  //     'https://images.pexels.com/photos/4751420/pexels-photo-4751420.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-  //     []
-  //   ),
-  // ];
   constructor(
     private listsService: ListsService,
     private http: HttpClient,
@@ -47,7 +33,7 @@ export class AgentsService {
               code: agent.code,
               name: agent.name,
               imagePath: agent.imagePath,
-              itemLists: agent.itemLists,
+              order: agent.order,
               id: agent._id,
             };
           });
@@ -69,17 +55,17 @@ export class AgentsService {
       code: string;
       name: string;
       imagePath: string;
-      itemLists: [];
+      order: [];
     }>('http://localhost:3000/api/agents/' + id);
   }
 
-  addAgent(code: string, name: string, imagePath: string, itemLists: any) {
+  addAgent(code: string, name: string, imagePath: string, order: any) {
     const agent: Agent = {
       id: null,
       code: code,
       name: name,
       imagePath: imagePath,
-      itemLists: itemLists,
+      order: order
     };
     this.http
       .post<{ message: string; agentId: string }>(
@@ -95,7 +81,9 @@ export class AgentsService {
       });
   }
 
-  addLists() {}
+  addLists() {
+
+  }
 
   deleteAgent(agentId: string) {
     this.http
@@ -127,14 +115,14 @@ export class AgentsService {
     code: string,
     name: string,
     imagePath: string,
-    itemLists: any
+    order: any
   ) {
     const agent: Agent = {
       id: id,
       code: code,
       name: name,
       imagePath: imagePath,
-      itemLists: itemLists,
+      order: order
     };
     this.http
       .put('http://localhost:3000/api/agents/' + id, agent)
