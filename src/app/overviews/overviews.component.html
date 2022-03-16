@@ -1,43 +1,46 @@
 <div class="row">
   <div class="col">
     <div class="d-flex">
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-        <i class="fa fa-solid fa-user-group"></i>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+        <i class="fa fa-solid fa-user-group fs-2"></i>
+        <p class="pt-2 fs-4">128</p>
         <p>ตัวแทน</p>
       </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-        <i class="fa-solid fa-clipboard-check"></i>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+        <i class="fa-solid fa-clipboard-check fs-2"></i>
+        <p class="pt-2 fs-4">128</p>
         <p>จำนวนโพย</p>
       </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-        <i class="fa-solid fa-bell"></i>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+        <i class="fa-solid fa-bell fs-2"></i>
+        <p class="pt-2 fs-4">128</p>
         <p>แจ้งเตือน</p>
       </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-        <i class="fa-solid fa-circle-exclamation"></i>
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+        <i class="fa-solid fa-circle-exclamation fs-2"></i>
+        <p class="pt-2 fs-4">128</p>
         <p>รายงาน</p>
       </div>
     </div>
     <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
       ยอดรายได้
     </p>
+    <canvas id="myChart" width="400" height="400"></canvas>
   </div>
-  <div class="col">
-    <mat-card
-      class="w-100 m-4 border border-1 rounded-2 text-center pt-3 calendar"
-    >
+  <div class="col-3">
+    <mat-card class="m-4 calendar">
       <mat-calendar></mat-calendar>
     </mat-card>
-    <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">กิจกรรม</p>
+    <p class="m-4 border border-1 rounded-2 text-center pt-3">กิจกรรม</p>
+    <canvas id="myChart" width="400" height="400"></canvas>
   </div>
 </div>
 <div class="row">
   <div class="col">
     <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">ลูกค้า</p>
   </div>
-  <div class="col">
-    <p class="w-100 m-4 border border-1 rounded-2 text-center pt-3">
-      เลขยอดนิยม
-    </p>
+  <div class="col-3">
+    <p class="m-4 border border-1 rounded-2 text-center pt-3">เลขยอดนิยม</p>
+    <canvas id="myChart" width="400" height="400"></canvas>
   </div>
 </div>
