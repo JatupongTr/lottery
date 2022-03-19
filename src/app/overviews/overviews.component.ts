@@ -114,10 +114,10 @@ export class OverviewsComponent implements OnInit {
         aspectRatio = 3.5;
   
       }
-      this.lineChartOptions.aspectRatio = aspectRatio;
-      this.chart.chart.aspectRatio = aspectRatio;
-      this.chart.chart.options.scales.xAxes[0].ticks.maxRotation =  window.innerWidth < 1100 ? 90 : 0;
-      this.chart.chart.options.scales.xAxes[0].ticks.minRotation =  window.innerWidth < 1100 ? 90 : 0;
+    //   this.lineChartOptions.aspectRatio = aspectRatio;
+    //   this.chart.chart.aspectRatio = aspectRatio;
+    //   this.chart.chart.options.scales.xAxes[0].ticks.maxRotation =  window.innerWidth < 1100 ? 90 : 0;
+    //   this.chart.chart.options.scales.xAxes[0].ticks.minRotation =  window.innerWidth < 1100 ? 90 : 0;
     }
   
   
