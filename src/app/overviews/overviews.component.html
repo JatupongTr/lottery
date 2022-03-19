@@ -41,6 +41,22 @@
   </div>
   <div class="col-3">
     <p class="m-4 border border-1 rounded-2 text-center pt-3">เลขยอดนิยม</p>
-    <canvas id="myChart"></canvas>
+
+   
+  </div>
+</div>
+
+<div class="flex">
+  <div class="flex-item">
+    <div class="chart-wrapper">
+    <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                ></canvas>
+    </div>
   </div>
 </div>

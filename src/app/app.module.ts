@@ -46,6 +46,7 @@ import { PrizesService } from './prizes/prizes.service';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { AgentOrderComponent } from './agents/agent-order/agent-order.component'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

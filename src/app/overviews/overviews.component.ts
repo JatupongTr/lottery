@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import Chart from 'chartjs';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { Label, Color, BaseChartDirective } from 'ng2-charts';
 
 @Component({
     selector: 'app-overviews',
@@ -8,44 +9,116 @@ import Chart from 'chartjs';
 })
 export class OverviewsComponent implements OnInit {
   
-  constructor() { }
+    public lineChartData: ChartDataSets[] = [{ data: [6500, 1039, 200, 8001, 2026, 1900, 508, 980, 1801, 4256, 3255, 7010], label: 'Paused Vehicle' }];
+    public lineChartLabels: Label[] = [ 'January 2020', 'February 2020', 'March 2020', 'April 2020', 'June 2020', 'July 2020', 'August 2020', 'September 2020', 'October 2020', 'november 2020', 'December 2020']
+  
+    public lineChartOptions: ChartOptions  = {
+      responsive: true,
+          maintainAspectRatio: true,
+       scales: {
+        yAxes: [
+          {
+  
+           scaleLabel: {
+              display:     true,
+              labelString: 'Total Price'
+              
+              },
+            ticks: {
+              // maxTicksLimit: 4,
+              fontStyle: 'normal',
+              fontSize: 13,
+              beginAtZero: false,
+              callback: ( value ) => {
+                return `$${value.toLocaleString()}`;
+              },
+  
+              // callback: ( value ) => {
+              //   return this.numberPipe.transform(value);
+              // },
+            },
+            gridLines: {
+              drawOnChartArea: false,
+              // color: '#676A6C',
+            }
+          }],
+        xAxes: [{
+          ticks: {
+            fontStyle: 'normal',
+            fontSize: 13,
+            autoSkip: false,
+            maxRotation:  window.innerWidth < 1100 ? 90 : 0,
+            minRotation: window.innerWidth < 1100 ? 90 : 0,
+       
+          },
+          gridLines: {
+            drawOnChartArea: false,
+            // color: '#676A6C',
+            lineWidth: 1.5
+          }
+        }]
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+  
+    };
+    public lineChartColors: Color[] = [
+      {
+        backgroundColor: 'red',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      },
+    ];
+    public lineChartLegend = true;
+    public lineChartType: ChartType = 'line';
+  
+    @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  
+        /**
+       * Listen for Window Resizing
+       */
+      @HostListener('window:resize', ['$event'])
+      onResize() {
+     this.settChartAspectRatio()
+    }
+  
+    constructor() { }
   
     ngOnInit(): void {
-        const ctx = document.getElementById('myChart');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+      this.settChartAspectRatio()
+      
     }
+  
+      /*
+    * sets the charts aspect ratio based on the width of the window
+    * */
+    private settChartAspectRatio()
+     {
+       let aspectRatio: number;
+      if ( window.innerWidth < 1600 && window.innerWidth > 767 )
+      {
+        aspectRatio = 2;
+      }
+      if (window.innerWidth < 768)
+      {
+        aspectRatio = 1.5;
+  
+      }
+      if (window.innerWidth > 1600)
+      {
+        aspectRatio = 3.5;
+  
+      }
+      this.lineChartOptions.aspectRatio = aspectRatio;
+      this.chart.chart.aspectRatio = aspectRatio;
+      this.chart.chart.options.scales.xAxes[0].ticks.maxRotation =  window.innerWidth < 1100 ? 90 : 0;
+      this.chart.chart.options.scales.xAxes[0].ticks.minRotation =  window.innerWidth < 1100 ? 90 : 0;
+    }
+  
   
 }
