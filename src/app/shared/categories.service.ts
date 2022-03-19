@@ -55,7 +55,36 @@ export class CategoriesService {
     })
   }
 
+  getCategoriesThree() {
+    this.http.get<{ message: string, categories: any }>('http://localhost:3000/api/categories/three')
+      .pipe(
+        map((categoryData) => {
+          return categoryData.categories.map((category) => {
+            return {
+              cate_id: category.cate_id,
+              cate_name: category.cate_name,
+              description: category.description,
+              id: category._id,
+            }
+          })
+        })
+      )
+      .subscribe((transformedData) => {
+        this.categories = transformedData;
+        this.categoriesChanged.next(this.categories)
+      })
+  }
+
   getCategoryUpdatedListener() {
     return this.categoriesChanged.asObservable();
+  }
+
+  getCategory(id: string) {
+    return this.http.get<{
+      _id: string;
+      cate_id: string;
+      cate_name: string;
+      description: string;
+    }>('http://localhost:3000/api/categories/' + id);
   }
 }

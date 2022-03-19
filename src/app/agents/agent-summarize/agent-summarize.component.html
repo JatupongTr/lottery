@@ -27,14 +27,14 @@
     <div class="col-md-8">
       <div class="list-table mt-3 mb-3" style="height: 40vh">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <ng-container matColumnDef="list_no">
+          <ng-container matColumnDef="lotto_no">
             <th mat-header-cell *matHeaderCellDef>เลข</th>
-            <td mat-cell *matCellDef="let data">{{ data.list_no }}</td>
+            <td mat-cell *matCellDef="let data">{{ data.lotto_no }}</td>
           </ng-container>
 
           <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef>ประเภท</th>
-            <td mat-cell *matCellDef="let data">{{ data.category }}</td>
+            <td mat-cell *matCellDef="let data">{{ data.category.cate_name }}</td>
           </ng-container>
 
           <ng-container matColumnDef="price">
@@ -47,15 +47,15 @@
             <td mat-cell *matCellDef="let data">{{ data.discount }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="netPrice">
+          <ng-container matColumnDef="net_price">
             <th mat-header-cell *matHeaderCellDef>ราคาสุทธิ</th>
-            <td mat-cell *matCellDef="let data">{{ data.netPrice }}</td>
+            <td mat-cell *matCellDef="let data">{{ data.net_price }}</td>
           </ng-container>
 
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>action</th>
             <td mat-cell *matCellDef="">
-              <button mat-icon-button color="warn" class="material-icons-outlined">
+              <button mat-icon-button color="warn" class="material-icons-outlined" (click)="onRemoveItem()">
 
                  <mat-icon class="mat-18">delete</mat-icon>
 

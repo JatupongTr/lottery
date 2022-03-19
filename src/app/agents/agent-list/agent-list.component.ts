@@ -38,8 +38,6 @@ export class AgentListComponent implements OnInit, OnDestroy {
       })
   }
 
-
-
   search(event: Event) {
     let filterValue = '';
     if (event) {

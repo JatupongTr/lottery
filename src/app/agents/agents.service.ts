@@ -1,3 +1,4 @@
+import { OrdersService } from 'src/app/shared/orders.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,8 +7,20 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ListsService } from '../take-lists/lists.service';
 import { Agent } from './agent.model';
-import { List } from '../take-lists/list.model';
+import { Lotto } from '../shared/lotto.model';
+import { Category } from '../shared/category.model';
 
+export interface Order {
+  items: Item[]
+}
+export interface Item {
+  lotto_no:  string;
+  price:     number;
+  discount:  number;
+  net_price: number;
+  category:  Category;
+  _id:       string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -15,12 +28,13 @@ export class AgentsService {
   agentChanged = new Subject<Agent[]>();
 
   private agents: Agent[] = [];
-  private lists: List[] = [];
+  private items: Lotto[] = [];
 
   constructor(
     private listsService: ListsService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private ordersService: OrdersService
   ) {}
 
   getAgents() {
@@ -49,6 +63,16 @@ export class AgentsService {
     return this.agentChanged.asObservable();
   }
 
+  getAgentOrder(id: string) {
+    return this.http.get<{
+      order: any;
+      _id: string;
+      code: string;
+      name: string;
+      imagePath: string;
+    }>('http://localhost:3000/api/agents/' + id);
+  }
+
   getAgent(id: string) {
     return this.http.get<{
       _id: string;
@@ -65,7 +89,7 @@ export class AgentsService {
       code: code,
       name: name,
       imagePath: imagePath,
-      order: order
+      order: order,
     };
     this.http
       .post<{ message: string; agentId: string }>(
@@ -81,8 +105,21 @@ export class AgentsService {
       });
   }
 
-  addLists() {
+  createOrder(agentId: string, items: any) {
+    this.http
+      .post('http://localhost:3000/api/agents/order/' + agentId, items)
+      .subscribe((responseData) => {
+        this.items = this.ordersService.getItems();
+        this.agents.push(items);
+        this.router.navigate(['/menu/agents/lists/summarize/' + agentId]);
+      });
+  }
 
+  removeItemFromOrder(agentId: string, items: any) {
+    this.http.post('http://localhost:3000/api/agents/order/remove/' + agentId, items)
+      .subscribe(() => {
+        // todo
+      })
   }
 
   deleteAgent(agentId: string) {
@@ -122,7 +159,7 @@ export class AgentsService {
       code: code,
       name: name,
       imagePath: imagePath,
-      order: order
+      order: order,
     };
     this.http
       .put('http://localhost:3000/api/agents/' + id, agent)

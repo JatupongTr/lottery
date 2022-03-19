@@ -15,15 +15,20 @@ export class OrdersService {
 
   addItems(item: Lotto) {
     this.items.push(item)
-    this.itemsUpdated.next([...this.items.slice()])
+    this.itemsUpdated.next(this.items.slice())
   }
 
-  addToOrder(lotto: Lotto[]) {
-    this.items.push(...lotto)
+  addToOrder(items: Lotto[]) {
+    this.items.push(...items)
+    this.itemsUpdated.next([...this.items.slice()])
   }
 
   getItems() {
     return this.items.slice();
+  }
+
+  getItemUpdatedListner() {
+    return this.itemsUpdated.asObservable();
   }
 
   removeItems(item: Lotto) {

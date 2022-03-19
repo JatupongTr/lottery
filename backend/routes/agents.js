@@ -1,4 +1,5 @@
 const express = require("express");
+const agent = require("../models/agent");
 
 const Agent = require("../models/agent");
 
@@ -30,13 +31,15 @@ router.get("", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  Agent.findById(req.params.id).then((agent) => {
-    if (agent) {
-      res.status(200).json(agent);
-    } else {
-      res.status(404).json({ message: "Agent not Found" });
-    }
-  });
+  Agent.findById(req.params.id)
+    // .populate("order.items.category")
+    .then((agent) => {
+      if (agent) {
+        res.status(200).json(agent);
+      } else {
+        res.status(404).json({ message: "Agent not Found" });
+      }
+    });
 });
 
 router.put("/:id", (req, res, next) => {
@@ -51,32 +54,49 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
-router.post("/:id", (req, res, next) => {
-
+router.post("/order/:id", (req, res, next) => {
+  let items = [];
+  for (let i = 0; i < req.body.length; i++) {
+    let item = {
+      lotto_no: req.body[i].lotto_no,
+      price: req.body[i].price,
+      discount: req.body[i].discount,
+      net_price: req.body[i].net_price,
+      category: req.body[i].category,
+    };
+    items.push(item);
+  }
+  Agent.findOne({ _id: req.params.id }).then((agent) => {
+    agent.order.items.push(...items);
+    agent.save().then((item) => {
+      res.status(200).json({
+        message: "Create order",
+      });
+    });
+  });
 });
 
-// router.put("/list/:id", (req, res, nest) => {
-//   const list = {
-//     list_no: req.body.list_no,
-//     price: req.body.price,
-//     discount: req.body.discount,
-//     netPrice: req.body.netPrice,
-//     category: req.body.category,
-//   };
-//   const agent = new Agent({
-//     _id: req.body.id,
-//     itemLists: list
-//   })
-//   Agent.updateOne({ _id: req.params.id }, {
-//     $push: {
-//       'itemLists': {
-//         $each: [list]
-//       }
-//     }
-//   }).then(() => {
-//     console.log(agent.itemLists)
-//   })
-// });
+// remove order items
+router.post("/order/remove/:id", (req, res, next) => {
+  const itemId = req.body.id;
+  Agent.findOne({ _id: req.params.id }).then(agent => {
+    agent.order.items.pull(itemId);
+    agent.save().then((item) => {
+      res.status(200).json({
+        message: 'Items Deleted',
+        result: item
+      })
+    })
+  })
+});
+
+// summary
+router.get("/order/summary/:id", (req, res, next) => {
+  Agent.findById(req.params.id).then(agent=> {
+    // todo
+  })
+})
+
 
 router.delete("/:id", (req, res, next) => {
   Agent.deleteOne({ _id: req.params.id })

@@ -1,3 +1,4 @@
+import { CategoriesService } from './../../../shared/categories.service';
 import { OrdersService } from 'src/app/shared/orders.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -23,11 +24,11 @@ export class ThreeNumbersComponent implements OnInit {
   discount: number = 0;
   net_price: number = 0;
 
-  constructor(public listsService: ListsService, private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService, private categoriesService: CategoriesService) { }
 
   ngOnInit(): void {
-    this.listsService.getCategoriesThree()
-    this.categorySub = this.listsService.getCategoryUpdatedListener()
+    this.categoriesService.getCategoriesThree()
+    this.categorySub = this.categoriesService.getCategoryUpdatedListener()
     .subscribe((categories: Category[]) => {
       this.categories = categories;
 
@@ -37,12 +38,20 @@ export class ThreeNumbersComponent implements OnInit {
     const value = form.value;
     const total = value.price - (value.price * value.discount) / 100;
     this.net_price = total;
+    let categorySelect: Category;
+
+    for (let category of this.categories) {
+      if (value.categories == category.id) {
+        categorySelect = category
+      }
+    }
+
     const newItem = new Lotto(
       value.lotto_no,
       value.price,
       value.discount,
       this.net_price,
-      value.categories
+      categorySelect
     )
     this.ordersService.addItems(newItem)
     form.reset();

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Category } from 'src/app/shared/category.model';
 import { ListsService } from '../../../take-lists/lists.service';
 import { Lotto } from 'src/app/shared/lotto.model';
+import { RunningService } from 'src/app/shared/running.service';
 
 @Component({
   selector: 'app-running',
@@ -15,7 +16,7 @@ import { Lotto } from 'src/app/shared/lotto.model';
 export class RunningComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) addListForm: NgForm;
   categories: Category[];
-  items: Lotto[]
+  items: Lotto[];
 
   private categorySub: Subscription;
 
@@ -24,11 +25,14 @@ export class RunningComponent implements OnInit, OnDestroy {
   discount: number = 0;
   net_price: number = 0;
 
-  constructor(private listsService: ListsService, private ordersService: OrdersService) {}
+  constructor(
+    private runningService: RunningService,
+    private ordersService: OrdersService
+  ) {}
 
   ngOnInit(): void {
-    this.listsService.getCategoriesRunning();
-    this.categorySub = this.listsService
+    this.runningService.getRunningCategories();
+    this.categorySub = this.runningService
       .getCategoryUpdatedListener()
       .subscribe((categories: Category[]) => {
         this.categories = categories;
@@ -36,21 +40,29 @@ export class RunningComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.categorySub.unsubscribe();
+    this.categorySub.unsubscribe()
   }
 
   onSaveList(form: NgForm) {
     const value = form.value;
     const total = value.price - (value.price * value.discount) / 100;
     this.net_price = total;
+    let categorySelect: Category;
+
+    for (let category of this.categories) {
+      if (value.categories == category.id) {
+        categorySelect = category;
+      }
+    }
+
     const newItem = new Lotto(
       value.lotto_no,
       value.price,
       value.discount,
       this.net_price,
-      value.categories
+      categorySelect
     );
-    this.ordersService.addItems(newItem)
+    this.ordersService.addItems(newItem);
     form.reset();
   }
 }

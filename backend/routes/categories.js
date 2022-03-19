@@ -27,7 +27,7 @@ router.get("", (req, res, next) => {
     });
   });
 });
-//
+
 router.get("/two", (req, res, next) => {
   Category.find({
     $or: [{ cate_id: "top_2_digits" }, { cate_id: "down_2_digits" }],
@@ -64,6 +64,16 @@ router.get("/three", (req, res, next) => {
       message: "3 digits",
       categories: document,
     });
+  });
+});
+
+router.get("/:id", (req, res, next) => {
+  Category.findById(req.params.id).then((category) => {
+    if (category) {
+      res.status(200).json(category);
+    } else {
+      res.status(404).json({ message: "Category not found" });
+    }
   });
 });
 

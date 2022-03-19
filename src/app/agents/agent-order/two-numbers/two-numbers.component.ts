@@ -1,4 +1,3 @@
-
 import { OrdersService } from './../../../shared/orders.service';
 import { CategoriesService } from '../../../shared/categories.service';
 import { Subscription } from 'rxjs';
@@ -15,10 +14,10 @@ import { Lotto } from 'src/app/shared/lotto.model';
 export class TwoNumbersComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) addListForm: NgForm;
 
-  categories: Category[];
   private categorySub: Subscription;
   items: Lotto[]
 
+  categories: Category[];
   lotto_no = '';
   price: number = 0;
   discount: number = 0;
@@ -42,12 +41,20 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
     const value = form.value;
     const total = value.price - (value.price * value.discount) / 100;
     this.net_price = total;
+
+    let categorySelect: Category;
+
+    for (let category of this.categories) {
+      if (value.categories == category.id) {
+        categorySelect = category;
+      }
+    }
     const newItems = new Lotto(
       value.lotto_no,
       value.price,
       value.discount,
       this.net_price,
-      value.categories
+      categorySelect
     )
     this.ordersService.addItems(newItems)
     console.log(newItems)

@@ -57,5 +57,9 @@ export class AgentOrderComponent implements OnInit {
     this.ordersService.removeItems(item)
   }
 
+  onCreateOrder() {
+    this.agentsService.createOrder(this.agentId, this.items)
+  }
+
   onSaveLists(form: NgForm) {}
 }
