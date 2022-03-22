@@ -1,5 +1,4 @@
 const express = require("express");
-const agent = require("../models/agent");
 
 const Agent = require("../models/agent");
 
@@ -79,24 +78,36 @@ router.post("/order/:id", (req, res, next) => {
 // remove order items
 router.post("/order/remove/:id", (req, res, next) => {
   const itemId = req.body.id;
-  Agent.findOne({ _id: req.params.id }).then(agent => {
+  Agent.findOne({ _id: req.params.id }).then((agent) => {
     agent.order.items.pull(itemId);
     agent.save().then((item) => {
       res.status(200).json({
-        message: 'Items Deleted',
-        result: item
-      })
-    })
-  })
+        message: "Items Deleted",
+      });
+    });
+  });
 });
 
 // summary
-router.get("/order/summary/:id", (req, res, next) => {
-  Agent.findById(req.params.id).then(agent=> {
-    // todo
+router.post("/order/total/:id", (req, res, next) => {
+  Agent.aggregate([
+    {
+      $match: {
+        _id: req.params.id,
+      },
+    },
+    {
+      $group: {
+        _id: "$items",
+        total: {
+          $sum: "$net_price"
+        }
+      }
+    }
+  ]).catch(err => {
+    console.log(err)
   })
-})
-
+});
 
 router.delete("/:id", (req, res, next) => {
   Agent.deleteOne({ _id: req.params.id })

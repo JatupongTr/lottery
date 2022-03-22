@@ -46,6 +46,7 @@ import { PrizesService } from './prizes/prizes.service';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
+import { RewardCheckComponent } from './reward-check/reward-check.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { AgentOrderComponent } from './agents/agent-order/agent-order.component'
     AgentSummarizeComponent,
     AgentCreateComponent,
     AgentOrderComponent,
+    RewardCheckComponent,
   ],
   imports: [
     BrowserModule,

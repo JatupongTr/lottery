@@ -11,15 +11,15 @@ import { Lotto } from '../shared/lotto.model';
 import { Category } from '../shared/category.model';
 
 export interface Order {
-  items: Item[]
+  items: Item[];
 }
 export interface Item {
-  lotto_no:  string;
-  price:     number;
-  discount:  number;
+  lotto_no: string;
+  price: number;
+  discount: number;
   net_price: number;
-  category:  Category;
-  _id:       string;
+  category: Category;
+  _id: string;
 }
 @Injectable({
   providedIn: 'root',
@@ -116,10 +116,13 @@ export class AgentsService {
   }
 
   removeItemFromOrder(agentId: string, items: any) {
-    this.http.post('http://localhost:3000/api/agents/order/remove/' + agentId, items)
-      .subscribe(() => {
-        // todo
-      })
+    let data = {
+      id: items,
+    };
+    return this.http.post(
+      'http://localhost:3000/api/agents/order/remove/' + agentId,
+      data
+    )
   }
 
   deleteAgent(agentId: string) {

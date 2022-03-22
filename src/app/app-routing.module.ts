@@ -1,3 +1,4 @@
+import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
 import { TakeListsComponent } from './take-lists/take-lists.component';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
     path: 'menu',
     component: DashboardComponent,
     children: [
-      { path: 'prize', component: PrizesComponent },
+      { path: 'reward-check', component: RewardCheckComponent },
       { path: 'overviews', component: OverviewsComponent },
       { path: 'agents', component: AgentsComponent },
       { path: 'agents/new', component: AgentCreateComponent },

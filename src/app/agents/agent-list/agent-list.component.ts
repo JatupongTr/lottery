@@ -52,7 +52,7 @@ export class AgentListComponent implements OnInit, OnDestroy {
   }
 
   onEditAgent() {
-    this.router.navigate(['edit'], { relativeTo: this.route });
+    // this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
   onNewAgent() {

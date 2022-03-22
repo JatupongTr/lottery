@@ -1,9 +1,8 @@
 
-import { Subscription } from 'rxjs';
 import { Agent } from './../agent.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { AgentsService } from './../agents.service';
-import { ActivatedRoute, Params, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { FormGroup, NgForm } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -60,9 +59,13 @@ export class AgentSummarizeComponent implements OnInit {
     });
   }
 
-  onRemoveItem() {
-
+  onRemoveItem(items: any) {
+    this.agentsService.removeItemFromOrder(this.agentId, items).subscribe(() => {
+      window.location.reload();
+    })
   }
+
+  private initForm() {}
 
   onSaveList(form: NgForm) {}
 }
