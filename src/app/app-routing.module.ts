@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: 'agents/:id', component: AgentDetailComponent },
       { path: 'agents/edit/:agentId', component: AgentCreateComponent },
       { path: 'agents/lists/:agentId', component: AgentOrderComponent },
-      { path: 'agents/lists/summarize/:agentId', component: AgentSummarizeComponent }
+      { path: 'order/totals', component: AgentSummarizeComponent }
     ],
   },
 ];

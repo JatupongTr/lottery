@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 import { Category } from "./category.model";
 
 @Injectable({
@@ -11,12 +12,13 @@ import { Category } from "./category.model";
 export class RunningService {
   categoriesChanged = new Subject<Category[]>();
 
+  private endPoint = environment.endPoint;
   private categories: Category[] = []
 
   constructor(private http: HttpClient) { }
 
   getRunningCategories() {
-    this.http.get<{ message: string, categories: any }>("http://localhost:3000/api/categories/running")
+    this.http.get<{ message: string, categories: any }>(this.endPoint + "categories/running")
     .pipe(
       map((categoryData) => {
         return categoryData.categories.map((category) => {

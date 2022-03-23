@@ -1,12 +1,12 @@
+import { ItemsService } from './../../../shared/items.service';
 import { OrdersService } from 'src/app/shared/orders.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { Category } from 'src/app/shared/category.model';
-import { ListsService } from '../../../take-lists/lists.service';
-import { Lotto } from 'src/app/shared/lotto.model';
 import { RunningService } from 'src/app/shared/running.service';
+import { Item } from 'src/app/shared/item.model';
 
 @Component({
   selector: 'app-running',
@@ -16,18 +16,19 @@ import { RunningService } from 'src/app/shared/running.service';
 export class RunningComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) addListForm: NgForm;
   categories: Category[];
-  items: Lotto[];
+  items: Item[];
 
   private categorySub: Subscription;
 
-  lotto_no = '';
+  lottoNo = '';
   price: number = 0;
   discount: number = 0;
-  net_price: number = 0;
+  netPrice: number = 0;
 
   constructor(
     private runningService: RunningService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private itemsService: ItemsService
   ) {}
 
   ngOnInit(): void {
@@ -46,23 +47,23 @@ export class RunningComponent implements OnInit, OnDestroy {
   onSaveList(form: NgForm) {
     const value = form.value;
     const total = value.price - (value.price * value.discount) / 100;
-    this.net_price = total;
+    this.netPrice = total;
     let categorySelect: Category;
 
-    for (let category of this.categories) {
-      if (value.categories == category.id) {
-        categorySelect = category;
+    for (let categoryId of this.categories) {
+      if (value.categories == categoryId.id) {
+        categorySelect = categoryId;
       }
     }
 
-    const newItem = new Lotto(
-      value.lotto_no,
+    const newItem = new Item(
+      value.lottoNo,
       value.price,
       value.discount,
-      this.net_price,
+      this.netPrice,
       categorySelect
     );
-    this.ordersService.addItems(newItem);
+    this.itemsService.addItems(newItem);
     form.reset();
   }
 }

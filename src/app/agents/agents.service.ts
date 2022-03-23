@@ -5,9 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ListsService } from '../take-lists/lists.service';
 import { Agent } from './agent.model';
-import { Lotto } from '../shared/lotto.model';
 import { Category } from '../shared/category.model';
 
 export interface Order {
@@ -28,10 +26,8 @@ export class AgentsService {
   agentChanged = new Subject<Agent[]>();
 
   private agents: Agent[] = [];
-  private items: Lotto[] = [];
 
   constructor(
-    private listsService: ListsService,
     private http: HttpClient,
     private router: Router,
     private ordersService: OrdersService
@@ -47,7 +43,6 @@ export class AgentsService {
               code: agent.code,
               name: agent.name,
               imagePath: agent.imagePath,
-              order: agent.order,
               id: agent._id,
             };
           });
@@ -63,15 +58,15 @@ export class AgentsService {
     return this.agentChanged.asObservable();
   }
 
-  getAgentOrder(id: string) {
-    return this.http.get<{
-      order: any;
-      _id: string;
-      code: string;
-      name: string;
-      imagePath: string;
-    }>('http://localhost:3000/api/agents/' + id);
-  }
+  // getAgentOrder(id: string) {
+  //   return this.http.get<{
+  //     order: any;
+  //     _id: string;
+  //     code: string;
+  //     name: string;
+  //     imagePath: string;
+  //   }>('http://localhost:3000/api/agents/' + id);
+  // }
 
   getAgent(id: string) {
     return this.http.get<{
@@ -83,13 +78,12 @@ export class AgentsService {
     }>('http://localhost:3000/api/agents/' + id);
   }
 
-  addAgent(code: string, name: string, imagePath: string, order: any) {
+  addAgent(code: string, name: string, imagePath: string) {
     const agent: Agent = {
       id: null,
       code: code,
       name: name,
       imagePath: imagePath,
-      order: order,
     };
     this.http
       .post<{ message: string; agentId: string }>(
@@ -105,15 +99,15 @@ export class AgentsService {
       });
   }
 
-  createOrder(agentId: string, items: any) {
-    this.http
-      .post('http://localhost:3000/api/agents/order/' + agentId, items)
-      .subscribe((responseData) => {
-        this.items = this.ordersService.getItems();
-        this.agents.push(items);
-        this.router.navigate(['/menu/agents/lists/summarize/' + agentId]);
-      });
-  }
+  // createOrder(agentId: string, items: any) {
+  //   this.http
+  //     .post('http://localhost:3000/api/agents/order/' + agentId, items)
+  //     .subscribe((responseData) => {
+  //       this.items = this.ordersService.getItems();
+  //       this.agents.push(items);
+  //       this.router.navigate(['/menu/agents/lists/summarize/' + agentId]);
+  //     });
+  // }
 
   removeItemFromOrder(agentId: string, items: any) {
     let data = {
@@ -155,14 +149,12 @@ export class AgentsService {
     code: string,
     name: string,
     imagePath: string,
-    order: any
   ) {
     const agent: Agent = {
       id: id,
       code: code,
       name: name,
       imagePath: imagePath,
-      order: order,
     };
     this.http
       .put('http://localhost:3000/api/agents/' + id, agent)

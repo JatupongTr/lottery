@@ -30,7 +30,7 @@ router.get("", (req, res, next) => {
 
 router.get("/two", (req, res, next) => {
   Category.find({
-    $or: [{ cate_id: "top_2_digits" }, { cate_id: "down_2_digits" }],
+    $or: [{ cate_id: "topTwoDigits" }, { cate_id: "downTwoDigits" }],
   }).then((document) => {
     res.status(200).json({
       message: "2 digits",
@@ -41,7 +41,7 @@ router.get("/two", (req, res, next) => {
 
 router.get("/running", (req, res, next) => {
   Category.find({
-    $or: [{ cate_id: "top_run_digits" }, { cate_id: "down_run_digits" }],
+    $or: [{ cate_id: "topRunDigits" }, { cate_id: "downRunDigits" }],
   }).then((document) => {
     res.status(200).json({
       message: "running",
@@ -53,11 +53,11 @@ router.get("/running", (req, res, next) => {
 router.get("/three", (req, res, next) => {
   Category.find({
     $or: [
-      { cate_id: "top_3_digits" },
-      { cate_id: "todd_3_digits" },
-      { cate_id: "first_3_digits" },
-      { cate_id: "last_3_digits" },
-      { cate_id: "down_3_digits" },
+      { cate_id: "topThreeDigits" },
+      { cate_id: "toddThreeDigits" },
+      { cate_id: "firstThreeDigits" },
+      { cate_id: "lastThreeDigits" },
+      { cate_id: "downThreeDigits" },
     ],
   }).then((document) => {
     res.status(200).json({

@@ -1,46 +1,36 @@
+
+import { Order } from './order.model';
+
+import { ItemsService } from './items.service';
+import { environment } from './../../environments/environment';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Lotto } from './lotto.model';
-
+import { Item } from './item.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrdersService {
+  private items: Item[];
+  private orders: Order[];
+  orderChanged = new Subject<Order[]>();
+  private endPoint = environment.endPoint;
+  constructor(
+    private http: HttpClient,
+    router: Router,
+    private itemsService: ItemsService
+  ) {}
 
-  items: Lotto[] = []
-  itemsUpdated = new Subject<Lotto[]>()
-
-  constructor() { }
-
-  addItems(item: Lotto) {
-    this.items.push(item)
-    this.itemsUpdated.next(this.items.slice())
-  }
-
-  addToOrder(items: Lotto[]) {
-    this.items.push(...items)
-    this.itemsUpdated.next([...this.items.slice()])
-  }
-
-  getItems() {
-    return this.items.slice();
-  }
-
-  getItemUpdatedListner() {
-    return this.itemsUpdated.asObservable();
-  }
-
-  removeItems(item: Lotto) {
-    const index: number = this.items.indexOf(item)
-    if (index !== -1) {
-      this.items.splice(index, 1);
+  createOrder(agentId: any, period: any, items: any) {
+    const order: Order = {
+      agentId: agentId,
+      items: items,
+      period: period,
     }
-    this.itemsUpdated.next(this.items.slice())
+    return this.http.post(this.endPoint + "orders/" + agentId, order)
   }
 
-  clearOrder() {
-    this.items = []
-    return this.items
-  }
+  getOrder() {}
 }

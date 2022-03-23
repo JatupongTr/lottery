@@ -32,8 +32,7 @@ export class AgentCreateComponent implements OnInit {
             id: agentData._id,
             code: agentData.code,
             name: agentData.name,
-            imagePath: agentData.imagePath,
-            order: agentData.order
+            imagePath: agentData.imagePath
           };
         });
       } else {
@@ -55,16 +54,14 @@ export class AgentCreateComponent implements OnInit {
       this.agetnsService.addAgent(
         form.value.code,
         form.value.name,
-        form.value.imagePath,
-        form.value.order
+        form.value.imagePath
       );
     } else {
       this.agetnsService.updateAgent(
         this.agentId,
         form.value.code,
         form.value.name,
-        form.value.imagePath,
-        form.value.order
+        form.value.imagePath
       )
     }
     form.resetForm();

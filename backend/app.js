@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const agentsRoutes = require("./routes/agents");
 const usersRoutes = require("./routes/users");
 const cateRoutes = require("./routes/categories");
+const orderRoutes = require("./routes/orders");
 
 const app = express();
 
@@ -40,5 +41,7 @@ app.use("/api/agents", agentsRoutes);
 app.use("/api/users", usersRoutes);
 
 app.use("/api/categories", cateRoutes);
+
+app.use("/api/orders", orderRoutes);
 
 module.exports = app;

@@ -16,11 +16,11 @@ export class AgentSummarizeComponent implements OnInit {
   id: number;
   summarizeForm: FormGroup;
   displayedColumns: string[] = [
-    'lotto_no',
-    'category',
+    'lottoNo',
+    'categoryId',
     'price',
     'discount',
-    'net_price',
+    'netPrice',
     'action',
   ];
   dataSource = new MatTableDataSource<Agent>();
@@ -39,24 +39,23 @@ export class AgentSummarizeComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('agentId')) {
-        this.agentId = paramMap.get('agentId');
-        this.agentsService
-          .getAgentOrder(this.agentId)
-          .subscribe((agentData) => {
-            this.agent = {
-              id: agentData._id,
-              code: agentData.code,
-              name: agentData.name,
-              imagePath: agentData.imagePath,
-              order: agentData.order,
-            };
-            console.log(agentData)
-            this.dataSource.data = agentData.order.items
-          });
-      }
-    });
+    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    //   if (paramMap.has('orderId')) {
+    //     this.orderId = paramMap.get('agentId');
+    //     this.agentsService
+    //       .getAgentOrder(this.agentId)
+    //       .subscribe((agentData) => {
+    //         this.agent = {
+    //           id: agentData._id,
+    //           code: agentData.code,
+    //           name: agentData.name,
+    //           imagePath: agentData.imagePath,
+    //         };
+    //         console.log(agentData)
+    //         this.dataSource.data = agentData.order.items
+    //       });
+    //   }
+    // });
   }
 
   onRemoveItem(items: any) {

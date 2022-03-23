@@ -13,9 +13,8 @@ const itemSchema = new Schema({
 });
 const orderSchema = new Schema(
   {
-    orderDate: { type: String, required: true },
+    period: { type: String, required: true },
     items: [itemSchema],
-    total: { type: Number, default: 0 },
     agentId: {
       type: Schema.Types.ObjectId,
       ref: "Agent",

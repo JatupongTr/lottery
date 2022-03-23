@@ -1,11 +1,12 @@
+import { ItemsService } from './../../shared/items.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Agent } from '../agent.model';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AgentsService } from '../agents.service';
 import { OrdersService } from 'src/app/shared/orders.service';
-import { Lotto } from 'src/app/shared/lotto.model';
+import { Item, Order } from 'src/app/shared/order.model';
 
 @Component({
   selector: 'app-agent-order',
@@ -15,14 +16,17 @@ import { Lotto } from 'src/app/shared/lotto.model';
 export class AgentOrderComponent implements OnInit {
   selectNumbersType: string = 'two-numbers';
   p: number = 1;
-  items: Lotto[];
-  agent: Agent
-  private agentId: string
+  items: Item[];
+  orders: Order[]
+  agent: Agent;
+  private agentId: string;
   private itemsChangeSub: Subscription;
   constructor(
     private route: ActivatedRoute,
     private agentsService: AgentsService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private itemsService: ItemsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,31 +39,34 @@ export class AgentOrderComponent implements OnInit {
             code: agentData.code,
             name: agentData.name,
             imagePath: agentData.imagePath,
-            order: agentData.order,
           };
-          console.log(this.agent);
         });
       }
     });
-    this.items = this.ordersService.getItems();
-    this.itemsChangeSub = this.ordersService.itemsUpdated.subscribe(
-      (items: Lotto[]) => {
-        this.items = items
+    this.items = this.itemsService.getItems();
+    this.itemsChangeSub = this.itemsService.itemsUpdated.subscribe(
+      (items: Item[]) => {
+        this.items = items;
       }
-    )
+    );
   }
 
   onSelect(select: string) {
     this.selectNumbersType = select;
   }
 
-  onRemove(item: Lotto) {
-    this.ordersService.removeItems(item)
+  onRemove(item: Item) {
+    this.itemsService.removeItems(item);
   }
 
-  onCreateOrder() {
-    this.agentsService.createOrder(this.agentId, this.items)
+  onSaveLists(form: NgForm) {
+    this.ordersService.createOrder(
+      this.agentId,
+      form.value.period,
+      this.items,
+    ).subscribe((responseData) => {
+      this.router.navigate(['/menu/order/totals'], { queryParams: { 'agentId': this.agentId } });
+    });
   }
-
-  onSaveLists(form: NgForm) {}
 }
+

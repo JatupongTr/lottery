@@ -20,6 +20,17 @@
               placeholder="รหัสตัวแทน"
             />
           </div>
+          <label for="inputDate" class="col-md-2 col-form-label">งวด</label>
+          <div class="col-md-2 inputDate">
+            <input
+              style="text-transform: uppercase; text-align: center"
+              type="date"
+              class="form-control"
+              id="inputDate"
+              name="period"
+              ngModel
+            />
+          </div>
           <div class="col-md-2 btnSelected">
             <input
               type="button"
@@ -74,10 +85,10 @@
                 "
               >
                 <td>
-                  {{ data.lotto_no }}
+                  {{ data.lottoNo }}
                 </td>
                 <td>
-                  {{ data.category.cate_name }}
+                  {{ data.categoryId.cate_name }}
                 </td>
                 <td>
                   {{ data.price }}
@@ -86,7 +97,7 @@
                   {{ data.discount }}
                 </td>
                 <td>
-                  {{ data.net_price }}
+                  {{ data.netPrice }}
                 </td>
                 <td>
                   <button
@@ -109,11 +120,7 @@
               </div>
               <div class="col-md-6">
                 <div class="submitList" style="float: right">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    (click)="onCreateOrder()"
-                  >
+                  <button class="btn btn-primary" type="submit">
                     + เพิ่มโพย
                   </button>
                 </div>

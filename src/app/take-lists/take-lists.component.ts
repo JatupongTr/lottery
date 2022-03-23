@@ -31,7 +31,6 @@ export class TakeListsComponent implements OnInit, OnDestroy {
 
   constructor(
     private listsService: ListsService,
-    private router: Router,
     private route: ActivatedRoute,
     private agentsService: AgentsService
   ) {}
@@ -45,8 +44,7 @@ export class TakeListsComponent implements OnInit, OnDestroy {
             id: agentData._id,
             code: agentData.code,
             name: agentData.name,
-            imagePath: agentData.imagePath,
-            order: agentData.order
+            imagePath: agentData.imagePath
           };
           console.log(this.agent)
         });
