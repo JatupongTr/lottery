@@ -36,19 +36,19 @@ export class AgentListComponent implements OnInit, OnDestroy {
       .subscribe((agents: Agent[]) => {
         this.dataSource.data = agents;
       })
-  }
-
-
-
-  search(event: Event) {
-    let filterValue = '';
-    if (event) {
-      filterValue = (event.target as HTMLInputElement).value;
     }
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  clearSearch() {
+    
+    
+    
+    search(event: Event) {
+      let filterValue = '';
+      if (event) {
+        filterValue = (event.target as HTMLInputElement).value;
+      }
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+    
+    clearSearch() {
     this.textSearch = '';
     this.search(null);
   }
@@ -56,19 +56,19 @@ export class AgentListComponent implements OnInit, OnDestroy {
   onEditAgent() {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
-
+  
   onNewAgent() {
     this.router.navigate(['new'], { relativeTo: this.route });
   }
-
+  
   onDelete(agentId: string) {
     this.agentsService.deleteAgent(agentId);
   }
-
+  
   onAddLists() {
     this.router.navigate(['lists'], { relativeTo: this.route });
   }
-
+  
   ngOnDestroy(): void {
     this.agentSub.unsubscribe();
   }

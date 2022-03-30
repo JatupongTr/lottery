@@ -29,6 +29,7 @@ router.get("", (req, res, next) => {
   });
 });
 
+
 router.get("/:id", (req, res, next) => {
   Agent.findById(req.params.id).then((agent) => {
     if (agent) {
