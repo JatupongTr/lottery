@@ -7,6 +7,7 @@ export interface OrderResponse {
 }
 
 export interface Order {
+  _id: string;
   period: Date;
   items: Item[];
   agentId: Agent;

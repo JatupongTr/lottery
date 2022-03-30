@@ -1,8 +1,6 @@
 import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
-import { TakeListsComponent } from './take-lists/take-lists.component';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
-import { PrizesComponent } from './prizes/prizes.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthComponent } from './auth/auth.component';

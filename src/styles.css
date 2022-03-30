@@ -4,9 +4,9 @@ html,
 body {
   height: 100%;
 }
-body {
+body,html {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }
 
 :focus:fucus {

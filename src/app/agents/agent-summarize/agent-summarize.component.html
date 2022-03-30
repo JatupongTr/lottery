@@ -15,8 +15,21 @@
             class="form-control"
             id="code"
             name="code"
-            [ngModel]="agent?.code"
+            [ngModel]="agentId"
             placeholder="รหัสตัวแทน"
+          />
+        </div>
+
+        <label for="date" class="col-md-2 col-form-label">งวด</label>
+        <div class="col-md-2">
+          <input
+            style="text-transform: uppercase; text-align: center"
+            type="date"
+            class="form-control"
+            id="date"
+            name="period"
+            [ngModel]="period"
+            placeholder="งวด"
           />
         </div>
       </div>
@@ -34,7 +47,9 @@
 
           <ng-container matColumnDef="categoryId">
             <th mat-header-cell *matHeaderCellDef>ประเภท</th>
-            <td mat-cell *matCellDef="let data">{{ data.categoryId.cate_name }}</td>
+            <td mat-cell *matCellDef="let data">
+              {{ data.categoryId.cate_name }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="price">
@@ -55,10 +70,13 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>action</th>
             <td mat-cell *matCellDef="let data">
-              <button mat-icon-button color="warn" class="material-icons-outlined" (click)="onRemoveItem(data._id)">
-
-                 <mat-icon class="mat-18">delete</mat-icon>
-
+              <button
+                mat-icon-button
+                color="warn"
+                class="material-icons-outlined"
+                (click)="onRemoveItem(data._id)"
+              >
+                <mat-icon class="mat-18">delete</mat-icon>
               </button>
             </td>
           </ng-container>
@@ -79,10 +97,18 @@
           <div class="row mt-3">
             <div class="col-md-12">
               <div class="col-md-6">
-                <div class="mb-3 row" style="text-align: center;">
-                  <label for="total" class="col-md-4 col-form-label">ยอดรวม</label>
+                <div class="mb-3 row" style="text-align: center">
+                  <label for="total" class="col-md-4 col-form-label"
+                    >ยอดรวม</label
+                  >
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="total">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="total"
+                      name="totalNet"
+                      [ngModel]="totalNet"
+                    />
                   </div>
                 </div>
               </div>
@@ -90,67 +116,148 @@
           </div>
           <div class="row mt-3">
             <div class="col-md-6">
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="three_top" class="col-md-4 col-form-label">3 ตัวบน</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="three_top" class="col-md-4 col-form-label"
+                  >3 ตัวบน</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="three_top">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="three_top"
+                    name="topThreeDigits"
+                    [ngModel]="totalTopThreeDigits"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="three_todd" class="col-md-4 col-form-label">3 ตัวโต๊ด</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="three_todd" class="col-md-4 col-form-label"
+                  >3 ตัวโต๊ด</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="three_todd">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="three_todd"
+                    name="toddThreeDigits"
+                    [ngModel]="totalToddThreeDigits"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="three_first" class="col-md-4 col-form-label">3 ตัวหน้า</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="three_first" class="col-md-4 col-form-label"
+                  >3 ตัวหน้า</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="three_first">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="three_first"
+                    name="firstThreeDigits"
+                    [ngModel]="totalFirstThreeDigits"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="three_last" class="col-md-4 col-form-label">3 ตัวท้าย</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="three_last" class="col-md-4 col-form-label"
+                  >3 ตัวท้าย</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="three_last">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="three_last"
+                    name="lastThreeDigits"
+                    [ngModel]="totalLastThreeDigits"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="three_down" class="col-md-4 col-form-label">3 ตัวล่าง</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="three_down" class="col-md-4 col-form-label"
+                  >3 ตัวล่าง</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="three_down">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="three_down"
+                    name="downThreeDigits"
+                    [ngModel]="totalDownThreeDigits"
+                  />
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="two_top" class="col-md-4 col-form-label">2 ตัวบน</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="two_top" class="col-md-4 col-form-label"
+                  >2 ตัวบน</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="two_top">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="two_top"
+                    name="topTwoDigits"
+                    [ngModel]="totalTopTwoDigits"
+                    placeholder="0"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="two_down" class="col-md-4 col-form-label">2 ตัวล่าง</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="two_down" class="col-md-4 col-form-label"
+                  >2 ตัวล่าง</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="two_down">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="two_down"
+                    placeholder="0"
+                    name="downTwoDigits"
+                    [ngModel]="totalDownTwoDigits"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="running_down" class="col-md-4 col-form-label">วิ่งล่าง</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="running_down" class="col-md-4 col-form-label"
+                  >วิ่งล่าง</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="running_down">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="running_down"
+                    name="downRunDigits"
+                    [ngModel]="totalDownRunDigits"
+                  />
                 </div>
               </div>
 
-              <div class="mb-3 row" style="text-align: center;">
-                <label for="running_top" class="col-md-4 col-form-label">วิ่งบน</label>
+              <div class="mb-3 row" style="text-align: center">
+                <label for="running_top" class="col-md-4 col-form-label"
+                  >วิ่งบน</label
+                >
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="running_top">
+                  <input
+                    type="text"
+                    placeholder="0"
+                    class="form-control"
+                    id="running_top"
+                    name="topRunDigits"
+                    [ngModel]="totalTopRunDigits"
+                  />
                 </div>
               </div>
             </div>

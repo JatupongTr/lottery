@@ -65,7 +65,7 @@ export class AgentOrderComponent implements OnInit {
       form.value.period,
       this.items,
     ).subscribe((responseData) => {
-      this.router.navigate(['/menu/order/totals'], { queryParams: { 'agentId': this.agentId } });
+      this.router.navigate(['/menu/order/totals'], { queryParams: { 'agentId': this.agentId, 'period': form.value.period } });
     });
   }
 }

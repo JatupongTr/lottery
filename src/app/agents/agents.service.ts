@@ -58,16 +58,6 @@ export class AgentsService {
     return this.agentChanged.asObservable();
   }
 
-  // getAgentOrder(id: string) {
-  //   return this.http.get<{
-  //     order: any;
-  //     _id: string;
-  //     code: string;
-  //     name: string;
-  //     imagePath: string;
-  //   }>('http://localhost:3000/api/agents/' + id);
-  // }
-
   getAgent(id: string) {
     return this.http.get<{
       _id: string;
@@ -99,25 +89,15 @@ export class AgentsService {
       });
   }
 
-  // createOrder(agentId: string, items: any) {
-  //   this.http
-  //     .post('http://localhost:3000/api/agents/order/' + agentId, items)
-  //     .subscribe((responseData) => {
-  //       this.items = this.ordersService.getItems();
-  //       this.agents.push(items);
-  //       this.router.navigate(['/menu/agents/lists/summarize/' + agentId]);
-  //     });
+  // removeItemFromOrder(agentId: string, items: any) {
+  //   let data = {
+  //     id: items,
+  //   };
+  //   return this.http.post(
+  //     'http://localhost:3000/api/agents/order/remove/' + agentId,
+  //     data
+  //   )
   // }
-
-  removeItemFromOrder(agentId: string, items: any) {
-    let data = {
-      id: items,
-    };
-    return this.http.post(
-      'http://localhost:3000/api/agents/order/remove/' + agentId,
-      data
-    )
-  }
 
   deleteAgent(agentId: string) {
     this.http
@@ -130,19 +110,6 @@ export class AgentsService {
         this.agentChanged.next([...this.agents]);
       });
   }
-
-  // addLists(id: string, code: string, name:string, imagePath: string, list: any) {
-  //   const agent: Agent = {id: id, code: code, name: name, imagePath: imagePath, itemLists: list }
-  //   this.http.put("http://localhost:3000/api/agents/lists/" + id, agent)
-  //     .subscribe(response => {
-  //       const updatedAgents = [...this.agents];
-  //       const oldAgentIndex = updatedAgents.findIndex(a => a.id === agent.id);
-  //       updatedAgents[oldAgentIndex] = agent;
-  //       this.agents = updatedAgents;
-  //       this.agentChanged.next([...this.agents])
-  //       // this.router.navigate(['/menu/agents'])
-  //     })
-  // }
 
   updateAgent(
     id: string,

@@ -30,7 +30,6 @@ import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthComponent } from './auth/auth.component';
-import { TakeListsComponent } from './take-lists/take-lists.component';
 import { RunningComponent } from './agents/agent-order/running/running.component';
 import { TwoNumbersComponent } from './agents/agent-order/two-numbers/two-numbers.component';
 import { ThreeNumbersComponent } from './agents/agent-order/three-numbers/three-numbers.component';
@@ -38,11 +37,10 @@ import { AgentsComponent } from './agents/agents.component';
 import { AgentDetailComponent } from './agents/agent-detail/agent-detail.component';
 import { AgentEditComponent } from './agents/agent-edit/agent-edit.component';
 import { AgentListComponent } from './agents/agent-list/agent-list.component';
-import { AgentStartComponent } from './agents/agent-start/agent-start.component';
 import { OverviewsComponent } from './overviews/overviews.component';
-import { PrizesComponent } from './prizes/prizes.component';
+
 import { AgentsService } from './agents/agents.service';
-import { PrizesService } from './prizes/prizes.service';
+
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
@@ -55,7 +53,6 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
     SidenavComponent,
     DashboardComponent,
     AuthComponent,
-    TakeListsComponent,
     RunningComponent,
     TwoNumbersComponent,
     ThreeNumbersComponent,
@@ -63,10 +60,8 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
     AgentDetailComponent,
     AgentEditComponent,
     AgentListComponent,
-    AgentStartComponent,
     OverviewsComponent,
     LoadingSpinnerComponent,
-    PrizesComponent,
     AgentSummarizeComponent,
     AgentCreateComponent,
     AgentOrderComponent,
@@ -95,7 +90,7 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
     MatNativeDateModule,
     MatDatepickerModule
   ],
-  providers: [AgentsService, PrizesService],
+  providers: [AgentsService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
