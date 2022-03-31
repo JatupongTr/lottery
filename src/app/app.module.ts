@@ -37,12 +37,12 @@ import { AgentEditComponent } from './agents/agent-edit/agent-edit.component';
 import { AgentListComponent } from './agents/agent-list/agent-list.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 
-import { AgentsService } from './agents/agents.service';
 
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
 import { RewardCheckComponent } from './reward-check/reward-check.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -69,6 +69,7 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -88,7 +89,7 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
     MatNativeDateModule,
     MatDatepickerModule
   ],
-  providers: [AgentsService],
+  providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

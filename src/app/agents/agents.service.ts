@@ -52,7 +52,9 @@ export class AgentsService {
         this.agents = transformedAgent;
         this.agentChanged.next([...this.agents]);
       });
+      
   }
+  
 
   getAgentUpdatedListner() {
     return this.agentChanged.asObservable();
@@ -75,6 +77,7 @@ export class AgentsService {
       name: name,
       imagePath: imagePath,
     };
+
     this.http
       .post<{ message: string; agentId: string }>(
         'http://localhost:3000/api/agents',

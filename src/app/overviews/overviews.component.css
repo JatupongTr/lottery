@@ -1,3 +1,38 @@
 .inline-calendar-card {
   width: 100%;
 }
+
+.chart-wrapper{
+  width: 100%;
+  position: relative;
+ 
+}
+
+.popular-num{
+  height: 360px !important;
+  width: 90% !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+table{
+  background-color: #fafafa;
+}
+
+tr{
+  vertical-align: middle;
+}
+
+th,
+td{
+    border-color: #fafafa;
+}

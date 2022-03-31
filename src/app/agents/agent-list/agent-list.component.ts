@@ -43,12 +43,20 @@ export class AgentListComponent implements OnInit, OnDestroy {
     if (event) {
       filterValue = (event.target as HTMLInputElement).value;
     }
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
-  clearSearch() {
-    this.textSearch = '';
-    this.search(null);
+
+
+    // search(event: Event) {
+    //   let filterValue = '';
+    //   if (event) {
+    //     filterValue = (event.target as HTMLInputElement).value;
+    //   }
+    //   this.dataSource.filter = filterValue.trim().toLowerCase();
+    // }
+
+    // clearSearch() {
+    // this.textSearch = '';
+    // this.search(null);
   }
 
   onEditAgent() {
