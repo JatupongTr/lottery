@@ -34,11 +34,6 @@ export class RewardCheckComponent implements OnInit {
   constructor(private ordersService: OrdersService) {}
 
   ngOnInit(): void {
-    this.ordersService.getOrders()
-      .subscribe((orders: Order[]) => {
-        this.dataSource.data = orders
-        console.log(orders)
-      })
 
   }
 }
