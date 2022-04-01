@@ -27,8 +27,9 @@ export class AgentOrderComponent implements OnInit {
     private ordersService: OrdersService,
     private itemsService: ItemsService,
     private router: Router
-  ) {}
-
+    ) {}
+    
+  
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('agentId')) {
@@ -68,5 +69,6 @@ export class AgentOrderComponent implements OnInit {
       this.router.navigate(['/menu/order/totals'], { queryParams: { 'agentId': this.agentId, 'period': form.value.period } });
     });
   }
+  
 }
 

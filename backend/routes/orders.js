@@ -121,20 +121,21 @@ router.get("/total/:agentId/:period", (req, res, next) => {
 
 router.get("", (req, res, next) => {
   Order.aggregate([
-    // { $unwind: "$items" },
-    // {
-    //   $group: {
-    //     _id: "$items.categoryId.cate_id",
-    //     data: {
-    //       $push: "$$ROOT",
-    //     },
-    //     total: { $sum: "$items.netPrice" },
-    //   },
-    // },
+    /* { $unwind: "$items" },
+     {
+       $group: {
+         _id: "$items.categoryId.cate_id",
+         data: {
+           $push: "$$ROOT",
+         },
+         total: { $sum: "$items.netPrice" },
+       },
+    }, */
   ]).then((order) => {
     res.status(200).json({
       order: order,
     });
   });
 });
+
 module.exports = router;

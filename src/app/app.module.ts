@@ -38,6 +38,10 @@ import { AgentListComponent } from './agents/agent-list/agent-list.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 
 
+/* import { PrizesComponent } from './prizes/prizes.component';
+import { AgentsService } from './agents/agents.service';
+import { PrizesService } from './prizes/prizes.service';
+ */
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { AgentCreateComponent } from './agents/agent-create/agent-create.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';

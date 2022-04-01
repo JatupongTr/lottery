@@ -193,6 +193,9 @@ export class OverviewsComponent implements OnInit {
   agents: Agent[];
   private agentSub: Subscription;
   textSearch: string;
+  
+  countOrders : string;
+
 
   displayedColumns = ['image', 'code', 'name', 'more'];
   dataSource = new MatTableDataSource<Agent>();
@@ -212,11 +215,11 @@ export class OverviewsComponent implements OnInit {
       })
 
     // get oders
-    this.ordersService.getOrders();
-    this.ordersSub = this.ordersService.getOrderUpdatedListner()
-      .subscribe((orders: Order[]) => {
-        this.dataOrders.data = orders;
-      })
+    this.ordersService.getCountOrders().subscribe(( res : any ) => {
+      this.countOrders = res.orders;
+      console.log(this.countOrders)
+    })
+
   }
   
 }

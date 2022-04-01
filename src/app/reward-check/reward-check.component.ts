@@ -29,11 +29,11 @@ export class RewardCheckComponent implements OnInit {
     'discount',
     'netPrice',
   ]
-  dataSource = new MatTableDataSource<Order>();
-
+  dataSource = new MatTableDataSource<Order>(  );  
+  
   constructor(private ordersService: OrdersService) {}
-
+  
   ngOnInit(): void {
-
+    
   }
 }
