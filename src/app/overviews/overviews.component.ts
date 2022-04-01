@@ -8,6 +8,10 @@ import { Subscription } from 'rxjs';
 import { Agent } from '../agents/agent.model';
 import { AgentsService } from '../agents/agents.service';
 
+// get orders
+import { OrdersService } from '../shared/orders.service';
+import { Order } from '../shared/order.model';
+
 @Component({
     selector: 'app-overviews',
     templateUrl: './overviews.component.html',
@@ -178,6 +182,13 @@ export class OverviewsComponent implements OnInit {
     public barHChartLabels: string[] = ['P', 'R', 'B'];
 
 
+
+  // get orders
+  orders: Order[];
+  private ordersSub: Subscription;
+
+  dataOrders = new MatTableDataSource<Order>();
+
   // New Agents
   agents: Agent[];
   private agentSub: Subscription;
@@ -188,6 +199,7 @@ export class OverviewsComponent implements OnInit {
 
   constructor(
     private agentsService: AgentsService,
+    private ordersService: OrdersService
   ) {}
 
   ngOnInit() {
@@ -197,6 +209,13 @@ export class OverviewsComponent implements OnInit {
     this.agentSub = this.agentsService.getAgentUpdatedListner()
       .subscribe((agents: Agent[]) => {
         this.dataSource.data = agents;
+      })
+
+    // get oders
+    this.ordersService.getOrders();
+    this.ordersSub = this.ordersService.getOrderUpdatedListner()
+      .subscribe((orders: Order[]) => {
+        this.dataOrders.data = orders;
       })
   }
   
