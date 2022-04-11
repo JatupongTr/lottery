@@ -2,6 +2,7 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
 import { AgentSummarizeComponent } from './agents/agent-summarize/agent-summarize.component';
 import { OverviewsComponent } from './overviews/overviews.component';
+import { SettingsComponent } from './settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthComponent } from './auth/auth.component';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ const routes: Routes = [
     children: [
       { path: 'reward-check', component: RewardCheckComponent },
       { path: 'overviews', component: OverviewsComponent },
+      { path: 'settings', component: SettingsComponent },
       { path: 'agents', component: AgentsComponent },
       { path: 'agents/new', component: AgentCreateComponent },
       { path: 'agents/:id', component: AgentDetailComponent },

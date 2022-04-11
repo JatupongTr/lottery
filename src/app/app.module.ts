@@ -21,6 +21,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -36,6 +37,7 @@ import { AgentDetailComponent } from './agents/agent-detail/agent-detail.compone
 import { AgentEditComponent } from './agents/agent-edit/agent-edit.component';
 import { AgentListComponent } from './agents/agent-list/agent-list.component';
 import { OverviewsComponent } from './overviews/overviews.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 /* import { PrizesComponent } from './prizes/prizes.component';
@@ -63,6 +65,7 @@ import { ChartsModule } from 'ng2-charts';
     AgentEditComponent,
     AgentListComponent,
     OverviewsComponent,
+    SettingsComponent,
     LoadingSpinnerComponent,
     AgentSummarizeComponent,
     AgentCreateComponent,
@@ -91,7 +94,8 @@ import { ChartsModule } from 'ng2-charts';
     MatSortModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent],
