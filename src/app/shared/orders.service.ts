@@ -1,4 +1,4 @@
-import { Order, OrderResponse } from './order.model';
+import { Order } from './order.model';
 
 import { ItemsService } from './items.service';
 import { environment } from './../../environments/environment';
@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Item } from './item.model';
-import { map } from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +24,14 @@ export class OrdersService {
     private itemsService: ItemsService
   ) {}
 
-  createOrder(agentId: any, period: any, items: any) {
+  createOrder(agentId: any, customer: string, period: any, items: any) {
     const order = {
       agentId: agentId,
+      customer: customer,
       items: items,
       period: period,
     };
-    return this.http.post(this.endPoint + 'orders/' + agentId, order);
+    return this.http.post(this.endPoint + '/orders/' + agentId, order);
   }
 
   getOrderUpdatedListner() {
@@ -38,19 +40,19 @@ export class OrdersService {
 
   getTotal(agentId: string, period: string) {
     return this.http.get(
-      this.endPoint + 'orders/totals/' + agentId + '/' + period
+      this.endPoint + '/orders/totals/' + agentId + '/' + period
     );
   }
 
   getTotals(agentId: string, period: string) {
     return this.http.get(
-      this.endPoint + 'orders/total/' + agentId + '/' + period
+      this.endPoint + '/orders/total/' + agentId + '/' + period
     );
   }
 
   getTotalsCategory(agentId: string, period: string) {
     return this.http.get(
-      this.endPoint + 'orders/total/category/' + agentId + '/' + period
+      this.endPoint + '/orders/total/category/' + agentId + '/' + period
     );
   }
 
@@ -58,40 +60,40 @@ export class OrdersService {
     let data = {
       id: items,
     };
-    return this.http.post(this.endPoint + 'orders/remove/' + itemId, data);
+    return this.http.post(this.endPoint + '/orders/remove/' + itemId, data);
   }
 
-  getRewards(period: string) {
-    return this.http
-      .get<{
-        orders: any;
-      }>(this.endPoint + 'reward/' + period)
-      .pipe(
-        map((orderData) => {
-          return orderData.orders.map((order) => {
-            return {
-              items: order.items,
-              agentId: order.agentId,
-              period: order.period,
-              id: order._id,
-            };
-          });
-        })
-      );
+  getRewards(period: any) {
+    return this.http.get(this.endPoint + '/rewards/' + period);
   }
 
-  getOrders() {
-    return this.http.get<{ orders: any }>(this.endPoint + 'orders').pipe(
-      map((orderData) => {
-        return orderData.orders.map((order) => {
-          return {
-            items: order.items,
-            agentId: order.agentId,
-            period: order.period,
-            id: order._id,
-          };
-        });
-      })
-    );
+  checkRewards(
+    period: string,
+    firstPrize: string,
+    downTwoPrize: string,
+    lastThreePrize1: string,
+    lastThreePrize2: string,
+    firstThreePrize1: string,
+    firstThreePrize2: string
+  ) {
+    const data = {
+      period: period,
+      firstPrize: firstPrize,
+      downTwoPrize: downTwoPrize,
+      lastThreePrize1: lastThreePrize1,
+      lastThreePrize2: lastThreePrize2,
+      firstThreePrize1: firstThreePrize1,
+      firstThreePrize2: firstThreePrize2
+    }
+    console.log(data)
+    return this.http.post(this.endPoint + '/rewards', data);
+  }
+
+  getOrderCheck(period: any, code: string) {
+    return this.http.get(this.endPoint + '/orders/check/' + period);
+  }
+
+  getItemsOrder(orderId: string) {
+    return this.http.get(this.endPoint + '/orders/' + orderId);
   }
 }

@@ -21,6 +21,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -43,6 +44,9 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
 import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { ChartsModule } from 'ng2-charts';
+import { CheckOrdersComponent } from './check-orders/check-orders.component';
+import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
+import { OrdersDetailDialogComponent } from './agents/orders-detail-dialog/orders-detail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +68,9 @@ import { ChartsModule } from 'ng2-charts';
     AgentCreateComponent,
     AgentOrderComponent,
     RewardCheckComponent,
+    CheckOrdersComponent,
+    OrdersDetailComponent,
+    OrdersDetailDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +94,8 @@ import { ChartsModule } from 'ng2-charts';
     MatSortModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

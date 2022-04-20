@@ -62,6 +62,7 @@ export class AgentOrderComponent implements OnInit {
   onSaveLists(form: NgForm) {
     this.ordersService.createOrder(
       this.agentId,
+      form.value.customer,
       form.value.period,
       this.items,
     ).subscribe((responseData) => {

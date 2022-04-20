@@ -13,6 +13,7 @@ const itemSchema = new Schema({
 });
 const orderSchema = new Schema(
   {
+    customer: {type: String, required: true },
     period: { type: String, required: true },
     items: [itemSchema],
     agentId: {
@@ -22,5 +23,7 @@ const orderSchema = new Schema(
   },
   { timestamps: true }
 );
+
+orderSchema.index({ period: "text"})
 
 module.exports = mongoose.model("Order", orderSchema);

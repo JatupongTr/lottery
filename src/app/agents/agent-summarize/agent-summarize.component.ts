@@ -2,14 +2,12 @@ import { OrdersService } from 'src/app/shared/orders.service';
 
 import { Agent } from './../agent.model';
 import { MatPaginator } from '@angular/material/paginator';
-import { AgentsService } from './../agents.service';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup, NgForm } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Order } from 'src/app/shared/order.model';
-import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-agent-summarize',
@@ -38,6 +36,7 @@ export class AgentSummarizeComponent implements OnInit {
   agentId: string;
   period: string;
   orderId: string;
+
   totalNet: "";
   totalTopTwoDigits: "";
   totalDownTwoDigits: "";
@@ -75,12 +74,9 @@ export class AgentSummarizeComponent implements OnInit {
         })
       this.ordersService.getTotalsCategory(this.agentId, this.period)
         .subscribe((totalCategory: any) => {
-          // this.totalTopTwoDigits
-          console.log(totalCategory.orders)
           if (totalCategory) {
             let order = totalCategory.orders
             for (let i = 0; i < order.length; i++) {
-              // let id  = totalCategory[0]._id
               if (order[i]._id === "downThreeDigits") {
                 this.totalDownThreeDigits = order[i].totals
               } else if (order[i]._id === "downTwoDigits") {

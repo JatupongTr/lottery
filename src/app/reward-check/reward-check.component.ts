@@ -1,9 +1,11 @@
+import { NgForm } from '@angular/forms';
+import { Item, Order } from './../shared/order.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { OrdersService } from 'src/app/shared/orders.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Item, Order } from '../shared/order.model';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-reward-check',
@@ -11,29 +13,47 @@ import { Item, Order } from '../shared/order.model';
   styleUrls: ['./reward-check.component.css'],
 })
 export class RewardCheckComponent implements OnInit {
-
-  @ViewChild(MatPaginator, {static: true }) paginator: MatPaginator;
-
   orders: Order[];
   period: string;
-  items: Item[]
+  items: Item[];
   orderSub: Subscription;
 
   textSearch: string;
 
   displayedColumns: string[] = [
-    'agentId',
-    'lottoNo',
-    'categoryId',
-    'price',
-    'discount',
-    'netPrice',
-  ]
-  dataSource = new MatTableDataSource<Order>();
+
+    'customer',
+    'actions',
+  ];
+  dataSource = new MatTableDataSource();
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild('sort') sort: MatSort;
 
   constructor(private ordersService: OrdersService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  // onCheckReward(form: NgForm) {
+  //   let value = form.value
+  //   this.ordersService.getRewards(value.period).subscribe((res: any) => {
+  //     this.dataSource = new MatTableDataSource(res)
+  //     this.dataSource.paginator = this.paginator
+  //     this.dataSource.sort = this.sort
+  //   })
+  // }
+
+  onCheckReward(form: NgForm) {
+    let value = form.value;
+    this.ordersService.checkRewards(
+      value.period,
+      value.firstPrize,
+      value.downTwoPrize,
+      value.lastThreePrize1,
+      value.lastThreePrize2,
+      value.firstThreePrize1,
+      value.firstThreePrize2
+    ).subscribe((res: any) => {
+      this.dataSource.data = res.lists
+    })
   }
 }

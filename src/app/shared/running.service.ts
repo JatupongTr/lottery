@@ -18,7 +18,7 @@ export class RunningService {
   constructor(private http: HttpClient) { }
 
   getRunningCategories() {
-    this.http.get<{ message: string, categories: any }>(this.endPoint + "categories/running")
+    this.http.get<{ message: string, categories: any }>(this.endPoint + "/categories/running")
     .pipe(
       map((categoryData) => {
         return categoryData.categories.map((category) => {

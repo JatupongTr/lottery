@@ -19,7 +19,7 @@ export class CategoriesService {
 
   getCategories() {
     this.http
-      .get<{ message: string; categories: any }>(this.endPoint + 'categories')
+      .get<{ message: string; categories: any }>(this.endPoint + '/categories')
       .pipe(
         map((categoryData) => {
           return categoryData.categories.map((category) => {
@@ -41,7 +41,7 @@ export class CategoriesService {
   getCategoriesTwo() {
     this.http
       .get<{ message: string; categories: any }>(
-        this.endPoint + 'categories/two'
+        this.endPoint + '/categories/two'
       )
       .pipe(
         map((categoryData) => {
@@ -64,7 +64,7 @@ export class CategoriesService {
   getCategoriesThree() {
     this.http
       .get<{ message: string; categories: any }>(
-        this.endPoint + 'categories/three'
+        this.endPoint + '/categories/three'
       )
       .pipe(
         map((categoryData) => {
@@ -88,12 +88,4 @@ export class CategoriesService {
     return this.categoriesChanged.asObservable();
   }
 
-  getCategory(id: string) {
-    return this.http.get<{
-      _id: string;
-      cate_id: string;
-      cate_name: string;
-      description: string;
-    }>('http://localhost:3000/api/categories/' + id);
-  }
 }

@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Agent } from '../agent.model';

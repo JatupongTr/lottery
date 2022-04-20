@@ -17,6 +17,7 @@ router.post("/:id", (req, res, next) => {
     items.push(item);
   }
   let newOrder = new Order({
+    customer: req.body.customer,
     period: req.body.period,
     items: req.body.items,
     agentId: req.params.id,
@@ -121,20 +122,33 @@ router.get("/total/:agentId/:period", (req, res, next) => {
 
 router.get("", (req, res, next) => {
   Order.aggregate([
-    // { $unwind: "$items" },
-    // {
-    //   $group: {
-    //     _id: "$items.categoryId.cate_id",
-    //     data: {
-    //       $push: "$$ROOT",
-    //     },
-    //     total: { $sum: "$items.netPrice" },
-    //   },
-    // },
-  ]).then((order) => {
-    res.status(200).json({
-      order: order,
+    { $unwind: "$items" },
+    {
+      $lookup: {
+        from: "agents",
+        localField: "agentId",
+        foreignField: "_id",
+        as: "agent",
+      },
+    },
+  ])
+    .sort({ "agent.code": 1 })
+    .then((order) => {
+      res.status(200).json(order);
     });
-  });
 });
+
+//check order
+router.get("/check/:period", (req, res, next) => {
+  let period = req.params.period;
+  Order.find({
+    period: period,
+  })
+    .populate("agentId")
+    .sort({"agent.code": 1})
+    .then((order) => {
+      res.status(200).json(order);
+    });
+});
+
 module.exports = router;

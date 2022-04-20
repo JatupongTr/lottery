@@ -25,38 +25,30 @@ export class AgentListComponent implements OnInit, OnDestroy {
   constructor(
     private agentsService: AgentsService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.agentsService.getAgents();
-    this.agentSub = this.agentsService.getAgentUpdatedListner()
+    this.agentSub = this.agentsService
+      .getAgentUpdatedListner()
       .subscribe((agents: Agent[]) => {
         this.dataSource.data = agents;
-      })
+      });
   }
-
   search(event: Event) {
     let filterValue = '';
     if (event) {
       filterValue = (event.target as HTMLInputElement).value;
     }
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-
-
-    // search(event: Event) {
-    //   let filterValue = '';
-    //   if (event) {
-    //     filterValue = (event.target as HTMLInputElement).value;
-    //   }
-    //   this.dataSource.filter = filterValue.trim().toLowerCase();
-    // }
-
-    // clearSearch() {
-    // this.textSearch = '';
-    // this.search(null);
+  clearSearch() {
+    this.textSearch = '';
+    this.search(null);
   }
 
   onEditAgent() {

@@ -52,9 +52,9 @@ export class AgentsService {
         this.agents = transformedAgent;
         this.agentChanged.next([...this.agents]);
       });
-      
+
   }
-  
+
 
   getAgentUpdatedListner() {
     return this.agentChanged.asObservable();
@@ -92,15 +92,6 @@ export class AgentsService {
       });
   }
 
-  // removeItemFromOrder(agentId: string, items: any) {
-  //   let data = {
-  //     id: items,
-  //   };
-  //   return this.http.post(
-  //     'http://localhost:3000/api/agents/order/remove/' + agentId,
-  //     data
-  //   )
-  // }
 
   deleteAgent(agentId: string) {
     this.http
