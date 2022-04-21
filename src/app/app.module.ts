@@ -46,7 +46,7 @@ import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { ChartsModule } from 'ng2-charts';
 import { CheckOrdersComponent } from './check-orders/check-orders.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
-import { OrdersDetailDialogComponent } from './agents/orders-detail-dialog/orders-detail-dialog.component';
+import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { OrdersDetailDialogComponent } from './agents/orders-detail-dialog/order
     RewardCheckComponent,
     CheckOrdersComponent,
     OrdersDetailComponent,
-    OrdersDetailDialogComponent
+    RewardCheckDialogComponent
   ],
   imports: [
     BrowserModule,

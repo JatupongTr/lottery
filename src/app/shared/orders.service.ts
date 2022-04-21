@@ -85,7 +85,6 @@ export class OrdersService {
       firstThreePrize1: firstThreePrize1,
       firstThreePrize2: firstThreePrize2
     }
-    console.log(data)
     return this.http.post(this.endPoint + '/rewards', data);
   }
 

@@ -5,7 +5,6 @@ import { NgForm } from '@angular/forms';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from '../shared/order.model';
 import { MatDialog } from '@angular/material/dialog';
-import { OrdersDetailDialogComponent } from '../agents/orders-detail-dialog/orders-detail-dialog.component';
 import { OrdersDetailComponent } from '../orders-detail/orders-detail.component';
 
 export interface DialogData {

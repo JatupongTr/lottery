@@ -22,29 +22,12 @@ router.post("", (req, res, next) => {
    // เลขโต๊ด
 
   Order.aggregate()
-    .match({
-      period: period,
-    })
-    .unwind("items")
-    .lookup({
-      from: "agents",
-      localField: "agentId",
-      foreignField: "_id",
-      as: "agent",
-    })
-    .project({
-      _id: 0,
-      period: 1,
-      customer: 1,
-      createdAt:1,
-      agent: {
-        code: 1,
-        name: 1,
-      },
-      items: 1,
-    })
+  .unwind({
+    path: "$items", preserveNullAndEmptyArrays: true
+  })
     .match({
       $and: [
+        { period: period },
         {
           $or: [
             {
@@ -88,8 +71,23 @@ router.post("", (req, res, next) => {
         },
       ],
     })
-    .group({ _id: "$agent.code", lists: { $push: "$$ROOT" } })
-    .sort({ agent: 1 })
+    .lookup({
+      from: "agents",
+      localField: "agentId",
+      foreignField: "_id",
+      as: "agent",
+    })
+    .project({
+      _id: 0,
+      period: 1,
+      customer: 1,
+      createdAt:1,
+      agent: 1,
+      items: 1,
+    })
+    .unwind("$agent")
+    .group({ _id: { customer: "$customer" , agent: "$agent"}, lists: { $push: "$$ROOT"}})
+    .sort({ "_id.agent.code": 1 })
     .then((order) => {
       console.log(arrLastThreePrize1)
       res.status(200).json(order);
