@@ -95,4 +95,13 @@ export class OrdersService {
   getItemsOrder(orderId: string) {
     return this.http.get(this.endPoint + '/orders/' + orderId);
   }
+
+  getCountOrders() {
+
+    return this.http.get(this.endPoint + 'count_orders')
+
+  }
+
+
+
 }
