@@ -1,0 +1,12 @@
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.noti {
+    margin: auto;
+    width: 60%;
+    border: 1px solid #fff;
+}

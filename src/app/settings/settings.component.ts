@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Setting, ItemLimit } from '../settings/setting.model';
+import { ItemLimit } from '../settings/setting.model';
 import { SettingsService } from '../settings/settings.service';
 
 @Component({
@@ -44,22 +44,21 @@ export class SettingsComponent implements OnInit {
 
   onSelect(select: string) {
     this.selectNumbersType = select;
-    console.log(this.selectNumbersType)
   }
   
   onSaveSettings(form: NgForm) {
     this.service.deleteSettings().subscribe()
 
     this.service.createKeepPrice(
-        form.value.toddThree,
-        form.value.topThree,
-        form.value.downThree,
-        form.value.firstThree,
-        form.value.lastThree,
-        form.value.topTwo,
-        form.value.downTwo,
-        form.value.topRunning,
-        form.value.downRunning,
+        form.value.toddThreeDigits,
+        form.value.topThreeDigits,
+        form.value.downThreeDigits,
+        form.value.firstThreeDigits,
+        form.value.lastThreeDigits,
+        form.value.topTwoDigits,
+        form.value.downTwoDigits,
+        form.value.topRunDigits,
+        form.value.downRunDigits,
     ).subscribe((res)=>{
     })
 

@@ -14,23 +14,29 @@ export class SettingsService {
 
   private endPoint = environment.endPoint;
 
-  createKeepPrice(toddThree: number, topThree: number, downThree: number, firstThree: number, lastThree: number, topTwo: number, downTwo: number, topRunning: number, downRunning: number) {
+  // Add getKeepPrice api
+  getKeepPrice() {
+    return this.http.get(
+    this.endPoint + '/settings');
+  }
+
+  createKeepPrice(toddThreeDigits: number, topThreeDigits: number, downThreeDigits: number, firstThreeDigits: number, lastThreeDigits: number, topTwoDigits: number, downTwoDigits: number, topRunDigits: number, downRunDigits: number) {
     const keepPrices = {
-      toddThree:   toddThree,
-      topThree:    topThree,
-      downThree:   downThree,
-      firstThree:  firstThree,
-      lastThree:   lastThree,
-      topTwo:      topTwo,
-      downTwo:     downTwo,
-      topRunning:  topRunning,
-      downRunning: downRunning
+      toddThreeDigits:   toddThreeDigits,
+      topThreeDigits:    topThreeDigits,
+      downThreeDigits:   downThreeDigits,
+      firstThreeDigits:  firstThreeDigits,
+      lastThreeDigits:   lastThreeDigits,
+      topTwoDigits:      topTwoDigits,
+      downTwoDigits:     downTwoDigits,
+      topRunDigits:  topRunDigits,
+      downRunDigits: downRunDigits
     };
-    return this.http.post(this.endPoint + 'settings/' , keepPrices);
+    return this.http.post(this.endPoint + '/settings/' , keepPrices);
   }
 
   deleteSettings(){
-    return this.http.delete(this.endPoint + 'settings')
+    return this.http.delete(this.endPoint + '/settings')
   }
 
   // Limit api
@@ -61,11 +67,11 @@ export class SettingsService {
   }
 
   createLimitNumber(item: ItemLimit[]) {
-    return this.http.post(this.endPoint + 'limit' , item);
+    return this.http.post(this.endPoint + '/limit' , item);
   }
 
   deleteLimitNumber(){
-    return this.http.delete(this.endPoint+ 'limit')
+    return this.http.delete(this.endPoint+ '/limit')
   }
 
 }

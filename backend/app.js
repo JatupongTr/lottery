@@ -6,7 +6,6 @@ const agentsRoutes = require("./routes/agents");
 const usersRoutes = require("./routes/users");
 const cateRoutes = require("./routes/categories");
 const orderRoutes = require("./routes/orders");
-const overviewsRoutes = require("./routes/overview");
 const rewardRoutes = require('./routes/rewards')
 const countRoutes = require("./routes/countOrder");
 const settingsRoutes = require("./routes/settings");
@@ -49,15 +48,13 @@ app.use("/api/categories", cateRoutes);
 
 app.use("/api/orders", orderRoutes);
 
-app.use("/api/overviews", overviewsRoutes);
 app.use("/api/count_orders", countRoutes);
 
 app.use("/api/settings", settingsRoutes);
 
 app.use("/api/limit", limitNumberRoutes);
 
-
-app.use('/api/rewards', rewardRoutes)
+app.use('/api/rewards', rewardRoutes);
 
 
 module.exports = app;

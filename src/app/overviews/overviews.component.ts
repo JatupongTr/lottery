@@ -119,10 +119,6 @@ export class OverviewsComponent implements OnInit {
         aspectRatio = 3.5;
   
       }
-    //   this.lineChartOptions.aspectRatio = aspectRatio;
-    //   this.chart.chart.aspectRatio = aspectRatio;
-    //   this.chart.chart.options.scales.xAxes[0].ticks.maxRotation =  window.innerWidth < 1100 ? 90 : 0;
-    //   this.chart.chart.options.scales.xAxes[0].ticks.minRotation =  window.innerWidth < 1100 ? 90 : 0;
     }
 
     //activity layout  
@@ -181,8 +177,6 @@ export class OverviewsComponent implements OnInit {
     ];
     public barHChartLabels: string[] = ['P', 'R', 'B'];
 
-
-
   // get orders
   orders: Order[];
   private ordersSub: Subscription;
@@ -217,7 +211,6 @@ export class OverviewsComponent implements OnInit {
     // get oders
     this.ordersService.getCountOrders().subscribe(( res : any ) => {
       this.countOrders = res.orders;
-      console.log(this.countOrders)
     })
 
   }

@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const settingsSchema = new Schema({
-    toddThree: { type: Number },
-    topThree: { type: Number },
-    downThree: { type: Number },    
-    firstThree: { type: Number },
-    lastThree: { type: Number },
-    topTwo: { type: Number },
-    downTwo: { type: Number },
-    topRunning: { type: Number },
-    downRunning: { type: Number }
+    toddThreeDigits: { type: Number },
+    topThreeDigits: { type: Number },
+    downThreeDigits: { type: Number },    
+    firstThreeDigits: { type: Number },
+    lastThreeDigits: { type: Number },
+    topTwoDigits: { type: Number },
+    downTwoDigits: { type: Number },
+    topRunDigits: { type: Number },
+    downRunDigits: { type: Number }
 });
 
 

@@ -50,7 +50,7 @@ export class CheckOrdersComponent implements OnInit, AfterViewInit {
 
   onCheckOrders(form: NgForm) {
     this.ordersService
-      .getOrderCheck(form.value.period, form.value.code)
+      .getOrderCheck(form.value.period)
       .subscribe((orderResponse: Order[]) => {
         this.dataSource.data = orderResponse;
       });

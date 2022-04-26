@@ -45,7 +45,6 @@ router.get("/totals/:agentId/:period", (req, res, next) => {
 router.post("/remove/:id", (req, res, next) => {
   const itemId = req.body.id;
   Order.findOne({ _id: req.params.id }).then((order) => {
-    console.log(order);
     order.items.pull(itemId);
     order.save().then((order) => {
       res.status(200).json({
@@ -111,6 +110,27 @@ router.get("/total/:agentId/:period", (req, res, next) => {
         netTotal: {
           $sum: "$items.netPrice",
         },
+      },
+    },
+  ]).then((order) => {
+    res.status(200).json({
+      Orders: order,
+    });
+  });
+});
+
+
+router.get("/total/:period", (req, res, next) => {
+  Order.aggregate([
+    {
+      $match: {
+        $and: [
+          { period: req.params.period },
+        ],
+      },
+    },
+    {
+      $addFields: {
       },
     },
   ]).then((order) => {

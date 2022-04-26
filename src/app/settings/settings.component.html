@@ -5,59 +5,59 @@
       <div class="row mb-2">
         <p class="pt-2 col-2">3 ตัวโต๊ด</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="toddThree" ngModel />
+          <input class="form-control" type="number" name="toddThreeDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">3 ตัวบน</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="topThree" ngModel />
+          <input class="form-control" type="number" name="topThreeDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">3 ตัวล่าง</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="downThree" ngModel />
+          <input class="form-control" type="number" name="downThreeDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">3 ตัวหน้า</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="firstThree" ngModel />
+          <input class="form-control" type="number" name="firstThreeDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">3 ตัวท้าย</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="lastThree" ngModel />
+          <input class="form-control" type="number" name="lastThreeDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">2 ตัวบน</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="topTwo" ngModel />
+          <input class="form-control" type="number" name="topTwoDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">2 ตัวล่าง</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="downTwo" ngModel />
+          <input class="form-control" type="number" name="downTwoDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">วิ่งบน</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="topRunning" ngModel />
+          <input class="form-control" type="number" name="topRunDigits" ngModel />
         </div>
       </div>
       <div class="row mb-2">
         <p class="pt-2 col-2">วิ่งล่าง</p>
         <div class="col-5">
-          <input class="form-control" type="number" name="downRunning" ngModel />
+          <input class="form-control" type="number" name="downRunDigits" ngModel />
         </div>
       </div>
-      <div class="text-center" type="submit">
-        <button class="btn btn-primary">บันทึกค่าเก็บ</button>
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit">บันทึกค่าเก็บ</button>
       </div>
     </form>
   </div>
@@ -65,33 +65,31 @@
   <div class="col">
     <h1>ตั้งค่าเลขอั้น</h1>
     <form (submit)="onSubmit(submitForm)" #submitForm="ngForm">
-      <div class="row">
-        <div class="col">
-          <div class="row mb-2">
-            <p class="pt-2 col-2">เลข</p>
-            <div class="col-5">
-              <input type="number" class="form-control" name="limitNumber" ngModel />
-            </div>
-          </div>
-          <div class="text-center">
-            <button class="btn btn-primary" type="button" (click)="onSaveNumber(submitForm)">+ เพิ่มเลขอั้น</button>
-          </div>
-        </div>
-        <div class="col">
-          <div class="radio" *ngFor="let typeNumber of typeNumbers">
-            <label>
-              <input
-                type="radio"
-                name="typeNumber"
-                ngModel
-                [value]="typeNumber"
-                required>
-              {{ typeNumber }}
-            </label>
-          </div>
+      <div class="row mb-2">
+        <p class="pt-2 col-2">เลข</p>
+        <div class="col-5">
+          <input type="number" class="form-control" name="limitNumber" ngModel />
         </div>
       </div>
-
+      
+      <div class="row  row-cols-4">
+        <div class="radio m-2" *ngFor="let typeNumber of typeNumbers">
+          <label class="btn btn-outline-primary">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="typeNumber"
+              ngModel
+              [value]="typeNumber"
+              required>
+            {{ typeNumber }}
+          </label>
+        </div>
+        <div class="col-2 mt-2">
+          <button class="btn btn-primary" type="button" (click)="onSaveNumber(submitForm)">+ เพิ่มเลขอั้น</button>
+        </div>
+      </div>
+      
       <div class="col position-relative">
         <!-- table -->
         <table class="table table-borderless">
@@ -116,7 +114,7 @@
           </tbody>
         </table>
         <div class="container">
-          <div class="col-md-6">
+          <div class="col-md-9">
             <div class="submitList" style="float: right">
               <button class="btn btn-primary" type="submit" (click)="onSubmit">บันทึกเลขอั้น</button>
             </div>
