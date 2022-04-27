@@ -97,9 +97,7 @@ export class OrdersService {
   }
 
   getCountOrders() {
-
-    return this.http.get(this.endPoint + 'count_orders')
-
+    return this.http.get(this.endPoint + '/count_orders')
   }
 
 

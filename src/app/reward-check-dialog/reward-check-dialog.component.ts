@@ -16,6 +16,9 @@ export class RewardCheckDialogComponent implements OnInit {
   ) {}
 
   lists: DialogData[]
+  agent: string;
+  customer: string;
+  period: string;
 
   dataSource = new MatTableDataSource<DialogData>();
   displayedColumns: string[] = [
@@ -28,5 +31,8 @@ export class RewardCheckDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.data = this.data.lists
+    this.customer = this.data.lists[0].customer
+    this.agent = this.data.lists[0].agent.code
+    this.period = this.data.lists[0].period
   }
 }

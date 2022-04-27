@@ -3,12 +3,12 @@
     <div class="d-flex">
       <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
         <i class="fa fa-solid fa-user-group fs-2"></i>
-        <p class="pt-2 fs-4">{{ dataSource.data.length }}</p>
+        <p class="pt-2 fs-4"></p>
         <p>ตัวแทน</p>
       </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50" >
         <i class="fa-solid fa-clipboard-check fs-2"></i>
-        <p class="pt-2 fs-4">{{ countOrders.length }}</p>
+        <p class="pt-2 fs-4"></p>
         <p>จำนวนโพย</p>
       </div>
       <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
@@ -24,12 +24,12 @@
     </div>
     <h2 class="m-4 border border-1 rounded-2 text-center pt-3" style="width: 80%;">
       ยอดรายได้
-      <canvas baseChart 
-        [datasets]="lineChartData" 
-        [labels]="lineChartLabels" 
+      <canvas baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
         [options]="lineChartOptions"
-        [colors]="lineChartColors" 
-        [legend]="lineChartLegend" 
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
         [chartType]="lineChartType">
       </canvas>
     </h2>
@@ -40,7 +40,7 @@
     </mat-card>
     <h2 class="m-4 border border-1 rounded-2 text-center pt-3">กิจกรรม
       <canvas baseChart
-        [datasets]="barChartData"  
+        [datasets]="barChartData"
         [labels]="barChartLabels"
         [colors]="barChartColors"
         [options]="barChartOptions"
@@ -88,15 +88,15 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table> 
+      </table>
   </div>
   <div class="col-8">
     <h2 class="m-4 border border-1 rounded-2 text-center pt-3">เลขยอดนิยม
-      <canvas class="popular-num" baseChart [datasets]="barHChartData" 
-        [labels]="barHChartLabels" 
+      <canvas class="popular-num" baseChart [datasets]="barHChartData"
+        [labels]="barHChartLabels"
         [options]="barHChartOptions"
         [colors]="barHChartColors"
-        [legend]="barHChartLegend" 
+        [legend]="barHChartLegend"
         [chartType]="barHChartType">
       </canvas>
     </h2>

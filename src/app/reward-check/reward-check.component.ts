@@ -39,7 +39,8 @@ export class RewardCheckComponent implements OnInit {
 
   constructor(private ordersService: OrdersService, public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   // onCheckReward(form: NgForm) {
   //   let value = form.value

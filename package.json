@@ -38,6 +38,7 @@
     "mongoose-unique-validator": "^3.0.0",
     "ng2-charts": "^2.4.3",
     "ngx-pagination": "^5.1.1",
+    "ngx-print": "^1.2.1",
     "rxfire": "^6.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

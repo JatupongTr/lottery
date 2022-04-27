@@ -15,16 +15,31 @@ router.post("", (req, res, next) => {
   const sliceFirstPrize = firstPrize.slice(-2);
   const sliceTopThree = firstPrize.slice(-3);
 
-  const arrSplit = [...downTwoPrize]
-  const arrSplitTop = [...sliceFirstPrize]
-  const arrLastThreePrize1 = [...lastThreePrize1]
+  const arrSplit = [...downTwoPrize];
+  const arrSplitTop = [...sliceFirstPrize];
 
-   // เลขโต๊ด
+  // เลขโต๊ด
+  const stringPermutations = (str) => {
+    if (str.length <= 2)
+      return str.length === 2 ? [str, str[1] + str[0]] : [str];
+    return str
+      .split("")
+      .reduce(
+        (acc, letter, i) =>
+          acc.concat(
+            stringPermutations(str.slice(0, i) + str.slice(i + 1)).map(
+              (val) => letter + val
+            )
+          ),
+        []
+      );
+  };
 
   Order.aggregate()
-  .unwind({
-    path: "$items", preserveNullAndEmptyArrays: true
-  })
+    .unwind({
+      path: "$items",
+      preserveNullAndEmptyArrays: true,
+    })
     .match({
       $and: [
         { period: period },
@@ -55,18 +70,34 @@ router.post("", (req, res, next) => {
               "items.lottoNo": { $eq: sliceFirstPrize },
             },
             {
-              "items.categoryId.cate_id": { $eq: "topThreeDigits"},
-              "items.lottoNo": { $eq: sliceTopThree }
+              "items.categoryId.cate_id": { $eq: "topThreeDigits" },
+              "items.lottoNo": { $eq: sliceTopThree },
             },
             {
-              "items.categoryId.cate_id": { $eq: "downRunDigits"},
-              "items.lottoNo": { $in: arrSplit}
+              "items.categoryId.cate_id": { $eq: "downRunDigits" },
+              "items.lottoNo": { $in: arrSplit },
             },
             {
-              "items.categoryId.cate_id": { $eq: "topRunDigits"},
-              "items.lottoNo": { $in: arrSplitTop}
+              "items.categoryId.cate_id": { $eq: "topRunDigits" },
+              "items.lottoNo": { $in: arrSplitTop },
             },
             //todd
+            {
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
+              "items.lottoNo": { $in: stringPermutations(lastThreePrize1)}
+            },
+            {
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
+              "items.lottoNo": { $in: stringPermutations(lastThreePrize2)}
+            },
+            {
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
+              "items.lottoNo": { $in: stringPermutations(firstThreePrize1)}
+            },
+            {
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
+              "items.lottoNo": { $in: stringPermutations(firstThreePrize2)}
+            }
           ],
         },
       ],
@@ -81,18 +112,19 @@ router.post("", (req, res, next) => {
       _id: 0,
       period: 1,
       customer: 1,
-      createdAt:1,
+      createdAt: 1,
       agent: 1,
       items: 1,
     })
     .unwind("$agent")
-    .group({ _id: { customer: "$customer" , agent: "$agent"}, lists: { $push: "$$ROOT"}})
+    .group({
+      _id: { customer: "$customer", agent: "$agent" },
+      lists: { $push: "$$ROOT" },
+    })
     .sort({ "_id.agent.code": 1 })
     .then((order) => {
-      console.log(arrLastThreePrize1)
       res.status(200).json(order);
     });
 });
-
 
 module.exports = router;

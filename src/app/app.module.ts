@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPrintModule } from 'ngx-print';
 
 import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -87,6 +88,7 @@ import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-d
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    NgxPrintModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
