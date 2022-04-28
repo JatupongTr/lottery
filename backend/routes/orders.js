@@ -72,6 +72,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+
 router.get("/total/category/:agentId/:period", (req, res, next) => {
   Order.aggregate([
     {
@@ -120,6 +121,8 @@ router.get("/total/:agentId/:period", (req, res, next) => {
   });
 });
 
+
+//test
 router.get("", (req, res, next) => {
   Order.aggregate([
     { $unwind: "$items" },
@@ -130,6 +133,14 @@ router.get("", (req, res, next) => {
         foreignField: "_id",
         as: "agent",
       },
+    },
+    {
+      $lookup: {
+        from: "limits",
+        localField: "categoryId.id",
+        foreignField: "category.cate_id",
+        as: "limitPrice"
+      }
     },
   ])
     .sort({ "agent.code": 1 })

@@ -83,21 +83,21 @@ router.post("", (req, res, next) => {
             },
             //todd
             {
-              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
-              "items.lottoNo": { $in: stringPermutations(lastThreePrize1)}
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits" },
+              "items.lottoNo": { $in: stringPermutations(lastThreePrize1) },
             },
             {
-              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
-              "items.lottoNo": { $in: stringPermutations(lastThreePrize2)}
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits" },
+              "items.lottoNo": { $in: stringPermutations(lastThreePrize2) },
             },
             {
-              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
-              "items.lottoNo": { $in: stringPermutations(firstThreePrize1)}
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits" },
+              "items.lottoNo": { $in: stringPermutations(firstThreePrize1) },
             },
             {
-              "items.categoryId.cate_id": { $eq: "toddThreeDigits"},
-              "items.lottoNo": { $in: stringPermutations(firstThreePrize2)}
-            }
+              "items.categoryId.cate_id": { $eq: "toddThreeDigits" },
+              "items.lottoNo": { $in: stringPermutations(firstThreePrize2) },
+            },
           ],
         },
       ],
@@ -115,6 +115,18 @@ router.post("", (req, res, next) => {
       createdAt: 1,
       agent: 1,
       items: 1,
+      totalRewards: {
+        // $multiply: ["$items.price", 70]
+        $cond: {
+          if: {
+            $eq: ["$items.categoryId.cate_id", "downTwoDigits"]
+          },
+          then: {
+            $multiply: ["$items.price", 70]
+          },
+          else: "no Reward"
+        }
+      },
     })
     .unwind("$agent")
     .group({
