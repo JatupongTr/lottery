@@ -12,7 +12,6 @@ import { MatSort } from '@angular/material/sort';
 export interface DialogData {
   lists: any;
 }
-
 @Component({
   selector: 'app-reward-check',
   templateUrl: './reward-check.component.html',

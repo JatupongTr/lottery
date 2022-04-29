@@ -119,19 +119,115 @@ router.post("", (req, res, next) => {
         // $multiply: ["$items.price", 70]
         $cond: {
           if: {
-            $eq: ["$items.categoryId.cate_id", "downTwoDigits"]
+            $eq: ["$items.categoryId.cate_id", "downTwoDigits"],
           },
           then: {
-            $multiply: ["$items.price", 70]
+            $multiply: ["$items.price", 70],
           },
-          else: "no Reward"
-        }
+          else: {
+            $cond: {
+              if: {
+                $eq: ["$items.categoryId.cate_id", "topTwoDigits"],
+              },
+              then: {
+                $multiply: ["$items.price", 70],
+              },
+              else: {
+                $cond: {
+                  if: {
+                    $eq: ["$items.categoryId.cate_id", "lastThreeDigits"],
+                  },
+                  then: {
+                    $multiply: ["$items.price", 700],
+                  },
+                  else: {
+                    $cond: {
+                      if: {
+                        $eq: ["$items.categoryId.cate_id", "firstThreeDigits"],
+                      },
+                      then: {
+                        $multiply: ["$items.price", 700],
+                      },
+                      else: {
+                        $cond: {
+                          if: {
+                            $eq: [
+                              "$items.categoryId.cate_id",
+                              "topThreeDigits",
+                            ],
+                          },
+                          then: {
+                            $multiply: ["$items.price", 700],
+                          },
+                          else: {
+                            $cond: {
+                              if: {
+                                $eq: [
+                                  "$items.categoryId.cate_id",
+                                  "downThreeDigits",
+                                ],
+                              },
+                              then: {
+                                $multiply: ["$items.price", 700],
+                              },
+                              else: {
+                                $cond: {
+                                  if: {
+                                    $eq: [
+                                      "$items.categoryId.cate_id",
+                                      "toddThreeDigits",
+                                    ],
+                                  },
+                                  then: {
+                                    $multiply: ["$items.price", 700],
+                                  },
+                                  else: {
+                                    $cond: {
+                                      if: {
+                                        $eq: [
+                                          "$items.categoryId.cate_id",
+                                          "topRunDigits",
+                                        ],
+                                      },
+                                      then: {
+                                        $multiply: ["$items.price", 700],
+                                      },
+                                      else: {
+                                        $cond: {
+                                          if: {
+                                            $eq: [
+                                              "$items.categoryId.cate_id",
+                                              "downRunDigits",
+                                            ],
+                                          },
+                                          then: {
+                                            $multiply: ["$items.price", 700],
+                                          },
+                                          else: "no Reward",
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     })
     .unwind("$agent")
     .group({
       _id: { customer: "$customer", agent: "$agent" },
       lists: { $push: "$$ROOT" },
+      totals: { $sum: "$totalRewards"}
     })
     .sort({ "_id.agent.code": 1 })
     .then((order) => {

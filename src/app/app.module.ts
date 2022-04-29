@@ -39,6 +39,7 @@ import { AgentEditComponent } from './agents/agent-edit/agent-edit.component';
 import { AgentListComponent } from './agents/agent-list/agent-list.component';
 import { OverviewsComponent } from './overviews/overviews.component';
 import { SettingsComponent } from './settings/settings.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 /* import { PrizesComponent } from './prizes/prizes.component';
@@ -70,6 +71,7 @@ import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-d
     AgentListComponent,
     OverviewsComponent,
     SettingsComponent,
+    NotificationsComponent,
     LoadingSpinnerComponent,
     AgentSummarizeComponent,
     AgentCreateComponent,

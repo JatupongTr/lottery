@@ -50,6 +50,12 @@ export class OrdersService {
     );
   }
 
+  getTotalPeriod(period: string) {
+    return this.http.get(
+      this.endPoint + '/orders/total/' + period
+    );
+  }
+
   getTotalsCategory(agentId: string, period: string) {
     return this.http.get(
       this.endPoint + '/orders/total/category/' + agentId + '/' + period
@@ -88,7 +94,7 @@ export class OrdersService {
     return this.http.post(this.endPoint + '/rewards', data);
   }
 
-  getOrderCheck(period: any, code: string) {
+  getOrderCheck(period: any) {
     return this.http.get(this.endPoint + '/orders/check/' + period);
   }
 
@@ -97,7 +103,9 @@ export class OrdersService {
   }
 
   getCountOrders() {
+
     return this.http.get(this.endPoint + '/count_orders')
+
   }
 
 

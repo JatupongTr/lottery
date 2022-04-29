@@ -14,23 +14,34 @@ export class SettingsService {
 
   private endPoint = environment.endPoint;
 
-  createKeepPrice(toddThree: number, topThree: number, downThree: number, firstThree: number, lastThree: number, topTwo: number, downTwo: number, topRunning: number, downRunning: number) {
+  // Add getKeepPrice api
+  getKeepPrice() {
+    return this.http.get(
+    this.endPoint + '/settings');
+  }
+
+  getTotalOrders() {
+    return this.http.get(
+    this.endPoint + '/settings' + '/totalOrders');
+  }
+
+  createKeepPrice(toddThreeDigits: number, topThreeDigits: number, downThreeDigits: number, firstThreeDigits: number, lastThreeDigits: number, topTwoDigits: number, downTwoDigits: number, topRunDigits: number, downRunDigits: number) {
     const keepPrices = {
-      toddThree:   toddThree,
-      topThree:    topThree,
-      downThree:   downThree,
-      firstThree:  firstThree,
-      lastThree:   lastThree,
-      topTwo:      topTwo,
-      downTwo:     downTwo,
-      topRunning:  topRunning,
-      downRunning: downRunning
+      toddThreeDigits:   toddThreeDigits,
+      topThreeDigits:    topThreeDigits,
+      downThreeDigits:   downThreeDigits,
+      firstThreeDigits:  firstThreeDigits,
+      lastThreeDigits:   lastThreeDigits,
+      topTwoDigits:      topTwoDigits,
+      downTwoDigits:     downTwoDigits,
+      topRunDigits:  topRunDigits,
+      downRunDigits: downRunDigits
     };
-    return this.http.post(this.endPoint + 'settings/' , keepPrices);
+    return this.http.post(this.endPoint + '/settings/' , keepPrices);
   }
 
   deleteSettings(){
-    return this.http.delete(this.endPoint + 'settings')
+    return this.http.delete(this.endPoint + '/settings')
   }
 
   // Limit api
@@ -61,11 +72,58 @@ export class SettingsService {
   }
 
   createLimitNumber(item: ItemLimit[]) {
-    return this.http.post(this.endPoint + 'limit' , item);
+    return this.http.post(this.endPoint + '/limit' , item);
   }
 
   deleteLimitNumber(){
-    return this.http.delete(this.endPoint+ 'limit')
+    return this.http.delete(this.endPoint+ '/limit')
+  }
+
+  //post limit num
+  postLimitNum(toddThreeDigits: number, topThreeDigits: number, downThreeDigits: number, firstThreeDigits: number, lastThreeDigits: number, topTwoDigits: number, downTwoDigits: number, topRunDigits: number, downRunDigits: number) {
+    const limitPrices = [
+      {
+          "limitPrice" : toddThreeDigits,
+          "category": "623966cadb01ff9ee525f1df"
+      },
+      {
+          "limitPrice" : topThreeDigits,
+          "category": "623966e2db01ff9ee525f1e1"
+      },
+      {
+          "limitPrice" : downThreeDigits,
+          "category": "623966f7db01ff9ee525f1e3"
+      },
+      {
+          "limitPrice" : firstThreeDigits,
+          "category": "623966b9db01ff9ee525f1dd"
+      },
+      {
+          "limitPrice" : lastThreeDigits,
+          "category": "62396709db01ff9ee525f1e5"
+      },
+      {
+          "limitPrice" : topTwoDigits,
+          "category": "62396645db01ff9ee525f1d5"
+      },
+      {
+          "limitPrice" : downTwoDigits,
+          "category": "62396654db01ff9ee525f1d7"
+      },
+      {
+          "limitPrice" : topRunDigits,
+          "category": "6239666ddb01ff9ee525f1d9"
+      },
+      {
+          "limitPrice" : downRunDigits,
+          "category": "6239667edb01ff9ee525f1db"
+      }
+    ];
+    return this.http.post(this.endPoint + '/limitPrice/' , limitPrices);
+  }
+
+  deleteLimitPrice(){
+    return this.http.delete(this.endPoint+ '/limitPrice')
   }
 
 }
