@@ -1,13 +1,13 @@
 export interface Setting {
-    toddThreeDigits:   number;
-    topThreeDigits:    number;
-    downThreeDigits:   number;
-    firstThreeDigits:  number;
-    lastThreeDigits:   number;
-    topTwoDigits:      number;
-    downTwoDigits:     number;
-    topRunDigits:  number;
-    downRunDigits: number;
+  toddThreeDigits: number,
+  topThreeDigits: number,
+  downThreeDigits: number,    
+  firstThreeDigits: number,
+  lastThreeDigits: number,
+  topTwoDigits: number,
+  downTwoDigits: number,
+  topRunDigits: number,
+  downRunDigits: number
 }
 
 export class ItemLimit {

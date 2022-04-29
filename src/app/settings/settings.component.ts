@@ -42,14 +42,29 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  onSelect(select: string) {
+  /* onSelect(select: string) {
     this.selectNumbersType = select;
-  }
+  } */
   
   onSaveSettings(form: NgForm) {
-    this.service.deleteSettings().subscribe()
+    /* this.service.deleteSettings().subscribe() */
 
-    this.service.createKeepPrice(
+    /* this.service.createKeepPrice(
+        form.value.toddThreeDigits,
+        form.value.topThreeDigits,
+        form.value.downThreeDigits,
+        form.value.firstThreeDigits,
+        form.value.lastThreeDigits,
+        form.value.topTwoDigits,
+        form.value.downTwoDigits,
+        form.value.topRunDigits,
+        form.value.downRunDigits,
+    ).subscribe((res)=>{
+    }) */
+    
+    this.service.deleteLimitPrice().subscribe()
+
+    this.service.postLimitNum(
         form.value.toddThreeDigits,
         form.value.topThreeDigits,
         form.value.downThreeDigits,
@@ -65,7 +80,7 @@ export class SettingsComponent implements OnInit {
     form.resetForm()
   }
 
-  // change name aunn = limit
+  // limit number
 
   onSubmit(form: NgForm) {
     this.service.deleteLimitNumber().subscribe()

@@ -20,6 +20,11 @@ export class SettingsService {
     this.endPoint + '/settings');
   }
 
+  getTotalOrders() {
+    return this.http.get(
+    this.endPoint + '/settings' + '/totalOrders');
+  }
+
   createKeepPrice(toddThreeDigits: number, topThreeDigits: number, downThreeDigits: number, firstThreeDigits: number, lastThreeDigits: number, topTwoDigits: number, downTwoDigits: number, topRunDigits: number, downRunDigits: number) {
     const keepPrices = {
       toddThreeDigits:   toddThreeDigits,
@@ -72,6 +77,53 @@ export class SettingsService {
 
   deleteLimitNumber(){
     return this.http.delete(this.endPoint+ '/limit')
+  }
+
+  //post limit num
+  postLimitNum(toddThreeDigits: number, topThreeDigits: number, downThreeDigits: number, firstThreeDigits: number, lastThreeDigits: number, topTwoDigits: number, downTwoDigits: number, topRunDigits: number, downRunDigits: number) {
+    const limitPrices = [
+      {
+          "limitPrice" : toddThreeDigits,
+          "category": "623966cadb01ff9ee525f1df"
+      },
+      {
+          "limitPrice" : topThreeDigits,
+          "category": "623966e2db01ff9ee525f1e1"
+      },
+      {
+          "limitPrice" : downThreeDigits,
+          "category": "623966f7db01ff9ee525f1e3"
+      },
+      {
+          "limitPrice" : firstThreeDigits,
+          "category": "623966b9db01ff9ee525f1dd"
+      },
+      {
+          "limitPrice" : lastThreeDigits,
+          "category": "62396709db01ff9ee525f1e5"
+      },
+      {
+          "limitPrice" : topTwoDigits,
+          "category": "62396645db01ff9ee525f1d5"
+      },
+      {
+          "limitPrice" : downTwoDigits,
+          "category": "62396654db01ff9ee525f1d7"
+      },
+      {
+          "limitPrice" : topRunDigits,
+          "category": "6239666ddb01ff9ee525f1d9"
+      },
+      {
+          "limitPrice" : downRunDigits,
+          "category": "6239667edb01ff9ee525f1db"
+      }
+    ];
+    return this.http.post(this.endPoint + '/limitPrice/' , limitPrices);
+  }
+
+  deleteLimitPrice(){
+    return this.http.delete(this.endPoint+ '/limitPrice')
   }
 
 }

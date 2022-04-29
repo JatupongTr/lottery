@@ -19,7 +19,7 @@ router.post("", (req, res, next) => {
 
   keepPrices.save().then((settings) => {
     res.status(201).json({
-      message: "set up successfully",
+      message: "set up limit successfully",
       settings
     });
   });
@@ -35,6 +35,7 @@ router.get("", (req, res, next) => {
 });
 
 router.get("/totalOrders", (req, res, next) => {
+  
   Order.aggregate([
     /* {
       $match: {
@@ -49,7 +50,16 @@ router.get("/totalOrders", (req, res, next) => {
       $group: {
         _id: "$items.categoryId.cate_id",
         totals: { $sum: "$items.netPrice" },
+        /* lists: {$push: "$$ROOT"} */
       },
+    },
+    {
+      $lookup: {
+        from: "limits",
+        localField: "categoryId.id",
+        foreignField: "category.cate_id",
+        as: "limitPrice"
+      }
     },
     /* {
       $sort: {
@@ -61,6 +71,34 @@ router.get("/totalOrders", (req, res, next) => {
       orders: result,
     });
   });
+
+});
+
+//test ยอดเกิน
+router.get("/testOrders", (req, res, next) => {
+  Order.aggregate([
+    { $unwind: "$items" },
+    {
+      $lookup: {
+        from: "agents",
+        localField: "agentId",
+        foreignField: "_id",
+        as: "agent",
+      },
+    },
+    {
+      $lookup: {
+        from: "limits",
+        localField: "categoryId.id",
+        foreignField: "category.cate_id",
+        as: "limitPrice"
+      }
+    },
+  ])
+    .sort({ "agent.code": 1 })
+    .then((order) => {
+      res.status(200).json(order);
+    });
 });
 
 router.delete("", (req, res, next) => {

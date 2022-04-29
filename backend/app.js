@@ -10,6 +10,7 @@ const rewardRoutes = require('./routes/rewards')
 const countRoutes = require("./routes/countOrder");
 const settingsRoutes = require("./routes/settings");
 const limitNumberRoutes = require("./routes/limitNumber");
+const limitPrice = require("./routes/limitNum");
 
 const app = express();
 
@@ -53,6 +54,8 @@ app.use("/api/count_orders", countRoutes);
 app.use("/api/settings", settingsRoutes);
 
 app.use("/api/limit", limitNumberRoutes);
+
+app.use("/api/limitPrice", limitPrice)
 
 app.use('/api/rewards', rewardRoutes);
 
