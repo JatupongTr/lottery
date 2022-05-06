@@ -48,7 +48,7 @@ router.get("/totalOrders", (req, res, next) => {
     { $unwind: "$items" },
     {
       $group: {
-        _id: "$items.categoryId.cate_id",
+        _id: "$items.categoryId.id",
         totals: { $sum: "$items.netPrice" },
         // lists: {$push: "$$ROOT"}
       },
@@ -56,7 +56,7 @@ router.get("/totalOrders", (req, res, next) => {
     {
       $lookup: {
         from: "limits",
-        localField: "_id",
+        localField: "categoryId.id",
         foreignField: "category.cate_id",
         as: "limitPrice"
       }
@@ -74,33 +74,6 @@ router.get("/totalOrders", (req, res, next) => {
     });
   });
 
-});
-
-//test ยอดเกิน
-router.get("/testOrders", (req, res, next) => {
-  Order.aggregate([
-    { $unwind: "$items" },
-    {
-      $lookup: {
-        from: "agents",
-        localField: "agentId",
-        foreignField: "_id",
-        as: "agent",
-      },
-    },
-    {
-      $lookup: {
-        from: "limits",
-        localField: "categoryId.id",
-        foreignField: "category.cate_id",
-        as: "limitPrice"
-      }
-    },
-  ])
-    .sort({ "agent.code": 1 })
-    .then((order) => {
-      res.status(200).json(order);
-    });
 });
 
 router.delete("", (req, res, next) => {
