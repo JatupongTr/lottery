@@ -116,13 +116,12 @@ router.post("", (req, res, next) => {
       agent: 1,
       items: 1,
       totalRewards: {
-        // $multiply: ["$items.price", 70]
         $cond: {
           if: {
             $eq: ["$items.categoryId.cate_id", "downTwoDigits"],
           },
           then: {
-            $multiply: ["$items.price", 70],
+            $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
           },
           else: {
             $cond: {
@@ -130,7 +129,7 @@ router.post("", (req, res, next) => {
                 $eq: ["$items.categoryId.cate_id", "topTwoDigits"],
               },
               then: {
-                $multiply: ["$items.price", 70],
+                $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
               },
               else: {
                 $cond: {
@@ -138,7 +137,7 @@ router.post("", (req, res, next) => {
                     $eq: ["$items.categoryId.cate_id", "lastThreeDigits"],
                   },
                   then: {
-                    $multiply: ["$items.price", 700],
+                    $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                   },
                   else: {
                     $cond: {
@@ -146,7 +145,7 @@ router.post("", (req, res, next) => {
                         $eq: ["$items.categoryId.cate_id", "firstThreeDigits"],
                       },
                       then: {
-                        $multiply: ["$items.price", 700],
+                        $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                       },
                       else: {
                         $cond: {
@@ -157,7 +156,7 @@ router.post("", (req, res, next) => {
                             ],
                           },
                           then: {
-                            $multiply: ["$items.price", 700],
+                            $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                           },
                           else: {
                             $cond: {
@@ -168,7 +167,7 @@ router.post("", (req, res, next) => {
                                 ],
                               },
                               then: {
-                                $multiply: ["$items.price", 700],
+                                $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                               },
                               else: {
                                 $cond: {
@@ -179,7 +178,7 @@ router.post("", (req, res, next) => {
                                     ],
                                   },
                                   then: {
-                                    $multiply: ["$items.price", 700],
+                                    $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                                   },
                                   else: {
                                     $cond: {
@@ -190,7 +189,7 @@ router.post("", (req, res, next) => {
                                         ],
                                       },
                                       then: {
-                                        $multiply: ["$items.price", 700],
+                                        $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                                       },
                                       else: {
                                         $cond: {
@@ -201,7 +200,7 @@ router.post("", (req, res, next) => {
                                             ],
                                           },
                                           then: {
-                                            $multiply: ["$items.price", 700],
+                                            $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
                                           },
                                           else: "no Reward",
                                         },

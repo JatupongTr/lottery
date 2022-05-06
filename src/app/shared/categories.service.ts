@@ -27,6 +27,7 @@ export class CategoriesService {
               cate_id: category.cate_id,
               cate_name: category.cate_name,
               description: category.description,
+              rewardPrice: category.rewardPrice,
               id: category._id,
             };
           });
@@ -50,6 +51,7 @@ export class CategoriesService {
               cate_id: category.cate_id,
               cate_name: category.cate_name,
               description: category.description,
+              rewardPrice: category.rewardPrice,
               id: category._id,
             };
           });
@@ -73,6 +75,7 @@ export class CategoriesService {
               cate_id: category.cate_id,
               cate_name: category.cate_name,
               description: category.description,
+              rewardPrice: category.rewardPrice,
               id: category._id,
             };
           });

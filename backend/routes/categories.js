@@ -77,4 +77,15 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
+router.put('/:id', (req, res, next) => {
+  const category = new Category({
+    _id: req.body.id,
+    cate_id: req.body.cate_id,
+    rewardPrice: req.body.rewardPrice,
+  })
+  Category.updateOne({ _id: req.params.id }, category).then(result => {
+    res.status(200).json(category)
+  })
+})
+
 module.exports = router;

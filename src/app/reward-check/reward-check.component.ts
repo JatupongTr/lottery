@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 
 export interface DialogData {
   lists: any;
+  totals: any;
 }
 @Component({
   selector: 'app-reward-check',
@@ -41,22 +42,14 @@ export class RewardCheckComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // onCheckReward(form: NgForm) {
-  //   let value = form.value
-  //   this.ordersService.getRewards(value.period).subscribe((res: any) => {
-  //     this.dataSource = new MatTableDataSource(res)
-  //     this.dataSource.paginator = this.paginator
-  //     this.dataSource.sort = this.sort
-  //   })
-  // }
-
-  onClick(data: any) {
-    console.log(data)
+  onClick(data: any, totals: any) {
+    console.log(totals)
     this.dialog.open(RewardCheckDialogComponent, {
       position: { top: "5%"},
       width:' 80%',
       data: {
-        lists: data
+        lists: data,
+        totals: totals
       }
     })
   }
@@ -64,13 +57,14 @@ export class RewardCheckComponent implements OnInit {
   onCheckReward(form: NgForm) {
     let value = form.value;
     this.ordersService.checkRewards(
-      value.period,
+      // value.period,
       // value.firstPrize,
       // value.downTwoPrize,
       // value.lastThreePrize1,
       // value.lastThreePrize2,
       // value.firstThreePrize1,
       // value.firstThreePrize2
+      "2022-04-16",
       "222210",
       "10",
       "321",
@@ -80,7 +74,6 @@ export class RewardCheckComponent implements OnInit {
 
     ).subscribe((res: any) => {
       this.dataSource.data = res
-      console.log(this.dataSource.data)
     })
   }
 }

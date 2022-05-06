@@ -15,7 +15,7 @@ router.post("", (req, res, next) => {
     downTwoDigits: req.body.downTwoDigits,
     topRunDigits: req.body.topRunDigits,
     downRunDigits: req.body.downRunDigits,
-  });  
+  });
 
   keepPrices.save().then((settings) => {
     res.status(201).json({
@@ -35,7 +35,7 @@ router.get("", (req, res, next) => {
 });
 
 router.get("/totalOrders", (req, res, next) => {
-  
+
   Order.aggregate([
     /* {
       $match: {
@@ -50,17 +50,19 @@ router.get("/totalOrders", (req, res, next) => {
       $group: {
         _id: "$items.categoryId.cate_id",
         totals: { $sum: "$items.netPrice" },
-        /* lists: {$push: "$$ROOT"} */
+        // lists: {$push: "$$ROOT"}
       },
     },
     {
       $lookup: {
         from: "limits",
-        localField: "categoryId.id",
+        localField: "_id",
         foreignField: "category.cate_id",
         as: "limitPrice"
       }
     },
+
+
     /* {
       $sort: {
         "_id": 1

@@ -5,6 +5,7 @@ const categorySchema = new Schema({
   cate_id: { type: String },
   cate_name: { type: String },
   description: { type: String },
+  rewardPrice: { type: Number }
 })
 
 module.exports = mongoose.model('Category', categorySchema)

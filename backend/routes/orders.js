@@ -71,7 +71,6 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-
 router.get("/total/category/:agentId/:period", (req, res, next) => {
   Order.aggregate([
     {
@@ -120,20 +119,16 @@ router.get("/total/:agentId/:period", (req, res, next) => {
   });
 });
 
-
 //test
 router.get("/total/:period", (req, res, next) => {
   Order.aggregate([
     {
       $match: {
-        $and: [
-          { period: req.params.period },
-        ],
+        $and: [{ period: req.params.period }],
       },
     },
     {
-      $addFields: {
-      },
+      $addFields: {},
     },
   ]).then((order) => {
     res.status(200).json({
@@ -157,9 +152,25 @@ router.get("", (req, res, next) => {
       $lookup: {
         from: "limits",
         localField: "categoryId.id",
-        foreignField: "category.cate_id",
-        as: "limitPrice"
+        foreignField: "category._id",
+        as: "limits",
+      },
+    },
+    {
+      $set: {
+        limits: { $arrayElemAt: [ "$limits.category._id", 0]}
       }
+    },
+    {
+      $project: {
+        _id: 0,
+        period: 1,
+        customer: 1,
+        createdAt: 1,
+        agent: 1,
+        items: 1,
+        limits: 1,
+      },
     },
   ])
     .sort({ "agent.code": 1 })
@@ -175,7 +186,7 @@ router.get("/check/:period", (req, res, next) => {
     period: period,
   })
     .populate("agentId")
-    .sort({"agent.code": 1})
+    .sort({ "agent.code": 1 })
     .then((order) => {
       res.status(200).json(order);
     });

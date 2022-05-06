@@ -61,7 +61,7 @@
 
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef="">ราคา</th>
-          <td mat-cell *matCellDef="let data">{{ data.items.price }}</td>
+          <td mat-cell *matCellDef="let data">{{ data.items.price | number:'1.0':'en-US' }}</td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
@@ -73,14 +73,14 @@
 
         <ng-container matColumnDef="netPrice">
           <th mat-header-cell *matHeaderCellDef="">ราคาสุทธิ</th>
-          <td mat-cell *matCellDef="let data">{{ data.items.netPrice }}</td>
+          <td mat-cell *matCellDef="let data">{{ data.items.netPrice | number:'1.0':'en-US' }}</td>
           <td mat-footer-cell *matFooterCellDef>Total</td>
         </ng-container>
 
         <ng-container matColumnDef="totalRewards">
           <th mat-header-cell *matHeaderCellDef="">ยอดถูกรางวัล</th>
-          <td mat-cell *matCellDef="let data">{{ data.totalRewards }}</td>
-          <td mat-footer-cell *matFooterCellDef>{{ sumTotal}}</td>
+          <td mat-cell *matCellDef="let data">{{ data.totalRewards | number:'1.0':'en-US' }}</td>
+          <td mat-footer-cell *matFooterCellDef>{{ totals | number:'1.0':'en-US' }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

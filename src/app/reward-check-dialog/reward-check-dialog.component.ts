@@ -15,11 +15,12 @@ export class RewardCheckDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  lists: DialogData[]
+  lists: DialogData[];
   agent: string;
   customer: string;
   period: string;
   sumTotal: any;
+  totals: any;
 
   dataSource = new MatTableDataSource<DialogData>();
   displayedColumns: string[] = [
@@ -28,16 +29,14 @@ export class RewardCheckDialogComponent implements OnInit {
     'price',
     'discount',
     'netPrice',
-    'totalRewards'
+    'totalRewards',
   ];
 
   ngOnInit(): void {
-    this.dataSource.data = this.data.lists
-    this.customer = this.data.lists[0].customer
-    this.agent = this.data.lists[0].agent.code
-    this.period = this.data.lists[0].period
-  }
-  getTotalCost() {
-    // return this.lists.map(t => t.totals).reduce((acc, value) => acc + value, 0);
+    this.dataSource.data = this.data.lists;
+    this.customer = this.data.lists[0].customer;
+    this.agent = this.data.lists[0].agent.code;
+    this.period = this.data.lists[0].period;
+    this.totals = this.data.totals;
   }
 }
