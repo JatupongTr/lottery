@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     <h1>ตั้งค่าการเก็บ</h1>
-    <form (submit)="onSaveSettings(settingsForm)" #settingsForm="ngForm">
+    <!-- <form (submit)="onSaveSettings(settingsForm)" #settingsForm="ngForm">
       <div class="row mb-2">
         <p class="pt-2 col-2">3 ตัวโต๊ด</p>
         <div class="col-5">
@@ -56,18 +56,118 @@
           <input class="form-control" type="number" name="downRunDigits" ngModel />
         </div>
       </div>
-
-        <!-- <div class="radio row m-2" *ngFor="let typeNumber of typeNumbers">
-          <p class="pt-2 col-2" name="category" >{{ typeNumber }}</p>
-          <div class="col-5">
-            <input class="form-control" type="number" name="limitPrice" ngModel />
-          </div>
-        </div> -->
-
       <div class="text-center">
         <button class="btn btn-primary" type="submit">บันทึกค่าเก็บ</button>
       </div>
-    </form>
+    </form> -->
+    <p-toast></p-toast>
+    <div class="card"> 
+          <p-table [value]="categories" dataKey="id" editMode="row">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th>Code</th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th style="width:8rem"></th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="category">
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.cate_name">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.cate_name}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.description" required>
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.description}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.rewardPrice">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.rewardPrice | currency: 'USD'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td style="text-align:center">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(category)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(category)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(category, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
+  </div>
+
+  <div class="col">
+    <h1>ตั้งค่าตัวคูณ</h1>
+    <p-toast></p-toast>
+    <div class="card">
+          <p-table [value]="categories" dataKey="id" editMode="row">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th>Code</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th style="width:6rem">Action</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="category">
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.cate_name">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.cate_name}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.description" required>
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.description}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.rewardPrice">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.rewardPrice | currency: 'USD'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td style="text-align:center">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(category)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(category)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(category, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
   </div>
 
   <div class="col">
@@ -76,7 +176,7 @@
       <div class="row mb-2">
         <p class="pt-2 col-2">เลข</p>
         <div class="col-5">
-          <input type="number" class="form-control" name="limitNumber" ngModel />
+          <input type="number" class="form-control" name="limitNumber" ngModel/>
         </div>
       </div>
       
@@ -93,7 +193,7 @@
             {{ typeNumber }}
           </label>
         </div>
-        <div class="col-2 mt-2">
+        <div class="col mt-2">
           <button class="btn btn-primary" type="button" (click)="onSaveNumber(submitForm)">+ เพิ่มเลขอั้น</button>
         </div>
       </div>

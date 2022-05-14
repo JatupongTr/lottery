@@ -14,15 +14,15 @@ export class SettingsService {
 
   private endPoint = environment.endPoint;
 
-  // Add getKeepPrice api
-  getKeepPrice() {
-    return this.http.get(
-    this.endPoint + '/settings');
-  }
-
   getTotalOrders() {
     return this.http.get(
     this.endPoint + '/settings' + '/totalOrders');
+  }
+
+  // Add getKeepPrice api
+  /* getKeepPrice() {
+    return this.http.get(
+    this.endPoint + '/settings');
   }
 
   createKeepPrice(toddThreeDigits: number, topThreeDigits: number, downThreeDigits: number, firstThreeDigits: number, lastThreeDigits: number, topTwoDigits: number, downTwoDigits: number, topRunDigits: number, downRunDigits: number) {
@@ -42,7 +42,7 @@ export class SettingsService {
 
   deleteSettings(){
     return this.http.delete(this.endPoint + '/settings')
-  }
+  } */
 
   // Limit api
 
@@ -77,6 +77,11 @@ export class SettingsService {
 
   deleteLimitNumber(){
     return this.http.delete(this.endPoint+ '/limit')
+  }
+
+  //limit num
+  getLimitPrice(){
+    return this.http.get(this.endPoint+ '/limitPrice')
   }
 
   //post limit num

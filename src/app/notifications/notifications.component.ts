@@ -38,11 +38,6 @@ export class NotificationsComponent {
 
   
   ngOnInit() {
-    // getKeepPrice api from setting.serivce
-    this.service.getKeepPrice().subscribe(( res : any ) => {
-      this.KeepPrice = res;
-      /* console.log(res.settingss) */
-    })
   }
   
 }

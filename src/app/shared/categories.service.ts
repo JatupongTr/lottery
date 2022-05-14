@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Category } from 'src/app/shared/category.model';
+import { Category } from './category.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) {}
 
-  getCategories() {
+  /* getCategories() {
     this.http
       .get<{ message: string; categories: any }>(this.endPoint + '/categories')
       .pipe(
@@ -37,6 +37,13 @@ export class CategoriesService {
         this.categories = transformedData;
         this.categoriesChanged.next(this.categories);
       });
+  } */
+
+  getCategoriesNew() {
+    return this.http.get<any>(this.endPoint + '/categories')
+    .toPromise()
+    .then(res => <Category[]>res.categories)
+    .then(data => { return data; });
   }
 
   getCategoriesTwo() {
@@ -89,6 +96,14 @@ export class CategoriesService {
 
   getCategoryUpdatedListener() {
     return this.categoriesChanged.asObservable();
+  }
+
+  putRewardPrice(_id : any , rewardPrice : any) {
+    const category = 
+      {
+          "rewardPrice" : rewardPrice
+      };
+    return this.http.put(this.endPoint + '/categories/' + _id , category);
   }
 
 }

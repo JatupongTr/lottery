@@ -77,7 +77,7 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
+/* router.put('/:id', (req, res, next) => {
   const category = new Category({
     _id: req.body.id,
     cate_id: req.body.cate_id,
@@ -86,6 +86,28 @@ router.put('/:id', (req, res, next) => {
   Category.updateOne({ _id: req.params.id }, category).then(result => {
     res.status(200).json(category)
   })
-})
+}) */
+
+router.put("/:id", (req, res, next) => {
+  Category.findByIdAndUpdate(
+    { _id: req.params.id },
+    { rewardPrice: req.body.rewardPrice }
+  ).then((result) => {
+    res.status(200).json({ message: "updated"});
+  });
+});
+
+
+router.delete("/:id", (req, res, next) => {
+  Category.deleteOne({ _id: req.params.id })
+    .then((resutl) => {
+      res.status(200).json({
+        message: "Category Deleted",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 module.exports = router;
