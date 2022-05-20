@@ -7,7 +7,7 @@ router.post("", (req, res, next) => {
   const newCate = new Category({
     cate_id: req.body.cate_id,
     cate_name: req.body.cate_name,
-    description: req.body.description
+    description: req.body.description,
   });
   newCate.save().then((category) => {
     res.status(201).json({
@@ -77,15 +77,14 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
-  const category = new Category({
-    _id: req.body.id,
-    cate_id: req.body.cate_id,
-    rewardPrice: req.body.rewardPrice,
-  })
-  Category.updateOne({ _id: req.params.id }, category).then(result => {
-    res.status(200).json(category)
-  })
-})
+router.put("/:id", (req, res, next) => {
+  Category.findByIdAndUpdate(
+    { _id: req.params.id },
+    { rewardPrice: req.body.rewardPrice },
+    { purchaseMaximum: req.body.purchaseMaximum}
+  ).then((result) => {
+    res.status(200).json({ message: "updated"});
+  });
+});
 
 module.exports = router;

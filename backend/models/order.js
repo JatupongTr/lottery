@@ -7,7 +7,7 @@ const itemSchema = new Schema({
   discount: { type: Number, required: true },
   netPrice: { type: Number, required: true },
   categoryId: {
-    type: Object,
+    type: Schema.Types.ObjectId,
     ref: "Category",
   },
 });
@@ -23,6 +23,7 @@ const orderSchema = new Schema(
   },
   { timestamps: true }
 );
+
 
 orderSchema.index({ period: "text"})
 

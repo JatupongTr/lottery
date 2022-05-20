@@ -31,6 +31,7 @@ router.post("", (req, res, next) => {
 router.get("", (req, res, next) => {
   Limit.find()
     .populate("category")
+    .sort({"category": 1})
     .then((limitPrice) => {
       res.status(200).json(limitPrice);
     });

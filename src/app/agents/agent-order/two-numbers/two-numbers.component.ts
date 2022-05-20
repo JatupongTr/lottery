@@ -42,19 +42,20 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
     const total = value.price - (value.price * value.discount) / 100;
     this.netPrice = total;
 
-    let categorySelect: Category;
+    // let categorySelect: Category;
 
-    for (let categoryId of this.categories) {
-      if (value.categories == categoryId.id) {
-        categorySelect = categoryId;
-      }
-    }
+    // for (let categoryId of this.categories) {
+    //   if (value.categories === categoryId.id) {
+    //     categorySelect = categoryId;
+    //   }
+    // }
     const newItems = new Item(
       value.lottoNo,
       value.price,
       value.discount,
       this.netPrice,
-      categorySelect
+      // categorySelect,
+      value.categories
     )
     this.itemsService.addItems(newItems)
     form.reset();

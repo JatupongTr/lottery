@@ -1,4 +1,3 @@
-
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -21,7 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
@@ -41,7 +40,6 @@ import { OverviewsComponent } from './overviews/overviews.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
-
 /* import { PrizesComponent } from './prizes/prizes.component';
 import { AgentsService } from './agents/agents.service';
 import { PrizesService } from './prizes/prizes.service';
@@ -54,6 +52,7 @@ import { ChartsModule } from 'ng2-charts';
 import { CheckOrdersComponent } from './check-orders/check-orders.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
 import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-dialog.component';
+import { EditComponent } from './category/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +78,8 @@ import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-d
     RewardCheckComponent,
     CheckOrdersComponent,
     OrdersDetailComponent,
-    RewardCheckDialogComponent
+    RewardCheckDialogComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,7 +105,7 @@ import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-d
     MatPaginatorModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

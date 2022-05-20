@@ -51,6 +51,7 @@ router.post("/login", (req, res, next) => {
       );
       res.status(200).json({
         teken: token,
+        fetchedUser
       });
     })
     .catch((err) => {

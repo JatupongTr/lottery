@@ -28,6 +28,7 @@ export class CategoriesService {
               cate_name: category.cate_name,
               description: category.description,
               rewardPrice: category.rewardPrice,
+              purchaseMaximum: category.purchaseMaximum,
               id: category._id,
             };
           });
@@ -52,6 +53,7 @@ export class CategoriesService {
               cate_name: category.cate_name,
               description: category.description,
               rewardPrice: category.rewardPrice,
+              purchaseMaximum: category.purchaseMaximum,
               id: category._id,
             };
           });
@@ -76,6 +78,7 @@ export class CategoriesService {
               cate_name: category.cate_name,
               description: category.description,
               rewardPrice: category.rewardPrice,
+              purchaseMaximum: category.purchaseMaximum,
               id: category._id,
             };
           });

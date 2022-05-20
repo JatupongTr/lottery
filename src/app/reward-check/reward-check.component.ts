@@ -71,7 +71,6 @@ export class RewardCheckComponent implements OnInit {
       '111',
       "222",
       "325"
-
     ).subscribe((res: any) => {
       this.dataSource.data = res
     })

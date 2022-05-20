@@ -14,6 +14,7 @@
           name="code"
           [ngModel]="agent"
           placeholder="รหัสตัวแทน"
+          [disabled]="true"
         />
       </div>
       <label for="customer" class="col-md-2 col-form-label">ลูกค้า</label>
@@ -26,6 +27,7 @@
           name="customer"
           [ngModel]="customer"
           placeholder="ลูกค้า"
+          [disabled]="true"
         />
       </div>
       <label for="date" class="col-md-2 col-form-label">งวด</label>
@@ -38,6 +40,7 @@
           name="period"
           [ngModel]="period"
           placeholder="งวด"
+          [disabled]="true"
         />
       </div>
     </div>
