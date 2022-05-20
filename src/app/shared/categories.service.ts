@@ -106,4 +106,12 @@ export class CategoriesService {
     return this.http.put(this.endPoint + '/categories/' + _id , category);
   }
 
+  putPurchaseMaximum(_id : any , purchaseMaximum : any) {
+    const category = 
+      {
+          "purchaseMaximum" : purchaseMaximum
+      };
+    return this.http.put(this.endPoint + '/categories/purchaseMaximum/' + _id , category);
+  }
+
 }

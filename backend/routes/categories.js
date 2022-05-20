@@ -97,6 +97,15 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
+router.put("/purchaseMaximum/:id", (req, res, next) => {
+  Category.findByIdAndUpdate(
+    { _id: req.params.id },
+    { purchaseMaximum: req.body.purchaseMaximum }
+  ).then((result) => {
+    res.status(200).json({ message: "updated"});
+  });
+});
+
 
 router.delete("/:id", (req, res, next) => {
   Category.deleteOne({ _id: req.params.id })

@@ -5,4 +5,5 @@ export interface Category {
   cate_name: string;
   description: string;
   rewardPrice: number;
+  purchaseMaximum: number;
 }
