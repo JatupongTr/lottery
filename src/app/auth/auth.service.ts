@@ -33,14 +33,15 @@ export class AuthService {
       password: password,
     };
     this.http
-      .post<{ token: string }>('http://localhost:3000/api/users/login', user)
-      .subscribe((response) => {
-        const token = response.token;
+      .post< any >('http://localhost:3000/api/users/login', user)
+      .subscribe((res) => {
+        const token = res.token;
         this.token = token;
         if (token) {
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
         }
+        sessionStorage.setItem("username", res.fetchedUser.username)
         this.router.navigate(["/menu/overviews"])
       });
   }

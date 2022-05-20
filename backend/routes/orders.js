@@ -30,7 +30,7 @@ const router = express.Router();
 //   });
 // });
 
-// function transaction
+// transaction
 const save = async (req, res) => {
   const session = await mongoose.startSession();
   try {
@@ -54,18 +54,21 @@ const save = async (req, res) => {
       agentId: req.params.id,
     });
 
-    //checkPurchasesMax
-    const checkPurchasesMax = await Category.find(
-      {
-        _id: items.categoryId,
-        purchaseMaximum: { $gte: items.netPrice },
-      },
-      null,
-      opts
-    );
-    if (checkPurchasesMax === null) {
-      console.log("category not found");
+    //checkCategory
+    for (let i = 0; i < newOrder.items.length; i++) {
+      const checkCategory = await Category.find(
+        {
+          _id: newOrder.items[i].categoryId,
+          purchaseMaximum: { $gte: newOrder.items[i].netPrice },
+        },
+        null,
+        opts
+      );
+      if (checkCategory === null) {
+        console.log("category not found");
+      }
     }
+
     //update purchaseMaximum after create order
     for (let i = 0; i < newOrder.items.length; i++) {
       await Category.findOneAndUpdate(
@@ -76,6 +79,7 @@ const save = async (req, res) => {
         opts
       );
     }
+
     await newOrder.save(opts);
     await session.commitTransaction();
     res.status(201).json(newOrder);
@@ -193,28 +197,12 @@ router.get("/total/:agentId/:period", (req, res, next) => {
 
 // test limit
 router.get("", (req, res, next) => {
-  Order.aggregate()
-    .unwind("$items")
-    .lookup({
-      from: "limits",
-      pipeline: [
-        {
-          $match: {
-            $expr: {
-              $eq: ["$categoryId.id", "$category._id"],
-            },
-          },
-        },
-      ],
-      as: "limits",
-    })
-    .group({
-      _id: "$items.categoryId.id",
-      total: { $sum: "$items.netPrice" },
-    })
-    .then((order) => {
-      res.status(200).json(order);
-    });
+  Order.find()
+  .populate("agentId")
+  .populate("items.categoryId")
+  .then(result => {
+    res.status(200).json(result)
+  })
 });
 
 //check order

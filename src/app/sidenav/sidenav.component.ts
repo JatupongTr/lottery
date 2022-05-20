@@ -9,7 +9,10 @@ export class SidenavComponent implements OnInit {
 
   constructor() { }
 
+  userName: string;
+
   ngOnInit(): void {
+    this.userName = sessionStorage.getItem("username")
   }
 
 }
