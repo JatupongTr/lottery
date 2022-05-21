@@ -157,7 +157,7 @@ router.get("/total/category/:agentId/:period", (req, res, next) => {
     { $unwind: "$items" },
     {
       $group: {
-        _id: "$items.categoryId.cate_id",
+        _id: "$items.categoryId",
         totals: { $sum: "$items.netPrice" },
       },
     },
