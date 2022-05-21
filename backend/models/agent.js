@@ -5,7 +5,7 @@ const agentSchema = new Schema(
   {
     code: { type: String, required: true, uppercase: true },
     name: { type: String, required: true },
-    imagePath: { type: String, required: true },
+    imagePath: { type: String, required: true }, // add default image
   },
   { timestamps: true }
 );

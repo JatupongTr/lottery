@@ -77,23 +77,23 @@ export class AgentSummarizeComponent implements OnInit {
           if (totalCategory) {
             let order = totalCategory.orders
             for (let i = 0; i < order.length; i++) {
-              if (order[i]._id === "downThreeDigits") {
+              if (order[i]._id === "62396709db01ff9ee525f1e5") {
                 this.totalDownThreeDigits = order[i].totals
-              } else if (order[i]._id === "downTwoDigits") {
+              } else if (order[i]._id === "62396654db01ff9ee525f1d7") {
                 this.totalDownTwoDigits = order[i].totals
-              } else if (order[i]._id === "toddThreeDigits") {
+              } else if (order[i]._id === "623966cadb01ff9ee525f1df") {
                 this.totalToddThreeDigits = order[i].totals
-              } else if (order[i]._id === "topRunDigits") {
+              } else if (order[i]._id === "6239666ddb01ff9ee525f1d9") {
                 this.totalTopRunDigits = order[i].totals
-              } else if (order[i]._id === "topThreeDigits") {
+              } else if (order[i]._id === "623966b9db01ff9ee525f1dd") {
                 this.totalTopThreeDigits = order[i].totals
-              } else if (order[i]._id === "downRunDigits") {
+              } else if (order[i]._id === "6239667edb01ff9ee525f1db") {
                 this.totalDownRunDigits = order[i].totals
-              } else if (order[i]._id === "lastThreeDigits") {
+              } else if (order[i]._id === "623966f7db01ff9ee525f1e3") {
                 this.totalLastThreeDigits = order[i].totals
-              } else if (order[i]._id === "firstThreeDigits") {
+              } else if (order[i]._id === "623966e2db01ff9ee525f1e1") {
                 this.totalFirstThreeDigits = order[i].totals
-              } else if (order[i]._id === "topTwoDigits") {
+              } else if (order[i]._id === "62396645db01ff9ee525f1d5") {
                 this.totalTopTwoDigits = order[i].totals
               }
             }

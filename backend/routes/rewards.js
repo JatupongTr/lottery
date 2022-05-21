@@ -40,6 +40,12 @@ router.post("", (req, res, next) => {
       path: "$items",
       preserveNullAndEmptyArrays: true,
     })
+    .lookup({
+      from: "categories",
+      localField: "items.categoryId",
+      foreignField: "_id",
+      as:"items.categoryId"
+    })
     .match({
       $and: [
         { period: period },
