@@ -7,7 +7,7 @@ const itemSchema = new Schema({
   discount: { type: Number, required: true },
   netPrice: { type: Number, required: true },
   categoryId: {
-    type: Schema.Types.Mixed,
+    type: Schema.Types.ObjectId,
     ref: "Category",
   },
 });

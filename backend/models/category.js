@@ -6,7 +6,9 @@ const categorySchema = new Schema({
   cate_name: { type: String },
   description: { type: String },
   rewardPrice: { type: Number },
-  purchaseMaximum: { type: Number },
+  purchaseMaximum: { type: Number }, // กำหนดยอดซื้อสูงสุด
+  purchaseAmount: { type: Number }, // ยอดซื้อทั้งหมด
+  purchaseBalance: { type: Number } // ยอดซื้อ - ยอดขาย = ยอดซื้อคงเหลือ
 });
 
 module.exports = mongoose.model("Category", categorySchema);

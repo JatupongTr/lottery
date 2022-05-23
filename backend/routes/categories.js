@@ -81,9 +81,11 @@ router.put("/:id", (req, res, next) => {
   Category.findByIdAndUpdate(
     { _id: req.params.id },
     { rewardPrice: req.body.rewardPrice },
-    { purchaseMaximum: req.body.purchaseMaximum}
+    { purchaseMaximum: req.body.purchaseMaximum },
+    { purchaseAmount: req.body.purchaseAmount },
+    { purchaseBalance: req.body.purchaseBalance }
   ).then((result) => {
-    res.status(200).json({ message: "updated"});
+    res.status(200).json({ message: "updated" });
   });
 });
 

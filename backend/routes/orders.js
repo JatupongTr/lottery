@@ -59,7 +59,7 @@ const save = async (req, res) => {
       const checkCategory = await Category.find(
         {
           _id: newOrder.items[i].categoryId,
-          purchaseMaximum: { $gte: newOrder.items[i].netPrice },
+          purchaseBalance: { $gte: newOrder.items[i].netPrice },
         },
         null,
         opts
