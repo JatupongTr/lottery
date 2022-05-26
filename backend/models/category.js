@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// เลขอั้น
+const halfPaySchema = new Schema({
+  lottoNo: { type: String },
+  rewardPrice: { type: Number },
+});
+
 const categorySchema = new Schema({
   cate_id: { type: String },
   cate_name: { type: String },
@@ -8,7 +14,9 @@ const categorySchema = new Schema({
   rewardPrice: { type: Number },
   purchaseMaximum: { type: Number }, // กำหนดยอดซื้อสูงสุด
   purchaseAmount: { type: Number }, // ยอดซื้อทั้งหมด
-  purchaseBalance: { type: Number } // ยอดซื้อ - ยอดขาย = ยอดซื้อคงเหลือ
+  purchaseBalance: { type: Number }, // ยอดซื้อ - ยอดขาย = ยอดซื้อคงเหลือ
+  halfPay: [halfPaySchema]
+   // เก็บเลขอั้น
 });
 
 module.exports = mongoose.model("Category", categorySchema);

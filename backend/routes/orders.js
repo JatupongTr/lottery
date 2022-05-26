@@ -56,26 +56,26 @@ const save = async (req, res) => {
 
     //checkCategory
     for (let i = 0; i < newOrder.items.length; i++) {
-      const checkCategory = await Category.find(
+      const category = await Category.find(
         {
-          _id: newOrder.items[i].categoryId,
-          purchaseBalance: { $gte: newOrder.items[i].netPrice },
+          _id: newOrder.items[i].categoryId
         },
         null,
         opts
-      );
-      if (checkCategory === null) {
+      )
+      if (category === null) {
         console.log("category not found");
+      } else {
+        console.log(category)
       }
     }
-
     //update purchaseMaximum after create order
     for (let i = 0; i < newOrder.items.length; i++) {
       await Category.findOneAndUpdate(
         {
           _id: newOrder.items[i].categoryId,
         },
-        { $inc: { purchaseMaximum: -newOrder.items[i].netPrice } },
+        { $inc: { purchaseAmount: newOrder.items[i].netPrice } },
         opts
       );
     }
@@ -125,6 +125,7 @@ router.post("/remove/:id", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   Order.findById(req.params.id)
     .populate("agentId")
+    .populate("items.categoryId")
     .then((order) => {
       if (!order) {
         res.status(404).json({

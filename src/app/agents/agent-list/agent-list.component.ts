@@ -17,6 +17,8 @@ export class AgentListComponent implements OnInit, OnDestroy {
   private agentSub: Subscription;
   textSearch: string;
 
+  defaultImage: string;
+
   displayedColumns = ['image', 'code', 'name', 'action'];
   dataSource = new MatTableDataSource<Agent>();
 
@@ -29,6 +31,7 @@ export class AgentListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.defaultImage = "./assets/images/account.png"
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.agentsService.getAgents();

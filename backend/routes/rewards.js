@@ -114,6 +114,7 @@ router.post("", (req, res, next) => {
       foreignField: "_id",
       as: "agent",
     })
+
     .project({
       _id: 0,
       period: 1,
@@ -135,7 +136,7 @@ router.post("", (req, res, next) => {
                 $eq: ["$items.categoryId.cate_id", "topTwoDigits"],
               },
               then: {
-                $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
+                $multiply: ["$items.price", "$itemscategoryId.rewardPrice"],
               },
               else: {
                 $cond: {

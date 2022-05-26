@@ -4,87 +4,107 @@
   </div>
 </div>
 <form #detailForm="ngForm">
-  <div class="row mb-3">
-    <div class="mb-3 row header" style="text-align: center">
-      <label for="code" class="col-md-2 col-form-label">ตัวแทน</label>
-      <div class="col-md-2">
-        <input
-          style="text-transform: uppercase; text-align: center"
-          type="text"
-          class="form-control"
-          id="code"
-          name="code"
-          [ngModel]="agent"
-          placeholder="รหัสตัวแทน"
-        />
+  <div id="print-section">
+    <div class="row mb-3">
+      <div class="mb-3 row header" style="text-align: center">
+        <label for="code" class="col-md-2 col-form-label">ตัวแทน</label>
+        <div class="col-md-2">
+          <input
+            style="text-transform: uppercase; text-align: center"
+            type="text"
+            class="form-control"
+            id="code"
+            name="code"
+            [ngModel]="agent"
+            placeholder="รหัสตัวแทน"
+            disabled="true"
+          />
+        </div>
+        <label for="customer" class="col-md-2 col-form-label">ลูกค้า</label>
+        <div class="col-md-2">
+          <input
+            style="text-transform: uppercase; text-align: center"
+            type="text"
+            class="form-control"
+            id="customer"
+            name="customer"
+            [ngModel]="customer"
+            placeholder="ลูกค้า"
+            disabled="true"
+          />
+        </div>
+        <label for="date" class="col-md-2 col-form-label">งวด</label>
+        <div class="col-md-2">
+          <input
+            style="text-transform: uppercase; text-align: center"
+            type="text"
+            class="form-control"
+            id="date"
+            name="period"
+            [ngModel]="period"
+            placeholder="งวด"
+            disabled="true"
+          />
+        </div>
       </div>
-      <label for="customer" class="col-md-2 col-form-label">ลูกค้า</label>
-      <div class="col-md-2">
-        <input
-          style="text-transform: uppercase; text-align: center"
-          type="text"
-          class="form-control"
-          id="customer"
-          name="customer"
-          [ngModel]="customer"
-          placeholder="ลูกค้า"
-        />
-      </div>
-      <label for="date" class="col-md-2 col-form-label">งวด</label>
-      <div class="col-md-2">
-        <input
-          style="text-transform: uppercase; text-align: center"
-          type="text"
-          class="form-control"
-          id="date"
-          name="period"
-          [ngModel]="period"
-          placeholder="งวด"
-        />
+    </div>
+    <mat-divider class="mb-3"></mat-divider>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="list-table mt-3 mb-3" style="height: 40vh">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="lottoNo">
+              <th mat-header-cell *matHeaderCellDef>เลข</th>
+              <td mat-cell *matCellDef="let data">{{ data.lottoNo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="categoryId">
+              <th mat-header-cell *matHeaderCellDef>ประเภท</th>
+              <td mat-cell *matCellDef="let data">
+                {{ data.categoryId.cate_name }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>ราคา</th>
+              <td mat-cell *matCellDef="let data">{{ data.price }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="discount">
+              <th mat-header-cell *matHeaderCellDef>ส่วนลด</th>
+              <td mat-cell *matCellDef="let data">{{ data.discount }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="netPrice">
+              <th mat-header-cell *matHeaderCellDef>ราคาสุทธิ</th>
+              <td mat-cell *matCellDef="let data">{{ data.netPrice }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator
+            [pageSizeOptions]="[5]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
       </div>
     </div>
   </div>
-  <mat-divider class="mb-3"></mat-divider>
   <div class="row">
-    <div class="col-md-12">
-      <div class="list-table mt-3 mb-3" style="height: 40vh">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <ng-container matColumnDef="lottoNo">
-            <th mat-header-cell *matHeaderCellDef>เลข</th>
-            <td mat-cell *matCellDef="let data">{{ data.lottoNo }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="categoryId">
-            <th mat-header-cell *matHeaderCellDef>ประเภท</th>
-            <td mat-cell *matCellDef="let data">
-              {{ data.categoryId.cate_name }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>ราคา</th>
-            <td mat-cell *matCellDef="let data">{{ data.price }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="discount">
-            <th mat-header-cell *matHeaderCellDef>ส่วนลด</th>
-            <td mat-cell *matCellDef="let data">{{ data.discount }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="netPrice">
-            <th mat-header-cell *matHeaderCellDef>ราคาสุทธิ</th>
-            <td mat-cell *matCellDef="let data">{{ data.netPrice }}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-        <mat-paginator
-          [pageSizeOptions]="[5]"
-          showFirstLastButtons
-          aria-label="Select page of periodic elements"
-        >
-        </mat-paginator>
-      </div>
+    <div class="col-md-12" style="text-align: right">
+      <button
+        mat-raised-button
+        color="primary"
+        [useExistingCss]="true"
+        styleSheetFile="/src/app/orders-detail/orders-detail.component.css"
+        rintTitle="เลขถูกรางวัล"
+        printSectionId="print-section"
+        ngxPrint
+      >
+        พิมพ์
+      </button>
     </div>
   </div>
 </form>

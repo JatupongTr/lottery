@@ -3,11 +3,37 @@ const router = express.Router();
 
 const Category = require("../models/category");
 
+// add halfPay lists
+router.post("/halfPay/:id", (req, res, next) => {
+  let lottoNo = req.body.lottoNo
+  let rewardPrice = req.body.rewardPrice
+  let halfPays = { lottoNo: lottoNo, rewardPrice: rewardPrice }
+  Category.findOne({ _id: req.params.id }).then((category) => {
+    category.halfPay.push(halfPays)
+    category.save().then(() => {
+      res.status(200).json({message: "halfPay updated"})
+    })
+  })
+});
+// clear เลขอั้น
+router.put("/clear", (req, res, next) => {
+  let halfPay = [];
+  Category.updateMany({halfPay: halfPay}).then((category) => {
+    res.status(200).json({
+      message: 'clear'
+    })
+  })
+})
+
 router.post("", (req, res, next) => {
   const newCate = new Category({
     cate_id: req.body.cate_id,
     cate_name: req.body.cate_name,
     description: req.body.description,
+    rewardPrice: req.body.rewardPrice,
+    purchaseMaximum: req.body.purchaseMaximum,
+    purchaseAmount: req.body.purchaseAmount,
+    purchaseBalance: req.body.purchaseBalance,
   });
   newCate.save().then((category) => {
     res.status(201).json({
@@ -20,7 +46,9 @@ router.post("", (req, res, next) => {
 });
 
 router.get("", (req, res, next) => {
-  Category.find().then((document) => {
+  Category.find()
+  .populate("halfPay")
+  .then((document) => {
     res.status(200).json({
       message: "Categories fetched",
       categories: document,
@@ -81,9 +109,7 @@ router.put("/:id", (req, res, next) => {
   Category.findByIdAndUpdate(
     { _id: req.params.id },
     { rewardPrice: req.body.rewardPrice },
-    { purchaseMaximum: req.body.purchaseMaximum },
-    { purchaseAmount: req.body.purchaseAmount },
-    { purchaseBalance: req.body.purchaseBalance }
+    { purchaseMaximum: req.body.purchaseMaximum }
   ).then((result) => {
     res.status(200).json({ message: "updated" });
   });

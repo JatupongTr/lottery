@@ -75,7 +75,7 @@
               วันจดรายการ
             </th>
             <td mat-cell *matCellDef="let data" class="text-center">
-              {{ data.createdAt }}
+              {{ data.createdAt | date: "longDate"}}
             </td>
           </ng-container>
 
