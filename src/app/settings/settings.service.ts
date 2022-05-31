@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ItemLimit } from './setting.model';
-import { LimitNumber } from './limitNumber.model';
+/* import { ItemLimit } from './setting.model';
+import { LimitNumber } from './limitNumber.model'; */
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class SettingsService {
 
   // Limit api
 
-  items: ItemLimit[] = []
+/*   items: ItemLimit[] = []
   itemsUpdated = new Subject<ItemLimit[]>()
 
 
@@ -45,10 +45,10 @@ export class SettingsService {
       this.items.splice(index, 1);
     }
     this.itemsUpdated.next(this.items.slice())
-  }
+  } */
 
   // limit number
-  createLimitNumber(item: ItemLimit[]) {
+/*   createLimitNumber(item: ItemLimit[]) {
     return this.http.post(this.endPoint + '/limit' , item);
   }
 
@@ -61,6 +61,6 @@ export class SettingsService {
 
   deleteLimitNumber(){
     return this.http.delete(this.endPoint+ '/limit')
-  }
+  } */
 
 }

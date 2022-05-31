@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SettingsService } from '../settings/settings.service';
-import { ItemLimit } from '../settings/setting.model';
 import { CategoriesService } from '../shared/categories.service';
 import { Category } from '../shared/category.model';
-import { LimitNumber } from '../settings/limitNumber.model';
 import {MessageService} from 'primeng-lts/api';
+
+/* comment : add field ค่าเก็บ and field ยอดที่สามารถรับซื้อได้อีก คือ ยอดที่นำ ค่าเก็บ - ยอดรวม แต่ละประเภท  */
 
 @Component({
   selector: 'app-settings',
@@ -15,7 +15,6 @@ import {MessageService} from 'primeng-lts/api';
 })
 export class SettingsComponent implements OnInit {
 
-  favoriteType: string;
   typeNumbers: string[] = [
     '3 ตัวโต๊ด',
     '3 ตัวบน',
@@ -28,9 +27,6 @@ export class SettingsComponent implements OnInit {
     'วิ่งล่าง',
   ];
 
-  items: ItemLimit[];
-  itemsUpdate: Subscription;
-
   constructor(
     private service: SettingsService,
     //rewardPrice table edit
@@ -38,28 +34,16 @@ export class SettingsComponent implements OnInit {
     private messageService: MessageService
   ) {}
     
-  //rewardPrice table edit
+  // table edit
   categories: Category[];
-  
-  //limitNumber table edit
-  limitNumbers: LimitNumber[];
 
   clonedCategories: { [s: string]: Category; } = {};
 
   ngOnInit() {
-    this.items = this.service.getItems()
-    this.itemsUpdate = this.service.getItemUpdatedListner()
-    .subscribe((items: ItemLimit[]) => {
-      this.items = items;
-    })
-          
-    //rewardPrice table edit
+
+    // table edit
     this.categoriesService.getCategoriesNew()
     .then(data => this.categories = data);
-    
-    //limitNumber
-    this.service.getLimitNumber()
-    .then(data => this.limitNumbers = data);
 
   }
 
@@ -90,28 +74,51 @@ export class SettingsComponent implements OnInit {
   
   // limit number
 
-  onSubmit(form: NgForm) {
-    this.service.deleteLimitNumber().subscribe()
-
-    this.service.createLimitNumber(this.items).subscribe((res)=>{
-      window.location.reload()
-      })
-
-  }
-
   onSaveNumber(form: NgForm) {
-    const item = new ItemLimit(
-      form.value.limitNumber,
+
+    if(form.value.typeNumber == '3 ตัวโต๊ด'){
+      form.value.typeNumber = '623966cadb01ff9ee525f1df';
+    };
+    if(form.value.typeNumber == '3 ตัวบน'){
+      form.value.typeNumber = '623966b9db01ff9ee525f1dd';
+    };
+    if(form.value.typeNumber == '3 ตัวล่าง'){
+      form.value.typeNumber = '62396709db01ff9ee525f1e5';
+    };
+    if(form.value.typeNumber == '3 ตัวหน้า'){
+      form.value.typeNumber = '623966e2db01ff9ee525f1e1';
+    };
+    if(form.value.typeNumber == '3 ตัวท้าย'){
+      form.value.typeNumber = '623966f7db01ff9ee525f1e3';
+    };
+    if(form.value.typeNumber == '2 ตัวบน'){
+      form.value.typeNumber = '62396645db01ff9ee525f1d5';
+    };
+    if(form.value.typeNumber == '2 ตัวล่าง'){
+      form.value.typeNumber = '62396654db01ff9ee525f1d7';
+    };
+    if(form.value.typeNumber == 'วิ่งบน'){
+      form.value.typeNumber = '6239666ddb01ff9ee525f1d9';
+    };
+    if(form.value.typeNumber == 'วิ่งล่าง'){
+      form.value.typeNumber = '6239667edb01ff9ee525f1db';
+    };
+
+    /* const id = form.value.typeNumber */
+    this.categoriesService.createHalfPay(
       form.value.typeNumber,
-    )
+      form.value.rewardPrice,
+      form.value.lottoNo,
+      ).subscribe((res)=>{
+      window.location.reload()
+    })
 
-    this.service.addItems(item)    
-
-    form.resetForm()
   }
 
-  onRemove(item: ItemLimit) {
-    this.service.removeItems(item);
+  onClear() {
+    this.categoriesService.clearHalfPay().subscribe((res)=>{
+      window.location.reload()
+    });
   }
 
 }

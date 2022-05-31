@@ -6,14 +6,16 @@
           <p-table [value]="categories" dataKey="id" editMode="row">
               <ng-template pTemplate="header">
                   <tr>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Action</th>
+                      <th>ประเภท</th>
+                      <th>ยอดสะสม (บาท)</th>
+                      <th>รับซื้อสะสม (บาท)</th>
+                      <th>คงเหลือ (บาท)</th>
+                      <th>แก้ไข</th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
                   <tr [pEditableRow]="category">
-                      <td pEditableColumn>
+                      <td>
                           <p-cellEditor>
                               <ng-template pTemplate="input">
                                   {{category.description}}
@@ -23,13 +25,33 @@
                               </ng-template>
                           </p-cellEditor>
                       </td>
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  {{category.purchaseAmount}}
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.purchaseAmount | number:'1.0'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  {{category.purchaseBalance}}
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.purchaseBalance | number:'1.0'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
                       <td pEditableColumn>
                           <p-cellEditor>
                               <ng-template pTemplate="input">
                                   <input pInputText type="text" [(ngModel)]="category.purchaseMaximum">
                               </ng-template>
                               <ng-template pTemplate="output">
-                                  {{category.purchaseMaximum | currency: 'USD'}}
+                                  {{category.purchaseMaximum | number:'1.0'}}
                               </ng-template>
                           </p-cellEditor>
                       </td>
@@ -45,20 +67,20 @@
   </div>
 
   <div class="col">
-    <h1>ตั้งค่าตัวคูณ</h1>
+    <h1>ตั้งค่ายอดจ่าย</h1>
     <div class="card text-center"> 
       <p-toast></p-toast>
           <p-table [value]="categories" dataKey="id" editMode="row">
               <ng-template pTemplate="header">
                   <tr>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Action</th>
+                      <th>ประเภท</th>
+                      <th>ยอดจ่าย (บาท)</th>
+                      <th>แก้ไข</th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
                   <tr [pEditableRow]="category">
-                      <td pEditableColumn>
+                      <td>
                           <p-cellEditor>
                               <ng-template pTemplate="input">
                                   {{category.description}}
@@ -74,7 +96,7 @@
                                   <input pInputText type="text" [(ngModel)]="category.rewardPrice">
                               </ng-template>
                               <ng-template pTemplate="output">
-                                  {{category.rewardPrice | currency: 'USD'}}
+                                  {{category.rewardPrice | number:'1.0'}}
                               </ng-template>
                           </p-cellEditor>
                       </td>
@@ -95,11 +117,15 @@
 <div class="row">
   <div class="col">
     <h1>ตั้งค่าเลขอั้น</h1>
-    <form (submit)="onSubmit(submitForm)" #submitForm="ngForm">
+    <form (submit)="onSaveNumber(submitForm)" #submitForm="ngForm">
       <div class="row mb-2">
-        <p class="pt-2 col-2">เลข</p>
         <div class="col-5">
-          <input type="number" class="form-control" name="limitNumber" ngModel/>
+          <p class="pt-2 col-2">เลขอั้น</p>
+          <input type="number" class="form-control" name="lottoNo" ngModel/>
+        </div>
+        <div class="col-5">
+          <p class="pt-2 col-2">ราคาจ่าย</p>
+          <input type="number" class="form-control" name="rewardPrice" ngModel/>
         </div>
       </div>
       
@@ -120,37 +146,6 @@
           <button class="btn btn-primary" type="button" (click)="onSaveNumber(submitForm)">+ เพิ่มเลขอั้น</button>
         </div>
       </div>
-      
-      <div class="col position-relative">
-        <table class="table table-borderless">
-          <thead>
-            <th>เลข</th>
-            <th>ประเภท</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of items">
-              <td>
-                {{ data.limitNumber }}
-              </td>
-              <td>
-                {{ data.typeNumber }}
-              </td>
-              <td>
-                <button mat-raised-button color="warn" (click)="onRemove(data)">
-                  ลบ
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="container">
-          <div class="col-md-9">
-            <div class="submitList" style="float: right">
-              <button class="btn btn-primary" type="submit" (click)="onSubmit">บันทึกเลขอั้น</button>
-            </div>
-          </div>
-        </div>
-      </div> 
     </form>
   </div>
 
@@ -158,38 +153,53 @@
     <h1>เลขอั้น</h1>
     <p-toast></p-toast>
     <div class="card text-center">
-          <p-table [value]="limitNumbers" dataKey="id" editMode="row">
-              <ng-template pTemplate="header">
-                  <tr>
-                      <th>Name</th>
-                      <th>Number</th>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-limitNumber let-editing="editing" let-ri="rowIndex">
-                  <tr [pEditableRow]="limitNumber">
-                      <td pEditableColumn>
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  {{limitNumber.typeNumber}}
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{limitNumber.typeNumber}}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
-                      <td pEditableColumn>
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                {{limitNumber.limitNumber}}
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{limitNumber.limitNumber}}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
-                  </tr>
-              </ng-template>
-          </p-table>
-      </div>
+      <p-table [value]="categories" dataKey="id" editMode="row">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>ประเภท</th>
+                  <th>เลขอั้น</th>
+                  <th>ราคาจ่าย</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="category">
+                  <td>
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              {{category.description}}
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{category.description}}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+                  <td>
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              {{category.halfPay[0].lottoNo}}
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{category.halfPay[0].lottoNo}}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+                  <td pEditableColumn>
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <input pInputText type="text" [(ngModel)]="category.halfPay[0].rewardPrice">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{category.halfPay[0].rewardPrice | number:'1.0'}}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+    </div>
+    <br>
+    <div class="col-2">
+      <button class="btn btn-primary" type="button" (click)="onClear()">ล้างข้อมูล</button>
+    </div>
   </div>
 </div>
