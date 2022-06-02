@@ -10,15 +10,15 @@ export interface Setting {
   downRunDigits: number
 }
 
-export class ItemLimit {
-    public limitNumber: string;
-    public typeNumber: string;
+/* export class ItemLimit {
+    public lottoNo:     string;
+    public rewardPrice: number;
   
     constructor(
-        limitNumber: string,
-        typeNumber: string,
+        lottoNo: string,
+        rewardPrice: number,
     ){
-      this.limitNumber = limitNumber
-      this.typeNumber = typeNumber
+      this.lottoNo = lottoNo
+      this.rewardPrice = rewardPrice
     }
-  }
+  } */

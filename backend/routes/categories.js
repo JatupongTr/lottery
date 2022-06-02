@@ -77,18 +77,20 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-/* router.put('/:id', (req, res, next) => {
-  const category = new Category({
-    _id: req.body.id,
-    cate_id: req.body.cate_id,
-    rewardPrice: req.body.rewardPrice,
+router.delete("/:id", (req, res, next) => {
+  Category.deleteOne({ _id: req.params.id })
+  .then((resutl) => {
+    res.status(200).json({
+      message: "Category Deleted",
+    });
   })
-  Category.updateOne({ _id: req.params.id }, category).then(result => {
-    res.status(200).json(category)
-  })
-}) */
+  .catch((err) => {
+    console.log(err);
+  });
+});
 
-router.put("/:id", (req, res, next) => {
+// เลขตัวคูณ
+router.put("/rewardPrice/:id", (req, res, next) => {
   Category.findByIdAndUpdate(
     { _id: req.params.id },
     { rewardPrice: req.body.rewardPrice }
@@ -97,6 +99,7 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
+// เลขค่าเก็บ
 router.put("/purchaseMaximum/:id", (req, res, next) => {
   Category.findByIdAndUpdate(
     { _id: req.params.id },
@@ -106,17 +109,46 @@ router.put("/purchaseMaximum/:id", (req, res, next) => {
   });
 });
 
-
-router.delete("/:id", (req, res, next) => {
-  Category.deleteOne({ _id: req.params.id })
-    .then((resutl) => {
-      res.status(200).json({
-        message: "Category Deleted",
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+router.post("", (req, res, next) => {
+  const newCate = new Category({
+    cate_id: req.body.cate_id,
+    cate_name: req.body.cate_name,
+    description: req.body.description,
+    rewardPrice: req.body.rewardPrice,
+    purchaseMaximum: req.body.purchaseMaximum,
+    purchaseAmount: req.body.purchaseAmount,
+    purchaseBalance: req.body.purchaseBalance,
+  });
+  newCate.save().then((category) => {
+    res.status(201).json({
+      newCate: {
+        ...category,
+        id: category._id,
+      },
     });
+  });
 });
 
+// add halfPay lists
+router.post("/halfPay/:id", (req, res, next) => {
+  let lottoNo = req.body.lottoNo
+  let rewardPrice = req.body.rewardPrice
+  let halfPays = { lottoNo: lottoNo, rewardPrice: rewardPrice }
+  Category.findOne({ _id: req.params.id }).then((category) => {
+    category.halfPay.push(halfPays)
+    category.save().then(() => {
+      res.status(200).json({message: "halfPay updated"})
+    })
+  })
+});
+
+// clear เลขอั้น
+router.put("/clear", (req, res, next) => {
+  let halfPay = [];
+  Category.updateMany({halfPay: halfPay}).then((category) => {
+    res.status(200).json({
+      message: 'clear'
+    })
+  })
+})
 module.exports = router;
