@@ -35,7 +35,7 @@ export class RewardCheckDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.data = this.data.lists;
     this.customer = this.data.lists[0].customer;
-    this.agent = this.data.lists[0].agent.code;
+    this.agent = this.data.lists[0].agentId.code;
     this.period = this.data.lists[0].period;
     this.totals = this.data.totals;
   }

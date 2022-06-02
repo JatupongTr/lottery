@@ -53,6 +53,7 @@ import { CheckOrdersComponent } from './check-orders/check-orders.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
 import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-dialog.component';
 import { EditComponent } from './category/edit/edit.component';
+import { OverPricedComponent } from './over-priced/over-priced.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { EditComponent } from './category/edit/edit.component';
     OrdersDetailComponent,
     RewardCheckDialogComponent,
     EditComponent,
+    OverPricedComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { OverPricedComponent } from './over-priced/over-priced.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
 import { CheckOrdersComponent } from './check-orders/check-orders.component';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
     children: [
       { path: 'reward-check', component: RewardCheckComponent },
       { path: 'overviews', component: OverviewsComponent },
+      { path: 'over-priced', component: OverPricedComponent},
       { path: 'settings', component: SettingsComponent },
       { path: 'notifications', component: NotificationsComponent },
       { path: 'agents', component: AgentsComponent },

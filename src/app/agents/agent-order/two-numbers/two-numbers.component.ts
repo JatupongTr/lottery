@@ -49,7 +49,7 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
         categorySelect = categoryId;
       }
     }
-    const newItems = new Item(
+    let newItems = new Item(
       value.lottoNo,
       value.price,
       value.discount,
@@ -57,6 +57,9 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
       // categorySelect,
       value.categories
     )
+    newItems.categoryName = categorySelect.cate_name
+    console.log(newItems)
+    console.log(categorySelect.cate_name)
     this.itemsService.addItems(newItems)
     form.reset();
   }

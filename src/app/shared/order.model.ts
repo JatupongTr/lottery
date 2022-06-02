@@ -28,4 +28,5 @@ export interface Item {
   discount: number;
   netPrice: number;
   categoryId: Category;
+  categoryName: string;
 }

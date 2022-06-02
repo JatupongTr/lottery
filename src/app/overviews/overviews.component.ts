@@ -21,6 +21,8 @@ export class OverviewsComponent implements OnInit {
 
     //income layout
 
+    defaultImage: string;
+
     public lineChartData: ChartDataSets[] = [{ data: [6500, 1039, 200, 8001, 2026, 1900, 508, 980, 1801, 4256, 3255, 7010], label: 'Paused Vehicle' }];
     public lineChartLabels: Label[] = [ 'January 2020', 'February 2020', 'March 2020', 'April 2020', 'June 2020', 'July 2020', 'August 2020', 'September 2020', 'October 2020', 'november 2020', 'December 2020']
 
@@ -200,6 +202,7 @@ export class OverviewsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.defaultImage = "./assets/images/account.png"
     this.settChartAspectRatio()
     // New Agents
     this.agentsService.getAgents();

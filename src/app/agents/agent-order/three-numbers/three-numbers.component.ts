@@ -46,14 +46,18 @@ export class ThreeNumbersComponent implements OnInit {
       }
     }
 
-    const newItem = new Item(
+    let newItems = new Item(
       value.lottoNo,
       value.price,
       value.discount,
       this.netPrice,
-      categorySelect
+      // categorySelect,
+      value.categories
     )
-    this.itemsService.addItems(newItem)
+    newItems.categoryName = categorySelect.cate_name
+    console.log(newItems)
+    console.log(categorySelect.cate_name)
+    this.itemsService.addItems(newItems)
     form.reset();
   }
 }

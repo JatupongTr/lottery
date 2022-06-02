@@ -7,6 +7,7 @@ export class Item {
   public discount: number;
   public netPrice: number;
   public categoryId: Category;
+  public categoryName: string;
 
   constructor(
     lottoNo: string,

@@ -57,20 +57,13 @@ export class RewardCheckComponent implements OnInit {
   onCheckReward(form: NgForm) {
     let value = form.value;
     this.ordersService.checkRewards(
-      // value.period,
-      // value.firstPrize,
-      // value.downTwoPrize,
-      // value.lastThreePrize1,
-      // value.lastThreePrize2,
-      // value.firstThreePrize1,
-      // value.firstThreePrize2
-      "2022-04-16",
-      "222210",
-      "10",
-      "321",
-      '111',
-      "222",
-      "325"
+      value.period,
+      value.firstPrize,
+      value.downTwoPrize,
+      value.lastThreePrize1,
+      value.lastThreePrize2,
+      value.firstThreePrize1,
+      value.firstThreePrize2
     ).subscribe((res: any) => {
       this.dataSource.data = res
     })

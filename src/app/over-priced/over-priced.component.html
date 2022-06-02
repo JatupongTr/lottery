@@ -1,0 +1,34 @@
+<div class="container row" >
+  <form class="row g-3 d-flex justify-content-center">
+    <div class="col-auto">
+      <label for="inputPassword2" class="visually-hidden">งวดวันที่</label>
+      <input type="date" class="form-control" id="inputPassword2" placeholder="งวดวันที่">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-3">ค้นหา</button>
+    </div>
+  </form>
+  <mat-divider></mat-divider>
+  <div class="row d-flex justify-content-center">
+    <table mat-table matSort [dataSource]="dataSource" class="w-70">
+
+      <ng-container matColumnDef="lottoNo">
+        <th mat-header-cell *matHeaderCellDef="">เลข</th>
+        <td mat-cell *matCellDef=""></td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef="">ประเภท</th>
+        <td mat-cell *matCellDef=""></td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef="">ราคา</th>
+        <td mat-cell *matCellDef=""></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

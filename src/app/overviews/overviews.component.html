@@ -51,7 +51,7 @@
 </div>
 <div class="row">
   <div class="col w-100 m-4 border border-1 rounded-2 p-2">
-    <h2 class=" text-center">ลูกค้าใหม่</h2>
+    <h2 class=" text-center">ตัวแทน</h2>
       <table class="table table-borderless" mat-table matSort [dataSource]="dataSource">
           <tr matColumnDef="image">
             <th
@@ -61,7 +61,7 @@
             </th>
             <td mat-cell *matCellDef="let data">
                 <img
-                  [src]="data.imagePath"
+                  [src]="data.imagePath || defaultImage"
                   class="avatar"
                   alt=""
                 />

@@ -56,14 +56,18 @@ export class RunningComponent implements OnInit, OnDestroy {
       }
     }
 
-    const newItem = new Item(
+    let newItems = new Item(
       value.lottoNo,
       value.price,
       value.discount,
       this.netPrice,
-      categorySelect
-    );
-    this.itemsService.addItems(newItem);
+      // categorySelect,
+      value.categories
+    )
+    newItems.categoryName = categorySelect.cate_name
+    console.log(newItems)
+    console.log(categorySelect.cate_name)
+    this.itemsService.addItems(newItems)
     form.reset();
   }
 }

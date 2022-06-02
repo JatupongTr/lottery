@@ -31,7 +31,7 @@ export class AgentListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.defaultImage = "./assets/images/account.png"
+    this.defaultImage = './assets/images/account.png';
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.agentsService.getAgents();
@@ -63,7 +63,9 @@ export class AgentListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(agentId: string) {
-    this.agentsService.deleteAgent(agentId);
+    if (confirm('ยืนยันการลบ')) {
+      this.agentsService.deleteAgent(agentId);
+    }
   }
 
   onAddLists() {

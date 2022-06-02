@@ -58,15 +58,13 @@ const save = async (req, res) => {
     for (let i = 0; i < newOrder.items.length; i++) {
       const category = await Category.find(
         {
-          _id: newOrder.items[i].categoryId
+          _id: newOrder.items[i].categoryId,
         },
         null,
         opts
-      )
+      );
       if (category === null) {
         console.log("category not found");
-      } else {
-        console.log(category)
       }
     }
     //update purchaseMaximum after create order
@@ -77,6 +75,16 @@ const save = async (req, res) => {
         },
         { $inc: { purchaseAmount: newOrder.items[i].netPrice } },
         opts
+      );
+    }
+    // update Balance
+    for (let i = 0; i < newOrder.items.length; i++) {
+      await Category.findOne({ _id: newOrder.items[i].categoryId }).then(
+        (category) => {
+          category.purchaseBalance =
+            category.purchaseMaximum - category.purchaseAmount;
+          category.save();
+        }
       );
     }
 
@@ -99,7 +107,12 @@ router.post("/:id", (req, res, next) => {
 router.get("/totals/:agentId/:period", (req, res, next) => {
   Order.find({ agentId: req.params.agentId }, { period: req.params.period })
     .populate("agentId")
-    .populate("items")
+    .populate({
+      path: "items",
+      populate: {
+        path: 'categoryId'
+      }
+    })
     .sort({ _id: -1 })
     .then((order) => {
       res.status(200).json({
@@ -197,13 +210,33 @@ router.get("/total/:agentId/:period", (req, res, next) => {
 });
 
 // test limit
+// router.get("", (req, res, next) => {
+//   Order.find()
+//     .populate("agentId")
+//     .populate("items.categoryId")
+//     .then((result) => {
+//       res.status(200).json(result);
+//     });
+// });
+
 router.get("", (req, res, next) => {
-  Order.find()
-  .populate("agentId")
-  .populate("items.categoryId")
-  .then(result => {
-    res.status(200).json(result)
-  })
+  Order.aggregate()
+    .unwind("items")
+    .lookup({
+      from: "categories",
+      localField: "items.categoryId",
+      foreignField: "_id",
+      as: "items.categoryId",
+    })
+    .lookup({
+      from: "agents",
+      localField: "agentId",
+      foreignField: "_id",
+      as: "agentId",
+    })
+    .then((orders) => {
+      res.status(200).json(orders);
+    });
 });
 
 //check order
@@ -213,7 +246,7 @@ router.get("/check/:period", (req, res, next) => {
     period: period,
   })
     .populate("agentId")
-    .populate('items.categoryId')
+    .populate("items.categoryId")
     .sort({ "agent.code": 1 })
     .then((order) => {
       res.status(200).json(order);
