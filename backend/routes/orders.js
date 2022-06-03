@@ -5,31 +5,6 @@ const Category = require("../models/category");
 
 const router = express.Router();
 
-// router.post("/:id", (req, res, next) => {
-//   let items = [];
-//   for (let i = 0; i < req.body.length; i++) {
-//     let item = {
-//       lottoNo: req.body[i].lottoNo,
-//       price: req.body[i].price,
-//       discount: req.body[i].discount,
-//       netPrice: req.body[i].netPrice,
-//       categoryId: req.body[i].categoryId,
-//     };
-//     items.push(item);
-//   }
-//   let newOrder = new Order({
-//     customer: req.body.customer,
-//     period: req.body.period,
-//     items: req.body.items,
-//     agentId: req.params.id,
-//   });
-//   newOrder.save().then((createOrder) => {
-//     res.status(201).json({
-//       newOrder: createOrder,
-//     });
-//   });
-// });
-
 // transaction
 const save = async (req, res) => {
   const session = await mongoose.startSession();
