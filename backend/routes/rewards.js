@@ -129,10 +129,30 @@ router.post("", (req, res, next) => {
       totalRewards: {
         $switch: {
           branches: [
+            // 2 ตัวบน
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "topTwoDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
+              },
+            },
             {
               case: { $eq: ["$items.categoryId.cate_id", "topTwoDigits"] },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
+              },
+            },
+            // 2 ตัวล่าง
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "downTwoDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
             },
             {
@@ -141,10 +161,30 @@ router.post("", (req, res, next) => {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
               },
             },
+            // วิ่งบน
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "topRunDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
+              },
+            },
             {
               case: { $eq: ["$items.categoryId.cate_id", "topRunDigits"] },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
+              },
+            },
+            // วิ่งล่าง
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "downRunDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
             },
             {
@@ -153,10 +193,30 @@ router.post("", (req, res, next) => {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
               },
             },
+            // 3 ตัวบน
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "topThreeDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
+              },
+            },
             {
               case: { $eq: ["$items.categoryId.cate_id", "topThreeDigits"] },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
+              },
+            },
+            // โต๊ด
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "toddThreeDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
             },
             {
@@ -165,16 +225,46 @@ router.post("", (req, res, next) => {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
               },
             },
+            // 3 ตัวหน้า
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "firstThreeDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
+              },
+            },
             {
               case: { $eq: ["$items.categoryId.cate_id", "firstThreeDigits"] },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
               },
             },
+            // 3 ตัวท้าย
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "lastThreeDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
+              },
+            },
             {
               case: { $eq: ["$items.categoryId.cate_id", "lastThreeDigits"] },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.rewardPrice"],
+              },
+            },
+            // 3 ตัวล่าง
+            {
+              case: { $and: [
+                {$eq: ["$items.categoryId.cate_id", "downThreeDigits"]},
+                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
+              ] },
+              then: {
+                $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
             },
             {

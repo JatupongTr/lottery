@@ -6,14 +6,18 @@ const Category = require("../models/category");
 // add halfPay lists
 router.post("/halfPay/:id", (req, res, next) => {
   let lottoNo = req.body.lottoNo;
-  let rewardPrice = req.body.rewardPrice;
-  let halfPays = { lottoNo: lottoNo, rewardPrice: rewardPrice };
+  let halfPays = { lottoNo: lottoNo };
   Category.findOne({ _id: req.params.id }).then((category) => {
     category.halfPay.push(halfPays);
     category.save().then(() => {
       res.status(200).json({ message: "halfPay updated" });
     });
-  });
+  })
+  .catch((err) => {
+    res.status(404).json({
+      message: "somthing wrong"
+    })
+  })
 });
 
 // clear เลขอั้น
@@ -27,15 +31,9 @@ router.put("/clear", (req, res, next) => {
 });
 
 router.get("", (req, res, next) => {
-  Category.aggregate()
-    .unwind("halfPay")
-    .group({
-      _id: { cateId: "$cate_id", cateName: "$cate_name"},
-      halfPayLists: { $push: "$$ROOT" },
-    })
-    .then((category) => {
-      res.status(200).json(category);
-    });
+  Category.find().then((category)=>{
+    res.status(200).json(category)
+  })
 });
 
 router.post("", (req, res, next) => {
