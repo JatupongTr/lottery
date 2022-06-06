@@ -1,82 +1,131 @@
 <div class="row">
   <div class="col">
-    <h1>ตั้งค่าการเก็บ</h1>
-    <form (submit)="onSaveSettings(settingsForm)" #settingsForm="ngForm">
-      <div class="row mb-2">
-        <p class="pt-2 col-2">3 ตัวโต๊ด</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="toddThreeDigits" ngModel />
-        </div>
+    <h1>ตั้งค่าเก็บ</h1>
+    <div class="card text-center"> 
+      <p-toast></p-toast>
+          <p-table [value]="categories" dataKey="id" editMode="row">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th>ประเภท</th>
+                      <th>ยอดสะสม (บาท)</th>
+                      <th>รับซื้อสะสม (บาท)</th>
+                      <th>คงเหลือ (บาท)</th>
+                      <th>แก้ไข</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="category">
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  {{category.description}}
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.description}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  {{category.purchaseAmount}}
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.purchaseAmount | number:'1.0'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  {{category.purchaseBalance}}
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.purchaseBalance | number:'1.0'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.purchaseMaximum">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.purchaseMaximum | number:'1.0'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td style="text-align:center">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowInitRewardPrice(category)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowSavePurchaseMaximum(category)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditRewardPrice(category, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </td>
+                  </tr>
+              </ng-template>
+          </p-table>
       </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">3 ตัวบน</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="topThreeDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">3 ตัวล่าง</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="downThreeDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">3 ตัวหน้า</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="firstThreeDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">3 ตัวท้าย</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="lastThreeDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">2 ตัวบน</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="topTwoDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">2 ตัวล่าง</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="downTwoDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">วิ่งบน</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="topRunDigits" ngModel />
-        </div>
-      </div>
-      <div class="row mb-2">
-        <p class="pt-2 col-2">วิ่งล่าง</p>
-        <div class="col-5">
-          <input class="form-control" type="number" name="downRunDigits" ngModel />
-        </div>
-      </div>
-
-        <!-- <div class="radio row m-2" *ngFor="let typeNumber of typeNumbers">
-          <p class="pt-2 col-2" name="category" >{{ typeNumber }}</p>
-          <div class="col-5">
-            <input class="form-control" type="number" name="limitPrice" ngModel />
-          </div>
-        </div> -->
-
-      <div class="text-center">
-        <button class="btn btn-primary" type="submit">บันทึกค่าเก็บ</button>
-      </div>
-    </form>
   </div>
 
   <div class="col">
+    <h1>ตั้งค่ายอดจ่าย</h1>
+    <div class="card text-center"> 
+      <p-toast></p-toast>
+          <p-table [value]="categories" dataKey="id" editMode="row">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th>ประเภท</th>
+                      <th>ยอดจ่าย (บาท)</th>
+                      <th>แก้ไข</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="category">
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  {{category.description}}
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.description}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="category.rewardPrice">
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{category.rewardPrice | number:'1.0'}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td style="text-align:center">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowInitRewardPrice(category)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowSaveRewardPrice(category)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditRewardPrice(category, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="col">
     <h1>ตั้งค่าเลขอั้น</h1>
-    <form (submit)="onSubmit(submitForm)" #submitForm="ngForm">
+    <form (submit)="onSaveNumber(submitForm)" #submitForm="ngForm">
       <div class="row mb-2">
-        <p class="pt-2 col-2">เลข</p>
         <div class="col-5">
-          <input type="number" class="form-control" name="limitNumber" ngModel />
+          <p class="pt-2 col-2">เลขอั้น</p>
+          <input type="number" class="form-control" name="lottoNo" ngModel/>
+        </div>
+        <div class="col-5">
+          <p class="pt-2 col-2">ราคาจ่าย</p>
+          <input type="number" class="form-control" name="rewardPrice" ngModel/>
         </div>
       </div>
       
@@ -93,42 +142,64 @@
             {{ typeNumber }}
           </label>
         </div>
-        <div class="col-2 mt-2">
+        <div class="col mt-2">
           <button class="btn btn-primary" type="button" (click)="onSaveNumber(submitForm)">+ เพิ่มเลขอั้น</button>
         </div>
       </div>
-      
-      <div class="col position-relative">
-        <!-- table -->
-        <table class="table table-borderless">
-          <thead>
-            <th>เลข</th>
-            <th>ประเภท</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of items">
-              <td>
-                {{ data.limitNumber }}
-              </td>
-              <td>
-                {{ data.typeNumber }}
-              </td>
-              <td>
-                <button mat-raised-button color="warn" (click)="onRemove(data)">
-                  ลบ
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="container">
-          <div class="col-md-9">
-            <div class="submitList" style="float: right">
-              <button class="btn btn-primary" type="submit" (click)="onSubmit">บันทึกเลขอั้น</button>
-            </div>
-          </div>
-        </div>
-      </div> 
     </form>
+  </div>
+
+  <div class="col">
+    <h1>เลขอั้น</h1>
+    <p-toast></p-toast>
+    <div class="card text-center">
+      <p-table [value]="categories" dataKey="id" editMode="row">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>ประเภท</th>
+                  <th>เลขอั้น</th>
+                  <th>ราคาจ่าย</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="category">
+                  <td>
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              {{category.description}}
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{category.description}}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+                  <td>
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              {{category.halfPay[0].lottoNo}}
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{category.halfPay[0].lottoNo}}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+                  <td pEditableColumn>
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <input pInputText type="text" [(ngModel)]="category.halfPay[0].rewardPrice">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{category.halfPay[0].rewardPrice | number:'1.0'}}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+    </div>
+    <br>
+    <div class="col-2">
+      <button class="btn btn-primary" type="button" (click)="onClear()">ล้างข้อมูล</button>
+    </div>
   </div>
 </div>

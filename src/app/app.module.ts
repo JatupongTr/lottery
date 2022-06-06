@@ -49,11 +49,15 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
 import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { ChartsModule } from 'ng2-charts';
+import {TableModule} from 'primeng-lts/table';
+import {ToastModule} from 'primeng-lts/toast';
+import {ButtonModule} from 'primeng-lts/button';
 import { CheckOrdersComponent } from './check-orders/check-orders.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
 import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-dialog.component';
 import { EditComponent } from './category/edit/edit.component';
 import { OverPricedComponent } from './over-priced/over-priced.component';
+import { MessageService } from 'primeng-lts/api';
 
 @NgModule({
   declarations: [
@@ -108,8 +112,11 @@ import { OverPricedComponent } from './over-priced/over-priced.component';
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
+    TableModule,
+		ButtonModule,
+		ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

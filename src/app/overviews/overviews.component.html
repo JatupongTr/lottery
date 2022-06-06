@@ -2,19 +2,25 @@
   <div class="col">
     <div class="d-flex">
       <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
-        <i class="fa fa-solid fa-user-group fs-2"></i>
-        <p class="pt-2 fs-4"></p>
-        <p>ตัวแทน</p>
+        <a mat-list-item routerLink="/menu/agents">
+          <i class="fa fa-solid fa-user-group fs-2"></i>
+          <p class="pt-2 fs-4">{{ dataSource.data.length }}</p>
+          <p>ตัวแทน</p>
+        </a>
       </div>
       <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50" >
-        <i class="fa-solid fa-clipboard-check fs-2"></i>
-        <p class="pt-2 fs-4"></p>
-        <p>จำนวนโพย</p>
+        <a mat-list-item routerLink="/menu/order/check">
+          <i class="fa-solid fa-clipboard-check fs-2"></i>
+          <p class="pt-2 fs-4">{{ countOrders.length }}</p>
+          <p>จำนวนโพย</p>
+        </a>
       </div>
       <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
-        <i class="fa-solid fa-bell fs-2"></i>
-        <p class="pt-2 fs-4">0</p>
-        <p>แจ้งเตือน</p>
+        <a mat-list-item routerLink="/menu/notifications">
+          <i class="fa-solid fa-bell fs-2"></i>
+          <p class="pt-2 fs-4">0</p>
+          <p>แจ้งเตือน</p>
+        </a>
       </div>
       <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
         <i class="fa-solid fa-circle-exclamation fs-2"></i>
