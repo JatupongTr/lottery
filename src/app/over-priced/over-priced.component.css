@@ -1,0 +1,13 @@
+table {
+  width: 80%;
+  text-align: center;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+th.mat-column-position,
+td.mat-column-position {
+  width: 180px;
+}

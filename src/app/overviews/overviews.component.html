@@ -1,119 +1,89 @@
 <div class="row">
-  <div class="col">
-    <div class="d-flex">
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
-        <a mat-list-item routerLink="/menu/agents">
-          <i class="fa fa-solid fa-user-group fs-2"></i>
-          <p class="pt-2 fs-4">{{ dataSource.data.length }}</p>
-          <p>ตัวแทน</p>
-        </a>
+  <div class="col-md-8" style="text-align: center;">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="d-flex">
+          <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+            <a mat-list-item routerLink="/menu/agents">
+              <i class="fa fa-solid fa-user-group fs-2"></i>
+              <p class="pt-2 fs-4" >{{ dataSource.data?.length }}</p>
+              <p>ตัวแทน</p>
+            </a>
+          </div>
+          <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50" >
+            <a mat-list-item routerLink="/menu/order/check">
+              <i class="fa-solid fa-clipboard-check fs-2"></i>
+              <p class="pt-2 fs-4" >{{ countOrders?.length }}</p>
+              <p>จำนวนโพย</p>
+            </a>
+          </div>
+          <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
+            <a mat-list-item routerLink="/menu/notifications">
+              <i class="fa-solid fa-bell fs-2"></i>
+              <p class="pt-2 fs-4" >{{newNoti.length}}</p>
+              <p>แจ้งเตือน</p>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50" >
-        <a mat-list-item routerLink="/menu/order/check">
-          <i class="fa-solid fa-clipboard-check fs-2"></i>
-          <p class="pt-2 fs-4">{{ countOrders.length }}</p>
-          <p>จำนวนโพย</p>
-        </a>
+      <div class="col-md-12">
+        <app-income></app-income>
       </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
-        <a mat-list-item routerLink="/menu/notifications">
-          <i class="fa-solid fa-bell fs-2"></i>
-          <p class="pt-2 fs-4">0</p>
-          <p>แจ้งเตือน</p>
-        </a>
-      </div>
-      <div class="w-100 m-4 border border-1 rounded-2 text-center pt-3 text-black-50">
-        <i class="fa-solid fa-circle-exclamation fs-2"></i>
-        <p class="pt-2 fs-4">0</p>
-        <p>รายงาน</p>
+      <div class="col-md-12">
+        <app-popular></app-popular>
       </div>
     </div>
-    <h2 class="m-4 border border-1 rounded-2 text-center pt-3" style="width: 80%;">
-      ยอดรายได้
-      <canvas baseChart
-        [datasets]="lineChartData"
-        [labels]="lineChartLabels"
-        [options]="lineChartOptions"
-        [colors]="lineChartColors"
-        [legend]="lineChartLegend"
-        [chartType]="lineChartType">
-      </canvas>
-    </h2>
   </div>
-  <div class="col-3">
-    <mat-card class="m-4 calendar">
-      <mat-calendar></mat-calendar>
-    </mat-card>
-    <h2 class="m-4 border border-1 rounded-2 text-center pt-3">กิจกรรม
-      <canvas baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [colors]="barChartColors"
-        [options]="barChartOptions"
-        [chartType]="barChartType">
-      </canvas>
-    </h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col w-100 m-4 border border-1 rounded-2 p-2">
-    <h2 class=" text-center">ตัวแทน</h2>
-      <table class="table table-borderless" mat-table matSort [dataSource]="dataSource">
-          <tr matColumnDef="image">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-            >
-            </th>
-            <td mat-cell *matCellDef="let data">
-                <img
-                  [src]="data.imagePath || defaultImage"
-                  class="avatar"
-                  alt=""
-                />
-            </td>
-          </tr>
+  <div class="col-4">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="m-4 calendar" style="width: 100%;">
+          <mat-calendar></mat-calendar>
+        </mat-card>
+      </div>
+      <div class="col-md-12">
+        <div class="w-100 m-4 border border-1 rounded-2 p-2">
+          <h2 class=" text-center">ตัวแทนใหม่</h2>
+            <table class="table table-borderless" mat-table matSort [dataSource]="dataSource">
+                <tr matColumnDef="image">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >
+                  </th>
+                  <td mat-cell *matCellDef="let data">
+                      <img
+                        [src]="data.imagePath || defaultImage"
+                        class="avatar"
+                        alt=""
+                      />
+                  </td>
+                </tr>
 
-          <tr matColumnDef="code">
-            <th mat-header-cell *matHeaderCellDef>
-            </th>
-            <td mat-cell *matCellDef="let data">{{ data.code }}</td>
-          </tr>
+                <tr matColumnDef="code">
+                  <th mat-header-cell *matHeaderCellDef>
+                  </th>
+                  <td mat-cell *matCellDef="let data">{{ data.code }}</td>
+                </tr>
 
-          <tr matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef="">
-            </th>
-            <td mat-cell *matCellDef="let data">{{ data.name }}</td>
-          </tr>
+                <tr matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef="">
+                  </th>
+                  <td mat-cell *matCellDef="let data">{{ data.name }}</td>
+                </tr>
 
-          <tr matColumnDef="more">
-            <th mat-header-cell *matHeaderCellDef="">
-            </th>
-            <td mat-cell *matCellDef="let data" ><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
+                <tr matColumnDef="more">
+                  <th mat-header-cell *matHeaderCellDef="">
+                  </th>
+                  <td mat-cell *matCellDef="let data" ><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-  </div>
-  <div class="col-8">
-    <h2 class="m-4 border border-1 rounded-2 text-center pt-3">เลขยอดนิยม
-      <canvas class="popular-num" baseChart [datasets]="barHChartData"
-        [labels]="barHChartLabels"
-        [options]="barHChartOptions"
-        [colors]="barHChartColors"
-        [legend]="barHChartLegend"
-        [chartType]="barHChartType">
-      </canvas>
-    </h2>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- <div class="flex">
-  <div class="flex-item">
-    <div class="chart-wrapper">
-      <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
-    </div>
-  </div>
-</div> -->

@@ -7,6 +7,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AgentsService } from '../agents.service';
 import { OrdersService } from 'src/app/shared/orders.service';
 import { Item, Order } from 'src/app/shared/order.model';
+import { MessageService } from 'primeng-lts/api';
 
 @Component({
   selector: 'app-agent-order',
@@ -17,7 +18,7 @@ export class AgentOrderComponent implements OnInit {
   selectNumbersType: string = 'two-numbers';
   p: number = 1;
   items: Item[];
-  orders: Order[]
+  orders: Order[];
   agent: Agent;
   private agentId: string;
   private itemsChangeSub: Subscription;
@@ -26,10 +27,10 @@ export class AgentOrderComponent implements OnInit {
     private agentsService: AgentsService,
     private ordersService: OrdersService,
     private itemsService: ItemsService,
-    private router: Router
-    ) {}
-    
-  
+    private router: Router,
+    private messageService: MessageService
+  ) {}
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('agentId')) {
@@ -52,6 +53,14 @@ export class AgentOrderComponent implements OnInit {
     );
   }
 
+  addSingle() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Service Message',
+      detail: 'Via MessageService',
+    });
+  }
+
   onSelect(select: string) {
     this.selectNumbersType = select;
   }
@@ -61,15 +70,31 @@ export class AgentOrderComponent implements OnInit {
   }
 
   onSaveLists(form: NgForm) {
-    this.ordersService.createOrder(
-      this.agentId,
-      form.value.customer,
-      form.value.period,
-      this.items,
-    ).subscribe((responseData) => {
-      this.router.navigate(['/menu/order/totals'], { queryParams: { 'agentId': this.agentId, 'period': form.value.period } });
-    });
+    this.ordersService
+      .createOrder(
+        this.agentId,
+        form.value.customer,
+        form.value.period,
+        this.items
+      )
+      .subscribe((responseData: any) => {
+        if (responseData.code == 10000) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ยอดเกิน',
+            detail: responseData.message,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'เพิ่มโพย',
+            detail: 'เพิ่มโพยสำเร็จ',
+          });
+          this.router.navigate(['/menu/order/totals'], {
+            queryParams: { agentId: this.agentId, period: form.value.period },
+          });
+          this.itemsService.clearOrder();
+        }
+      });
   }
-  
 }
-

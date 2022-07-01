@@ -29,4 +29,5 @@ export interface Item {
   netPrice: number;
   categoryId: Category;
   categoryName: string;
+  // overPrice: boolean
 }

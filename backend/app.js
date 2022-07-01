@@ -8,7 +8,9 @@ const cateRoutes = require("./routes/categories");
 const orderRoutes = require("./routes/orders");
 const rewardRoutes = require('./routes/rewards')
 const countRoutes = require("./routes/countOrder");
-const settingsRoutes = require("./routes/settings");
+const reportRoutes = require('./routes/reports');
+const notificationRoutes = require('./routes/notifications')
+
 
 const app = express();
 
@@ -49,11 +51,11 @@ app.use("/api/orders", orderRoutes);
 
 app.use("/api/count_orders", countRoutes);
 
-app.use("/api/settings", settingsRoutes);
-
+app.use('/api/reports', reportRoutes)
 
 app.use('/api/rewards', rewardRoutes);
 
+app.use('/api/notifications', notificationRoutes)
 
 
 module.exports = app;

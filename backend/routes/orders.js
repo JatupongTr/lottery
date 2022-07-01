@@ -2,81 +2,105 @@ const express = require("express");
 const Order = require("../models/order");
 const mongoose = require("mongoose");
 const Category = require("../models/category");
+const Notification = require("../models/notification");
 
 const router = express.Router();
 
-// transaction
-const save = async (req, res) => {
-  const session = await mongoose.startSession();
+// create order
+router.post("/:id", async (req, res, next) => {
+  let items = [];
+  for (let i = 0; i < req.body.length; i++) {
+    let item = {
+      lottoNo: req.body[i].lottoNo,
+      price: req.body[i].price,
+      discount: req.body[i].discount,
+      netPrice: req.body[i].netPrice,
+      categoryId: req.body[i].categoryId,
+    };
+    items.push(item);
+  }
+  let newOrder = new Order({
+    customer: req.body.customer,
+    period: req.body.period,
+    items: req.body.items,
+    agentId: req.params.id,
+  });
   try {
-    session.startTransaction();
-    const opts = { session };
-    let items = [];
-    for (let i = 0; i < req.body.length; i++) {
-      let item = {
-        lottoNo: req.body[i].lottoNo,
-        price: req.body[i].price,
-        discount: req.body[i].discount,
-        netPrice: req.body[i].netPrice,
-        categoryId: req.body[i].categoryId,
-      };
-      items.push(item);
-    }
-    let newOrder = new Order({
-      customer: req.body.customer,
-      period: req.body.period,
-      items: req.body.items,
-      agentId: req.params.id,
-    });
+    for (let i = 0; i < newOrder.items.length; i++) {
+      const category = await Category.findOne({
+        _id: newOrder.items[i].categoryId,
+      });
 
-    //checkCategory
-    for (let i = 0; i < newOrder.items.length; i++) {
-      const category = await Category.find(
-        {
-          _id: newOrder.items[i].categoryId,
-        },
-        null,
-        opts
-      );
-      if (category === null) {
-        console.log("category not found");
+      let newAmount = category.purchaseAmount;
+      // let newBalance = category.purchaseBalance;
+      // check category
+      if (!category) {
+        return res.status(404).json({ message: "category not found" });
       }
-    }
-    //update purchaseMaximum after create order
-    for (let i = 0; i < newOrder.items.length; i++) {
-      await Category.findOneAndUpdate(
-        {
-          _id: newOrder.items[i].categoryId,
-        },
-        { $inc: { purchaseAmount: newOrder.items[i].netPrice } },
-        opts
-      );
-    }
-    // update Balance
-    for (let i = 0; i < newOrder.items.length; i++) {
-      await Category.findOne({ _id: newOrder.items[i].categoryId }).then(
-        (category) => {
+      if (category.available == false) {
+        return res.status(400).json({ message: "category is no available" });
+      }
+      if (category) {
+        newAmount += newOrder.items[i].netPrice;
+        if (newAmount <= category.purchaseMaximum) {
+          category.purchaseAmount = newAmount;
+          category.purchaseBalance = category.purchaseMaximum - newAmount;
+        }
+
+        // if (newOrder.items[i].netPrice > category.purchaseBalance) {
+        //   return res.status(200).json({
+        //     code: 10000,
+        //     message:
+        //       "เลข" +
+        //       " " +
+        //       newOrder.items[i].lottoNo +
+        //       " " +
+        //       category.cate_name +
+        //       " " +
+        //       "ยอดรับซื้อเต็ม",
+        //   });
+        // }
+
+        if (newAmount > category.purchaseMaximum) {
+          let overPrice = 0;
+          category.purchaseAmount = newAmount;
+          overPrice = newAmount - category.purchaseMaximum;
+          newOrder.items[i].cutPrice = overPrice;
+          newOrder.items[i].netPrice -= newOrder.items[i].cutPrice;
+          category.purchaseAmount -= newOrder.items[i].cutPrice;
+          newOrder.items[i].overPrice = true;
           category.purchaseBalance =
             category.purchaseMaximum - category.purchaseAmount;
-          category.save();
+          if ((newOrder.items[i].overPrice = true)) {
+            let newNoti = new Notification({
+              title: "เลขยอดเกิน",
+              message: "เลข :" + " " + newOrder.items[i].lottoNo + " " + category.cate_name,
+            });
+            await newNoti.save();
+          }
+
         }
-      );
+        await category.save();
+        if (category.purchaseBalance < 1000) {
+          let newNoti = new Notification({
+            title: "ยอดรับซื้อเหลือน้อย",
+            message:
+              category.description +
+              " " +
+              "คงเหลือ:" +
+              " " +
+              category.purchaseBalance,
+          });
+          newNoti.save();
+        }
+      }
     }
-
-    await newOrder.save(opts);
-    await session.commitTransaction();
-    res.status(201).json(newOrder);
-  } catch (err) {
-    await session.abortTransaction();
-    throw err;
-  } finally {
-    session.endSession();
+    await newOrder.save();
+    res.status(201).json({ message: "Order created" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-};
-
-// create order
-router.post("/:id", (req, res, next) => {
-  save(req, res, next).catch(next);
 });
 
 router.get("/totals/:agentId/:period", (req, res, next) => {
@@ -85,8 +109,8 @@ router.get("/totals/:agentId/:period", (req, res, next) => {
     .populate({
       path: "items",
       populate: {
-        path: 'categoryId'
-      }
+        path: "categoryId",
+      },
     })
     .sort({ _id: -1 })
     .then((order) => {
@@ -108,6 +132,30 @@ router.post("/remove/:id", (req, res, next) => {
       });
     });
   });
+});
+
+// get overPrice
+router.post("/overPrice/check", (req, res, next) => {
+  Order.aggregate()
+    .unwind("$items")
+    .match({
+      $and: [{ period: req.body.period }, { "items.overPrice": true }],
+    })
+    .lookup({
+      from: "categories",
+      localField: "items.categoryId",
+      foreignField: "_id",
+      as: "items.categoryId",
+    })
+    .group({
+      _id: null,
+      lists: { $push: "$$ROOT" },
+      totals: { $sum: "$items.cutPrice" },
+    })
+    .unwind("$lists")
+    .then((orders) => {
+      res.status(200).json(orders);
+    });
 });
 
 router.get("/:id", (req, res, next) => {
@@ -183,16 +231,6 @@ router.get("/total/:agentId/:period", (req, res, next) => {
     });
   });
 });
-
-// test limit
-// router.get("", (req, res, next) => {
-//   Order.find()
-//     .populate("agentId")
-//     .populate("items.categoryId")
-//     .then((result) => {
-//       res.status(200).json(result);
-//     });
-// });
 
 router.get("", (req, res, next) => {
   Order.aggregate()

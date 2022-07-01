@@ -1,91 +1,23 @@
 <h1 class="text-center">การแจ้งเตือน </h1>
+<div class="row">
+  <div class="col-md-12">
+    <button mat-raised-button color="warn" (click)="onClear()">เคลียร์แจ้งเตือน</button>
+  </div>
+</div>
 <div class="noti shadow p-4 bg-body rounded">
-    <h4 class="fw-bold">งวดวันที่ : 16/05/2022 ใหม่!!</h4>
     <table class="table table-hover">
         <thead>
         </thead>
-        <tbody>
+        <tbody *ngFor="let data of notiData">
             <tr>
                 <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
                 </th>
                 <td>
-                    <p class="fw-bold fs-5">โพยยอดเกิน A001</p>
-                    <p class="fs-6">มีจำนวนรายการทั้งหมด 20 รายการ</p>
-                    13.35 น.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">โพยที่ตีออกแล้ว</p>
-                    <p class="fs-6">มีจำนวนรายการทั้งหมด 20 รายการ</p>
-                    15.15 น.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">ยอดที่เก็บได้</p>
-                    <p class="fs-6">จำนวน 200,000 บาท</p>
-                    15.15 น.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">ยอดที่ตีออก</p>
-                    <p class="fs-6">จำนวน 50,000 บาท</p>
-                    15.15 น.
+                    <p class="fw-bold fs-5">{{data.title}}</p>
+                    <p class="fs-6">{{data.message}}</p>
+                    {{data.date | date: "longDate"}} {{ data.date | date: "shortTime"}}
                 </td>
             </tr>
         </tbody>
     </table>
-    <br>
-    <h4 class="fw-bold">งวดวันที่ : 01/05/2022 </h4>
-    <table class="table table-hover">
-        <thead>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">โพยยอดเกิน A002</p>
-                    <p class="fs-6">มีจำนวนรายการทั้งหมด 20 รายการ</p>
-                    13.35 น.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">โพยที่ตีออกแล้ว</p>
-                    <p class="fs-6">มีจำนวนรายการทั้งหมด 20 รายการ</p>
-                    15.15 น.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">ยอดที่เก็บได้</p>
-                    <p class="fs-6">จำนวน 200,000 บาท</p>
-                    15.15 น.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
-                </th>
-                <td>
-                    <p class="fw-bold fs-5">ยอดที่ตีออก</p>
-                    <p class="fs-6">จำนวน 50,000 บาท</p>
-                    15.15 น.
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
 </div>

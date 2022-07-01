@@ -6,6 +6,8 @@ const itemSchema = new Schema({
   price: { type: Number, required: true },
   discount: { type: Number, required: true },
   netPrice: { type: Number, required: true },
+  overPrice: { type: Boolean, default: false },
+  cutPrice: { type: Number, default: 0},
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: "Category",
@@ -13,7 +15,7 @@ const itemSchema = new Schema({
 });
 const orderSchema = new Schema(
   {
-    customer: {type: String, required: true },
+    customer: { type: String, required: true },
     period: { type: String, required: true },
     items: [itemSchema],
     agentId: {
@@ -24,7 +26,6 @@ const orderSchema = new Schema(
   { timestamps: true }
 );
 
-
-orderSchema.index({ period: "text"})
+orderSchema.index({ period: "text" });
 
 module.exports = mongoose.model("Order", orderSchema);

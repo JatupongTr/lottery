@@ -1,5 +1,4 @@
 const express = require("express");
-const { $$ } = require("protractor");
 const Order = require("../models/order");
 
 const router = express.Router();
@@ -131,10 +130,17 @@ router.post("", (req, res, next) => {
           branches: [
             // 2 ตัวบน
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "topTwoDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "topTwoDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -147,10 +153,17 @@ router.post("", (req, res, next) => {
             },
             // 2 ตัวล่าง
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "downTwoDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "downTwoDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -163,10 +176,17 @@ router.post("", (req, res, next) => {
             },
             // วิ่งบน
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "topRunDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "topRunDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -179,10 +199,17 @@ router.post("", (req, res, next) => {
             },
             // วิ่งล่าง
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "downRunDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "downRunDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -195,10 +222,17 @@ router.post("", (req, res, next) => {
             },
             // 3 ตัวบน
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "topThreeDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "topThreeDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -211,10 +245,17 @@ router.post("", (req, res, next) => {
             },
             // โต๊ด
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "toddThreeDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "toddThreeDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -227,10 +268,17 @@ router.post("", (req, res, next) => {
             },
             // 3 ตัวหน้า
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "firstThreeDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "firstThreeDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -243,10 +291,17 @@ router.post("", (req, res, next) => {
             },
             // 3 ตัวท้าย
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "lastThreeDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "lastThreeDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },
@@ -259,10 +314,17 @@ router.post("", (req, res, next) => {
             },
             // 3 ตัวล่าง
             {
-              case: { $and: [
-                {$eq: ["$items.categoryId.cate_id", "downThreeDigits"]},
-                { $in: ["$items.lottoNo", "$items.categoryId.halfPay.lottoNo"]}
-              ] },
+              case: {
+                $and: [
+                  { $eq: ["$items.categoryId.cate_id", "downThreeDigits"] },
+                  {
+                    $in: [
+                      "$items.lottoNo",
+                      "$items.categoryId.halfPay.lottoNo",
+                    ],
+                  },
+                ],
+              },
               then: {
                 $multiply: ["$items.price", "$items.categoryId.halfPayReward"],
               },

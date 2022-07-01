@@ -63,14 +63,18 @@ export class AgentSummarizeComponent implements OnInit {
       this.period = params.period;
       this.ordersService.getTotal(this.agentId, this.period)
         .subscribe((res: any) => {
-          this.dataSource.data = res.Orders[0].items
-          this.period = res.Orders[0].period
-          this.agentId = res.Orders[0].agentId.code
-          this.orderId = res.Orders[0]._id
+          if (res.Orders && res.Orders[0]) {
+            this.dataSource.data = res.Orders[0].items
+            this.period = res.Orders[0].period
+            this.agentId = res.Orders[0].agentId.code
+            this.orderId = res.Orders[0]._id
+          }
         })
       this.ordersService.getTotals(this.agentId, this.period)
         .subscribe((total: any) => {
-          this.totalNet = total.Orders[0].netTotal
+          if (total.Orders && total.Orders[0]) {
+            this.totalNet = total.Orders[0].netTotal
+          }
         })
       this.ordersService.getTotalsCategory(this.agentId, this.period)
         .subscribe((totalCategory: any) => {

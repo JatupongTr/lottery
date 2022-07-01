@@ -42,6 +42,10 @@ export class CheckOrdersComponent implements OnInit, AfterViewInit {
   openDialog(orderId: string) {
     console.log(orderId)
     this.dialog.open(OrdersDetailComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '80%',
       data: {
         orderId: orderId
       }
@@ -52,7 +56,9 @@ export class CheckOrdersComponent implements OnInit, AfterViewInit {
     this.ordersService
       .getOrderCheck(form.value.period)
       .subscribe((orderResponse: Order[]) => {
-        this.dataSource.data = orderResponse;
+        if (orderResponse) {
+          this.dataSource.data = orderResponse;
+        }
       });
   }
 

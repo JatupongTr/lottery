@@ -1,16 +1,18 @@
-export interface Category {
-  _id: any;
-  id: string;
+export interface HalfPayResponse {
+  _id: string;
   cate_id: string;
   cate_name: string;
   description: string;
+  __v: number;
   rewardPrice: number;
   purchaseMaximum: number;
   purchaseAmount: number;
   purchaseBalance: number;
+  halfPay: HalfPay;
   halfPayReward: number;
-  halfPay: HalfPay[]
 }
+
 export interface HalfPay {
-  lottoNo: number;
+  lottoNo: string;
+  _id: string;
 }

@@ -1,0 +1,15 @@
+.inputText {
+  width: 3.5rem;
+  text-align: center;
+}
+table {
+  width: 100%;
+  text-align: center;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+.container {
+  justify-content: center;
+}

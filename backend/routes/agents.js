@@ -1,6 +1,7 @@
 const express = require("express");
 
 const Agent = require("../models/agent");
+const Notification = require("../models/notification")
 
 const router = express.Router();
 
@@ -27,7 +28,13 @@ router.post("", (req, res, next) => {
           imagePath: req.body.imagePath
         })
         newAgent.save().then(() => {
-          res.status(201).json({message: 'agent added'})
+          let newNoti = new Notification({
+            title: "เพิ่มตัวแทนใหม่ " ,
+            message: "รหัสตัวแทน: " + newAgent.code + " ชื่อ: " + newAgent.name
+          })
+          newNoti.save().then(() => {
+            res.status(201).json({meaaget: "agent added"})
+          })
         })
       }
     });
@@ -36,6 +43,18 @@ router.post("", (req, res, next) => {
 router.get("", (req, res, next) => {
   Agent.find()
   .skip(1)
+  .then((documents) => {
+    res.status(200).json({
+      message: "Agent fetched successfully",
+      agents: documents,
+    });
+  });
+});
+
+router.get("/new", (req, res, next) => {
+  Agent.find()
+  .sort({ code: -1 })
+  .limit(5)
   .then((documents) => {
     res.status(200).json({
       message: "Agent fetched successfully",

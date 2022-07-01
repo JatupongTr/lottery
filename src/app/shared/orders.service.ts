@@ -20,7 +20,7 @@ export class OrdersService {
   private endPoint = environment.endPoint;
   constructor(
     private http: HttpClient,
-    router: Router,
+    private router: Router,
     private itemsService: ItemsService
   ) {}
 
@@ -103,9 +103,22 @@ export class OrdersService {
   }
 
   getCountOrders() {
-
     return this.http.get(this.endPoint + '/count_orders')
+  }
 
+  getOverPrice(period: string) {
+    let data = {
+      period: period
+    }
+    return this.http.post(this.endPoint + '/orders/overPrice/check', data)
+  }
+
+  getReportIncome() {
+    return this.http.get(this.endPoint + '/reports/income')
+  }
+
+  getPopularNumber() {
+    return this.http.get(this.endPoint + '/reports/populars')
   }
 
 

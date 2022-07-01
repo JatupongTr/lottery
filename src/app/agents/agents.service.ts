@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Agent } from './agent.model';
 import { Category } from '../shared/category.model';
+import { environment } from 'src/environments/environment';
 
 export interface Order {
   items: Item[];
@@ -26,6 +27,8 @@ export class AgentsService {
   agentChanged = new Subject<Agent[]>();
 
   private agents: Agent[] = [];
+
+  private endPoint = environment.endPoint;
 
   constructor(
     private http: HttpClient,
@@ -53,6 +56,10 @@ export class AgentsService {
         this.agentChanged.next([...this.agents]);
       });
 
+  }
+
+  getNewAgent() {
+    return this.http.get(this.endPoint + "/agents/new")
   }
 
 

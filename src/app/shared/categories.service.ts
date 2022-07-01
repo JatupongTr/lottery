@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Category } from './category.model';
+import { Category, HalfPay } from './category.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { HalfPayResponse } from './halfPayResponse.model';
 /* import { ItemLimit } from '../settings/setting.model'; */
 /* import { LimitNumber } from '../settings/limitNumber.model'; */
 
@@ -17,9 +18,19 @@ export class CategoriesService {
 
   private categories: Category[] = [];
 
+  halfPayChanged = new Subject<HalfPayResponse[]>();
+
   constructor(private http: HttpClient) {}
 
-  /* getCategories() {
+  getHalfPayUpdateListener() {
+    return this.halfPayChanged.asObservable()
+  }
+
+  getHalfPay() {
+    return this.http.get(this.endPoint + "/categories/halfpay")
+  }
+
+  getCategories() {
     this.http
       .get<{ message: string; categories: any }>(this.endPoint + '/categories')
       .pipe(
@@ -31,6 +42,10 @@ export class CategoriesService {
               description: category.description,
               rewardPrice: category.rewardPrice,
               purchaseMaximum: category.purchaseMaximum,
+              purchaseAmount: category.purchaseAmount,
+              purchaseBalance: category.purchaseBalance,
+              halfPayReward: category.halfPayReward,
+              halfPay: category.halfPay,
               id: category._id,
             };
           });
@@ -38,15 +53,18 @@ export class CategoriesService {
       )
       .subscribe((transformedData) => {
         this.categories = transformedData;
-        this.categoriesChanged.next(this.categories);
+        this.categoriesChanged.next([...this.categories]);
       });
-  } */
+  }
 
   getCategoriesNew() {
-    return this.http.get<any>(this.endPoint + '/categories')
-    .toPromise()
-    .then(res => <Category[]>res.categories)
-    .then(data => { return data; });
+    return this.http
+      .get<any>(this.endPoint + '/categories')
+      .toPromise()
+      .then((res) => <Category[]>res.categories)
+      .then((data) => {
+        return data;
+      });
   }
 
   getCategoriesTwo() {
@@ -103,39 +121,53 @@ export class CategoriesService {
     return this.categoriesChanged.asObservable();
   }
 
-  // เลขค่าเก็บ
-  putRewardPrice(_id : any , rewardPrice : any ) {
-    const category = 
-      {
-          "rewardPrice" : rewardPrice,
-      };
-    return this.http.put(this.endPoint + '/categories/rewardPrice/' + _id , category);
+  // ตัวคูณ
+  putRewardPrice(_id: any, rewardPrice: number, halfPayReward: number) {
+    const category = {
+      rewardPrice: rewardPrice,
+      halfPayReward: halfPayReward
+    };
+    return this.http.put(
+      this.endPoint + '/categories/rewardPrice/' + _id,
+      category
+    );
   }
 
-  // เลขตัวคูณ
-  putPurchaseMaximum(_id : any , purchaseMaximum : any) {
-    const category = 
-      {
-          "purchaseMaximum" : purchaseMaximum
-      };
-    return this.http.put(this.endPoint + '/categories/purchaseMaximum/' + _id , category);
+  // ยอดซื้อสูงสุด
+  putPurchaseMaximum(_id: any, purchaseMaximum: number) {
+    const category = {
+      purchaseMaximum: purchaseMaximum,
+    };
+    return this.http.put(
+      this.endPoint + '/categories/purchaseMaximum/' + _id,
+      category
+    );
   }
 
   // เลขอั้น
-  createHalfPay(typeNumber: any ,rewardPrice: any , lottoNo: any) {   
-    const item = 
-      {
-          "rewardPrice" : rewardPrice,
-          "lottoNo" : lottoNo,
-      }; 
-      const id = typeNumber;
-    return this.http.post(this.endPoint + '/categories/halfPay/' + id , item);
+  createHalfPay(id: any, lottoNo: any) {
+    const item = {
+      id: id,
+      lottoNo: lottoNo,
+    };
+    return this.http.post(this.endPoint + '/categories/halfPay', item);
+  }
+
+  // ลบเลขอั้น
+  removeHalfpay(id: string, halfPayId: string){
+    let data = {
+      halfPayId: halfPayId
+    }
+    return this.http.post(this.endPoint + '/categories/remove/' + id, data)
   }
 
   // ล้างเลขอั้น
   clearHalfPay() {
-
     return this.http.put(this.endPoint + '/categories/clear', null);
   }
 
+  // reset setting
+  resetSetting() {
+    return this.http.put(this.endPoint + '/categories/reset', null)
+  }
 }

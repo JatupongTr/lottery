@@ -54,7 +54,6 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
       value.price,
       value.discount,
       this.netPrice,
-      // categorySelect,
       value.categories
     )
     newItems.categoryName = categorySelect.cate_name

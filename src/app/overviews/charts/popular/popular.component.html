@@ -1,0 +1,45 @@
+<div style="display: block">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="w-100 m-4 border border-1 rounded-2 p-2">
+        <h2 class="text-center">เลขยอดนิยม</h2>
+        <!-- <table class="table table-borderless" mat-table matSort [dataSource]="dataSource">
+            <tr matColumnDef="No">
+              <th mat-header-cell *matHeaderCellDef>อันดับที่
+              </th>
+              <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+            </tr>
+              <tr matColumnDef="lottoNo">
+                <th mat-header-cell *matHeaderCellDef>เลข
+                </th>
+                <td mat-cell *matCellDef="let data">{{ data._id }}</td>
+              </tr>
+
+              <tr matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef="">จำนวน
+                </th>
+                <td mat-cell *matCellDef="let data">{{ data.count }}</td>
+              </tr>
+
+              <tr matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef="">
+                </th>
+                <td mat-cell *matCellDef="let data" >ตัว</td>
+              </tr>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table> -->
+        <canvas
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+        ></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div></div>

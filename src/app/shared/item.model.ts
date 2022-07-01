@@ -1,5 +1,4 @@
-
-import { Category } from "./category.model";
+import { Category } from './category.model';
 
 export class Item {
   public lottoNo: string;
@@ -15,11 +14,11 @@ export class Item {
     discount: number,
     netPrice: number,
     categoryId: Category
-  ){
-    this.lottoNo = lottoNo
-    this.price = price
-    this.discount = discount
-    this.netPrice = netPrice
-    this.categoryId = categoryId
+  ) {
+    this.lottoNo = lottoNo;
+    this.price = price;
+    this.discount = discount;
+    this.netPrice = netPrice;
+    this.categoryId = categoryId;
   }
 }

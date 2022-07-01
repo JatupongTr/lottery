@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+// Materials
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
@@ -49,15 +52,17 @@ import { AgentCreateComponent } from './agents/agent-create/agent-create.compone
 import { AgentOrderComponent } from './agents/agent-order/agent-order.component';
 import { RewardCheckComponent } from './reward-check/reward-check.component';
 import { ChartsModule } from 'ng2-charts';
-import {TableModule} from 'primeng-lts/table';
-import {ToastModule} from 'primeng-lts/toast';
-import {ButtonModule} from 'primeng-lts/button';
+import { TableModule } from 'primeng-lts/table';
+import { ToastModule } from 'primeng-lts/toast';
+import { ButtonModule } from 'primeng-lts/button';
 import { CheckOrdersComponent } from './check-orders/check-orders.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
 import { RewardCheckDialogComponent } from './reward-check-dialog/reward-check-dialog.component';
 import { EditComponent } from './category/edit/edit.component';
 import { OverPricedComponent } from './over-priced/over-priced.component';
 import { MessageService } from 'primeng-lts/api';
+import { PopularComponent } from './overviews/charts/popular/popular.component';
+import { IncomeComponent } from './overviews/charts/income/income.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +91,8 @@ import { MessageService } from 'primeng-lts/api';
     RewardCheckDialogComponent,
     EditComponent,
     OverPricedComponent,
+    PopularComponent,
+    IncomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,9 +119,10 @@ import { MessageService } from 'primeng-lts/api';
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatSelectModule,
     TableModule,
-		ButtonModule,
-		ToastModule
+    ButtonModule,
+    ToastModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

@@ -1,5 +1,7 @@
+import { OrdersService } from 'src/app/shared/orders.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-over-priced',
@@ -8,11 +10,22 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class OverPricedComponent implements OnInit {
 
-  displayedColumns = ['lottoNo', 'category', 'price'];
+  displayedColumns = ['position','lottoNo', 'category', 'price'];
+  totals: number;
   dataSource = new MatTableDataSource();
-  constructor() { }
+  constructor(private ordersService: OrdersService) { }
 
   ngOnInit(): void {
+
+  }
+
+  onOverPriceCheck(form: NgForm) {
+    this.ordersService.getOverPrice(form.value.period)
+      .subscribe((res: any[])=>{
+        console.log(res)
+        this.dataSource.data = res
+        this.totals = res[0].totals
+      })
   }
 
 }
