@@ -3,11 +3,12 @@ const Order = require("../models/order");
 const mongoose = require("mongoose");
 const Category = require("../models/category");
 const Notification = require("../models/notification");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
 // create order
-router.post("/:id", async (req, res, next) => {
+router.post("/:id", checkAuth, async (req, res, next) => {
   let items = [];
   for (let i = 0; i < req.body.length; i++) {
     let item = {
@@ -56,11 +57,10 @@ router.post("/:id", async (req, res, next) => {
           newOrder.items[i].overPrice = true;
           category.purchaseBalance =
             category.purchaseMaximum - category.purchaseAmount;
-            category.available = false
+          category.available = false;
         }
         await category.save();
       }
-
     }
     await newOrder.save();
     res.status(201).json({ message: "Order created" });
@@ -70,7 +70,7 @@ router.post("/:id", async (req, res, next) => {
   }
 });
 
-router.get("/totals/:agentId/:period", (req, res, next) => {
+router.get("/totals/:agentId/:period", checkAuth, (req, res, next) => {
   Order.find({ agentId: req.params.agentId }, { period: req.params.period })
     .populate("agentId")
     .populate({
@@ -88,7 +88,7 @@ router.get("/totals/:agentId/:period", (req, res, next) => {
     });
 });
 
-router.post("/remove/:id", (req, res, next) => {
+router.post("/remove/:id", checkAuth, (req, res, next) => {
   const itemId = req.body.id;
   Order.findOne({ _id: req.params.id }).then((order) => {
     order.items.pull(itemId);
@@ -102,7 +102,7 @@ router.post("/remove/:id", (req, res, next) => {
 });
 
 // get overPrice
-router.post("/overPrice/check", (req, res, next) => {
+router.post("/overPrice/check", checkAuth, (req, res, next) => {
   Order.aggregate()
     .unwind("$items")
     .match({
@@ -125,7 +125,7 @@ router.post("/overPrice/check", (req, res, next) => {
     });
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", checkAuth, (req, res, next) => {
   Order.findById(req.params.id)
     .populate("agentId")
     .populate("items.categoryId")
@@ -142,7 +142,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.get("/total/category/:agentId/:period", (req, res, next) => {
+router.get("/total/category/:agentId/:period", checkAuth, (req, res, next) => {
   Order.aggregate([
     {
       $match: {
@@ -172,7 +172,7 @@ router.get("/total/category/:agentId/:period", (req, res, next) => {
   });
 });
 
-router.get("/total/:agentId/:period", (req, res, next) => {
+router.get("/total/:agentId/:period", checkAuth, (req, res, next) => {
   Order.aggregate([
     {
       $match: {
@@ -199,7 +199,7 @@ router.get("/total/:agentId/:period", (req, res, next) => {
   });
 });
 
-router.get("", (req, res, next) => {
+router.get("", checkAuth, (req, res, next) => {
   Order.aggregate()
     .unwind("items")
     .lookup({
@@ -220,7 +220,7 @@ router.get("", (req, res, next) => {
 });
 
 //check order
-router.get("/check/:period", (req, res, next) => {
+router.get("/check/:period", checkAuth, (req, res, next) => {
   let period = req.params.period;
   Order.find({
     period: period,

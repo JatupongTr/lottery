@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require("../middleware/check-auth");
 
 const Category = require("../models/category");
 
 // add halfPay lists
-router.post("/halfPay", (req, res, next) => {
+router.post("/halfPay", checkAuth,(req, res, next) => {
   let lottoNo = req.body.lottoNo;
   let halfPays = { lottoNo: lottoNo };
   Category.findOne({ _id: req.body.id })
@@ -22,7 +23,7 @@ router.post("/halfPay", (req, res, next) => {
 });
 
 // reset
-router.put("/reset", (req, res, next) => {
+router.put("/reset", checkAuth,(req, res, next) => {
   let purchaseAmount = 0;
   let purchaseBalance = 0;
   let purchaseMaximum = 0;
@@ -51,7 +52,7 @@ router.put("/reset", (req, res, next) => {
 });
 
 //remove halfPay
-router.post("/remove/:id", (req, res, next) => {
+router.post("/remove/:id", checkAuth,(req, res, next) => {
   const itemId = req.body.halfPayId;
   Category.findOne({ _id: req.params.id }).then((category) => {
     category.halfPay.pull(itemId);
@@ -64,7 +65,7 @@ router.post("/remove/:id", (req, res, next) => {
 });
 
 // clear เลขอั้น
-router.put("/clear", (req, res, next) => {
+router.put("/clear", checkAuth,(req, res, next) => {
   let halfPay = [];
   Category.updateMany({ halfPay: halfPay }).then((category) => {
     res.status(200).json({
@@ -73,7 +74,7 @@ router.put("/clear", (req, res, next) => {
   });
 });
 
-router.get("", (req, res, next) => {
+router.get("", checkAuth,(req, res, next) => {
   Category.find().then((document) => {
     res.status(200).json({
       message: "Categories fetched",
@@ -82,7 +83,7 @@ router.get("", (req, res, next) => {
   });
 });
 
-router.get("/halfpay", (req, res, next) => {
+router.get("/halfpay", checkAuth,(req, res, next) => {
   Category.aggregate()
     .unwind("halfPay")
     .sort({ cate_id: 1 })
@@ -91,7 +92,7 @@ router.get("/halfpay", (req, res, next) => {
     });
 });
 
-router.post("", (req, res, next) => {
+router.post("", checkAuth,(req, res, next) => {
   const newCate = new Category({
     cate_id: req.body.cate_id,
     cate_name: req.body.cate_name,
@@ -111,7 +112,7 @@ router.post("", (req, res, next) => {
   });
 });
 
-router.get("/two", (req, res, next) => {
+router.get("/two", checkAuth,(req, res, next) => {
   Category.find({
     $or: [{ cate_id: "topTwoDigits" }, { cate_id: "downTwoDigits" }],
   }).then((document) => {
@@ -122,7 +123,7 @@ router.get("/two", (req, res, next) => {
   });
 });
 
-router.get("/running", (req, res, next) => {
+router.get("/running", checkAuth,(req, res, next) => {
   Category.find({
     $or: [{ cate_id: "topRunDigits" }, { cate_id: "downRunDigits" }],
   }).then((document) => {
@@ -133,7 +134,7 @@ router.get("/running", (req, res, next) => {
   });
 });
 
-router.get("/three", (req, res, next) => {
+router.get("/three", checkAuth,(req, res, next) => {
   Category.find({
     $or: [
       { cate_id: "topThreeDigits" },
@@ -150,7 +151,7 @@ router.get("/three", (req, res, next) => {
   });
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", checkAuth,(req, res, next) => {
   Category.findById(req.params.id).then((category) => {
     if (category) {
       res.status(200).json(category);
@@ -161,7 +162,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // เลขตัวคูณ
-router.put("/rewardPrice/:id", (req, res, next) => {
+router.put("/rewardPrice/:id", checkAuth,(req, res, next) => {
   Category.findByIdAndUpdate(
     { _id: req.params.id },
     { rewardPrice: req.body.rewardPrice, halfPayReward: req.body.halfPayReward }
@@ -171,7 +172,7 @@ router.put("/rewardPrice/:id", (req, res, next) => {
 });
 
 // เลขค่าเก็บ
-router.put("/purchaseMaximum/:id", (req, res, next) => {
+router.put("/purchaseMaximum/:id", checkAuth,(req, res, next) => {
   Category.findByIdAndUpdate(
     { _id: req.params.id },
     { purchaseMaximum: req.body.purchaseMaximum }

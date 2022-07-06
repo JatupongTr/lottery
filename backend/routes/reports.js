@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 var moment = require("moment");
+const checkAuth = require("../middleware/check-auth");
 
 const Order = require("../models/order");
 
-router.get("/income", (req, res, next) => {
+router.get("/income", checkAuth, (req, res, next) => {
   let start = moment().startOf("year").format("YYYY-MM-DD");
   let end = moment().endOf("year").format("YYYY-MM-DD");
 
@@ -37,28 +38,27 @@ router.get("/income", (req, res, next) => {
     });
 });
 
-router.get("/populars", (req, res, next) => {
-
+router.get("/populars", checkAuth, (req, res, next) => {
   Order.aggregate()
     .unwind("items")
     .match({
-      "items.netPrice": {$ne: 0}
+      "items.netPrice": { $ne: 0 },
     })
     .group({
       _id: "$period",
       dataSet: {
         $push: "$items.lottoNo",
-      }
+      },
     })
     .sort({ _id: -1 })
     .limit(1)
     .unwind("dataSet")
     .group({
       _id: "$dataSet",
-      count: {$sum: 1 }
+      count: { $sum: 1 },
     })
     .limit(3)
-    .sort({ count: -1})
+    .sort({ count: -1 })
     .then((result) => {
       res.status(200).json(result);
     });

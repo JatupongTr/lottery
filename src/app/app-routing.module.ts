@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { OverPricedComponent } from './over-priced/over-priced.component';
 import { OrdersDetailComponent } from './orders-detail/orders-detail.component';
 import { CheckOrdersComponent } from './check-orders/check-orders.component';
@@ -24,26 +25,27 @@ const routes: Routes = [
     path: 'menu',
     component: DashboardComponent,
     children: [
-      { path: 'reward-check', component: RewardCheckComponent },
-      { path: 'overviews', component: OverviewsComponent },
-      { path: 'over-priced', component: OverPricedComponent},
-      { path: 'settings', component: SettingsComponent },
-      { path: 'notifications', component: NotificationsComponent },
-      { path: 'agents', component: AgentsComponent },
-      { path: 'agents/new', component: AgentCreateComponent },
-      { path: 'agents/:id', component: AgentDetailComponent },
-      { path: 'agents/edit/:agentId', component: AgentCreateComponent },
-      { path: 'agents/lists/:agentId', component: AgentOrderComponent },
-      { path: 'order/totals', component: AgentSummarizeComponent },
-      { path: 'order/check', component: CheckOrdersComponent },
-      { path: 'order/details/:orderId', component: OrdersDetailComponent },
-      { path: 'agents/lists/summarize/:agentId', component: AgentSummarizeComponent }
-    ],
+      { path: 'reward-check', component: RewardCheckComponent, canActivate: [AuthGuard] },
+      { path: 'overviews', component: OverviewsComponent, canActivate: [AuthGuard] },
+      { path: 'over-priced', component: OverPricedComponent, canActivate: [AuthGuard]},
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+      { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
+      { path: 'agents', component: AgentsComponent, canActivate: [AuthGuard] },
+      { path: 'agents/new', component: AgentCreateComponent, canActivate: [AuthGuard] },
+      { path: 'agents/:id', component: AgentDetailComponent, canActivate: [AuthGuard] },
+      { path: 'agents/edit/:agentId', component: AgentCreateComponent, canActivate: [AuthGuard] },
+      { path: 'agents/lists/:agentId', component: AgentOrderComponent, canActivate: [AuthGuard] },
+      { path: 'order/totals', component: AgentSummarizeComponent, canActivate: [AuthGuard] },
+      { path: 'order/check', component: CheckOrdersComponent , canActivate: [AuthGuard]},
+      { path: 'order/details/:orderId', component: OrdersDetailComponent, canActivate: [AuthGuard] },
+      { path: 'agents/lists/summarize/:agentId', component: AgentSummarizeComponent, canActivate: [AuthGuard] }
+    ], canActivate: [AuthGuard]
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}

@@ -1,9 +1,10 @@
 const express = require("express");
 const Order = require("../models/order");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-router.post("", (req, res, next) => {
+router.post("", checkAuth,(req, res, next) => {
   const period = req.body.period;
   const firstPrize = req.body.firstPrize;
   const downTwoPrize = req.body.downTwoPrize;

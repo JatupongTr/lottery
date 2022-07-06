@@ -9,7 +9,7 @@ import { User } from './user.model';
 })
 export class AuthService {
   user = new Subject<User>();
-  private token!: string;
+  private token: string;
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
 
@@ -33,16 +33,17 @@ export class AuthService {
       password: password,
     };
     this.http
-      .post< any >('http://localhost:3000/api/users/login', user)
+      .post<{token: string, fetchedUser: any} >('http://localhost:3000/api/users/login', user)
       .subscribe((res) => {
         const token = res.token;
         this.token = token;
         if (token) {
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
+          this.saveAuthData(token);
+          sessionStorage.setItem("username", res.fetchedUser.username)
+          this.router.navigate(["/menu/overviews"])
         }
-        sessionStorage.setItem("username", res.fetchedUser.username)
-        this.router.navigate(["/menu/overviews"])
       });
   }
 
@@ -56,5 +57,36 @@ export class AuthService {
         console.log(response)
         window.location.reload();
       })
+  }
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    if (!authInformation) {
+      return;
+    }
+    this.token = authInformation.token
+    this.isAuthenticated =true
+    this.authStatusListener.next(true)
+  }
+  logout() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    this.clearAuthData();
+  }
+
+  private saveAuthData(token: string) {
+    localStorage.setItem('token', token)
+  }
+  private clearAuthData() {
+    localStorage.removeItem("token")
+  }
+  private getAuthData() {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      return;
+    }
+    return {
+      token: token
+    }
   }
 }

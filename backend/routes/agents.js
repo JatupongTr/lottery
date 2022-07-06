@@ -1,9 +1,9 @@
 const express = require("express");
+const router = express.Router();
 
 const Agent = require("../models/agent");
 const Notification = require("../models/notification")
-
-const router = express.Router();
+const checkAuth = require('../middleware/check-auth')
 
 function incrementCode(nextAgentCode) {
   let increasedNum = Number(nextAgentCode.replace("A", "")) + 1;
@@ -15,7 +15,7 @@ function incrementCode(nextAgentCode) {
 
 }
 
-router.post("", (req, res, next) => {
+router.post("", checkAuth,(req, res, next) => {
   Agent.find()
     .sort({ code: -1 })
     .limit(1)
@@ -40,7 +40,7 @@ router.post("", (req, res, next) => {
     });
 });
 
-router.get("", (req, res, next) => {
+router.get("", checkAuth,(req, res, next) => {
   Agent.find()
   .skip(1)
   .then((documents) => {
@@ -51,7 +51,7 @@ router.get("", (req, res, next) => {
   });
 });
 
-router.get("/new", (req, res, next) => {
+router.get("/new", checkAuth,(req, res, next) => {
   Agent.find()
   .sort({ code: -1 })
   .limit(5)
@@ -63,7 +63,7 @@ router.get("/new", (req, res, next) => {
   });
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", checkAuth,(req, res, next) => {
   Agent.findById(req.params.id)
     // .populate("order.items.category")
     .then((agent) => {
@@ -75,7 +75,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", checkAuth,(req, res, next) => {
   const agent = new Agent({
     _id: req.body.id,
     code: req.body.code,
@@ -87,7 +87,7 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", checkAuth,(req, res, next) => {
   Agent.deleteOne({ _id: req.params.id })
     .then((resutl) => {
       res.status(200).json({

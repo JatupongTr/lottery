@@ -4,17 +4,10 @@
   </button>
   <span *ngIf="!mobileQueryMax">Lottery Admin</span>
   <span class="flex-fill"></span>
-  <!-- <div class="d-flex align-items-center">
-    <button mat-button>
-      <mat-icon>search</mat-icon>
-    </button>
-    <div class="vl"></div>
-    <button mat-button>
-      <mat-icon>mail_outline</mat-icon>
-    </button>
-    <div class="vl"></div>
-    <button mat-button>
-      <mat-icon>person_outline</mat-icon>
-    </button>
-  </div> -->
+  <div class="d-flex align-items-center">
+      <button mat-button (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+        ออกจากระบบ
+      </button>
+  </div>
 </mat-toolbar>
