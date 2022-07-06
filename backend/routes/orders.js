@@ -32,36 +32,21 @@ router.post("/:id", async (req, res, next) => {
       });
 
       let newAmount = category.purchaseAmount;
-      // let newBalance = category.purchaseBalance;
-      // check category
+
       if (!category) {
         return res.status(404).json({ message: "category not found" });
       }
-      if (category.available == false) {
-        return res.status(400).json({ message: "category is no available" });
-      }
+
       if (category) {
         newAmount += newOrder.items[i].netPrice;
-        if (newAmount <= category.purchaseMaximum) {
+        if (category.available == false) {
+          newOrder.items[i].netPrice = 0;
+          newOrder.items[i].price = 0;
+          continue;
+        } else if (newAmount <= category.purchaseMaximum) {
           category.purchaseAmount = newAmount;
           category.purchaseBalance = category.purchaseMaximum - newAmount;
-        }
-
-        // if (newOrder.items[i].netPrice > category.purchaseBalance) {
-        //   return res.status(200).json({
-        //     code: 10000,
-        //     message:
-        //       "เลข" +
-        //       " " +
-        //       newOrder.items[i].lottoNo +
-        //       " " +
-        //       category.cate_name +
-        //       " " +
-        //       "ยอดรับซื้อเต็ม",
-        //   });
-        // }
-
-        if (newAmount > category.purchaseMaximum) {
+        } else if (newAmount > category.purchaseMaximum) {
           let overPrice = 0;
           category.purchaseAmount = newAmount;
           overPrice = newAmount - category.purchaseMaximum;
@@ -71,29 +56,11 @@ router.post("/:id", async (req, res, next) => {
           newOrder.items[i].overPrice = true;
           category.purchaseBalance =
             category.purchaseMaximum - category.purchaseAmount;
-          if ((newOrder.items[i].overPrice = true)) {
-            let newNoti = new Notification({
-              title: "เลขยอดเกิน",
-              message: "เลข :" + " " + newOrder.items[i].lottoNo + " " + category.cate_name,
-            });
-            await newNoti.save();
-          }
-
+            category.available = false
         }
         await category.save();
-        if (category.purchaseBalance < 1000) {
-          let newNoti = new Notification({
-            title: "ยอดรับซื้อเหลือน้อย",
-            message:
-              category.description +
-              " " +
-              "คงเหลือ:" +
-              " " +
-              category.purchaseBalance,
-          });
-          newNoti.save();
-        }
       }
+
     }
     await newOrder.save();
     res.status(201).json({ message: "Order created" });

@@ -18,6 +18,7 @@ export class RunningComponent implements OnInit, OnDestroy {
   categories: Category[];
   items: Item[];
 
+
   private categorySub: Subscription;
 
   lottoNo = '';
@@ -35,7 +36,7 @@ export class RunningComponent implements OnInit, OnDestroy {
     this.runningService.getRunningCategories();
     this.categorySub = this.runningService
       .getCategoryUpdatedListener()
-      .subscribe((categories: Category[]) => {
+      .subscribe((categories: any) => {
         this.categories = categories;
       });
   }
@@ -64,8 +65,6 @@ export class RunningComponent implements OnInit, OnDestroy {
       value.categories
     )
     newItems.categoryName = categorySelect.cate_name
-    console.log(newItems)
-    console.log(categorySelect.cate_name)
     this.itemsService.addItems(newItems)
     form.reset();
   }

@@ -42,6 +42,7 @@ router.put("/reset", (req, res, next) => {
       (category.purchaseAmount = purchaseAmount),
         (category.purchaseBalance = purchaseBalance),
         (category.purchaseMaximum = purchaseMaximum),
+        category.available = true;
         category.save().then(()=> {
           res.end()
         })

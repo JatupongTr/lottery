@@ -9,7 +9,8 @@ export interface Category {
   purchaseAmount: number;
   purchaseBalance: number;
   halfPayReward: number;
-  halfPay: HalfPay[]
+  halfPay: HalfPay[];
+  available: boolean
 }
 export interface HalfPay {
   lottoNo: number;

@@ -46,6 +46,7 @@ export class CategoriesService {
               purchaseBalance: category.purchaseBalance,
               halfPayReward: category.halfPayReward,
               halfPay: category.halfPay,
+              available: category.available,
               id: category._id,
             };
           });
@@ -81,6 +82,11 @@ export class CategoriesService {
               description: category.description,
               rewardPrice: category.rewardPrice,
               purchaseMaximum: category.purchaseMaximum,
+              purchaseAmount: category.purchaseAmount,
+              purchaseBalance: category.purchaseBalance,
+              halfPayReward: category.halfPayReward,
+              halfPay: category.halfPay,
+              available: category.available,
               id: category._id,
             };
           });
@@ -106,6 +112,11 @@ export class CategoriesService {
               description: category.description,
               rewardPrice: category.rewardPrice,
               purchaseMaximum: category.purchaseMaximum,
+              purchaseAmount: category.purchaseAmount,
+              purchaseBalance: category.purchaseBalance,
+              halfPayReward: category.halfPayReward,
+              halfPay: category.halfPay,
+              available: category.available,
               id: category._id,
             };
           });

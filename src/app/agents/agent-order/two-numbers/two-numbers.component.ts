@@ -15,7 +15,7 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) addListForm: NgForm;
 
   private categorySub: Subscription;
-  items: Item[]
+  items: Item[];
 
   categories: Category[];
   lottoNo = '';
@@ -23,14 +23,18 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
   discount: number = 0;
   netPrice: number = 0;
 
-  constructor(private cateService: CategoriesService, private itemsService: ItemsService) {}
+  constructor(
+    private cateService: CategoriesService,
+    private itemsService: ItemsService
+  ) {}
 
   ngOnInit(): void {
-    this.cateService.getCategoriesTwo()
-    this.categorySub = this.cateService.getCategoryUpdatedListener()
-      .subscribe((categories: Category[]) => {
-        this.categories = categories
-      })
+    this.cateService.getCategoriesTwo();
+    this.categorySub = this.cateService
+      .getCategoryUpdatedListener()
+      .subscribe((res: any) => {
+        this.categories = res;
+      });
   }
 
   ngOnDestroy(): void {
@@ -55,11 +59,9 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
       value.discount,
       this.netPrice,
       value.categories
-    )
-    newItems.categoryName = categorySelect.cate_name
-    console.log(newItems)
-    console.log(categorySelect.cate_name)
-    this.itemsService.addItems(newItems)
+    );
+    newItems.categoryName = categorySelect.cate_name;
+    this.itemsService.addItems(newItems);
     form.reset();
   }
 }

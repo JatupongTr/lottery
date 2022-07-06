@@ -41,6 +41,9 @@ router.get("/populars", (req, res, next) => {
 
   Order.aggregate()
     .unwind("items")
+    .match({
+      "items.netPrice": {$ne: 0}
+    })
     .group({
       _id: "$period",
       dataSet: {
