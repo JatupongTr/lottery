@@ -30,7 +30,7 @@ router.post("/login", (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(401).json({
-          message: "Authentication failed!",
+          message: "User not found!",
         });
       }
       fetchedUser = user;
@@ -39,7 +39,7 @@ router.post("/login", (req, res, next) => {
     .then((result) => {
       if (!result) {
         return res.status(401).json({
-          message: "Authentication failed!",
+          message: "User not found!",
         });
       }
       const token = jwt.sign(
@@ -55,9 +55,7 @@ router.post("/login", (req, res, next) => {
       });
     })
     .catch((err) => {
-      return res.status(401).json({
-        message: "Authentication failed!",
-      });
+      return res.end()
     });
 });
 

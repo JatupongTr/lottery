@@ -64,6 +64,8 @@ import { OverPricedComponent } from './over-priced/over-priced.component';
 import { MessageService } from 'primeng-lts/api';
 import { PopularComponent } from './overviews/charts/popular/popular.component';
 import { IncomeComponent } from './overviews/charts/income/income.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { IncomeComponent } from './overviews/charts/income/income.component';
     OverPricedComponent,
     PopularComponent,
     IncomeComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -125,8 +128,13 @@ import { IncomeComponent } from './overviews/charts/income/income.component';
     ButtonModule,
     ToastModule,
   ],
-  providers: [MessageService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

@@ -44,6 +44,8 @@ export class AuthService {
           sessionStorage.setItem("username", res.fetchedUser.username)
           this.router.navigate(["/menu/overviews"])
         }
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
@@ -55,7 +57,8 @@ export class AuthService {
     this.http.post("http://localhost:3000/api/users/signup", user)
       .subscribe(response => {
         console.log(response)
-        window.location.reload();
+      }, error => {
+        this.authStatusListener.next(false)
       })
   }
   autoAuthUser() {
