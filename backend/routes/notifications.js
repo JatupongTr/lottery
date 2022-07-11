@@ -5,7 +5,7 @@ const Notification = require("../models/notification");
 
 router.get("", (req, res, next) => {
   Notification.find()
-    .sort({ date: -1 })
+    .sort({ _id: -1 })
     .then((result) => {
       res.status(200).json(result);
     });

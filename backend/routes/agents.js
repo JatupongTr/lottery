@@ -29,8 +29,8 @@ router.post("", checkAuth,(req, res, next) => {
         })
         newAgent.save().then(() => {
           let newNoti = new Notification({
-            title: "เพิ่มตัวแทนใหม่ " ,
-            message: "รหัสตัวแทน: " + newAgent.code + " ชื่อ: " + newAgent.name
+            title: "เพิ่มตัวแทน " ,
+            message: "รหัสตัวแทน: " + newAgent.code + " " + " ชื่อ: " + newAgent.name
           })
           newNoti.save().then(() => {
             res.status(201).json({meaaget: "agent added"})

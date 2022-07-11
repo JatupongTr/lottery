@@ -25,6 +25,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
@@ -96,7 +97,7 @@ import { ErrorComponent } from './error/error.component';
     OverPricedComponent,
     PopularComponent,
     IncomeComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,6 +125,7 @@ import { ErrorComponent } from './error/error.component';
     MatDatepickerModule,
     MatDialogModule,
     MatSelectModule,
+    MatTooltipModule,
     TableModule,
     ButtonModule,
     ToastModule,

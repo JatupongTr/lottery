@@ -47,7 +47,8 @@ export class OverviewsComponent implements OnInit {
 
   ngOnInit() {
     // New Agents
-    this.defaultImage = './assets/images/account.png'
+    this.defaultImage = 'https://www.w3schools.com/howto/img_avatar.png'
+    // this.defaultImage = './assets/images/account.png'
     this.agentsService.getNewAgent().subscribe((res: any) => {
       if (res) {
         res.agents.splice(-1)

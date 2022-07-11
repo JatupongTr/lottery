@@ -41,9 +41,9 @@ router.get("/income", checkAuth, (req, res, next) => {
 router.get("/populars", checkAuth, (req, res, next) => {
   Order.aggregate()
     .unwind("items")
-    .match({
-      "items.netPrice": { $ne: 0 },
-    })
+    // .match({
+    //   "items.netPrice": { $ne: 0 },
+    // })
     .group({
       _id: "$period",
       dataSet: {
@@ -57,8 +57,8 @@ router.get("/populars", checkAuth, (req, res, next) => {
       _id: "$dataSet",
       count: { $sum: 1 },
     })
-    .limit(3)
     .sort({ count: -1 })
+    .limit(3)
     .then((result) => {
       res.status(200).json(result);
     });

@@ -31,7 +31,8 @@ export class AgentListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.defaultImage = './assets/images/account.png'
+    // this.defaultImage = './assets/images/account.png'
+    this.defaultImage = 'https://www.w3schools.com/howto/img_avatar.png'
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.agentsService.getAgents();

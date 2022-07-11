@@ -63,6 +63,11 @@ router.post("/:id", checkAuth, async (req, res, next) => {
       }
     }
     await newOrder.save();
+    let newNoti = new Notification({
+      title: "เพิ่มโพย" + " " + ":" + " " + newOrder.customer,
+      message: "งวดวันที่" + " " + ":" + " " + newOrder.period
+    })
+    newNoti.save();
     res.status(201).json({ message: "Order created" });
   } catch (error) {
     console.log(error);

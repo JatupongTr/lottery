@@ -4,18 +4,18 @@
     <button mat-raised-button color="warn" (click)="onClear()">เคลียร์แจ้งเตือน</button>
   </div>
 </div>
-<div class="noti shadow p-4 bg-body rounded">
+<div class="noti shadow p-4 bg-body rounded" >
     <table class="table table-hover">
         <thead>
         </thead>
         <tbody *ngFor="let data of notiData">
-            <tr>
+            <tr >
                 <th scope="row"><img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
                 </th>
                 <td>
                     <p class="fw-bold fs-5">{{data.title}}</p>
                     <p class="fs-6">{{data.message}}</p>
-                    {{data.date | date: "longDate"}} {{ data.date | date: "shortTime"}}
+                    วันที่: {{data.createdAt | date: "longDate"}} เวลา  {{ data.createdAt | date: "HH:mm"}} น.
                 </td>
             </tr>
         </tbody>
