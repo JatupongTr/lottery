@@ -16,7 +16,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://admin:admin123456@cluster0.afesf.mongodb.net/lottery?retryWrites=true&w=majority"
+    "mongodb+srv://admin:"+ process.env.MONGO_ATLAS_PW +"@cluster0.afesf.mongodb.net/lottery?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database");
@@ -42,20 +42,12 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/agents", agentsRoutes);
-
 app.use("/api/users", usersRoutes);
-
 app.use("/api/categories", cateRoutes);
-
 app.use("/api/orders", orderRoutes);
-
 app.use("/api/count_orders", countRoutes);
-
 app.use('/api/reports', reportRoutes)
-
 app.use('/api/rewards', rewardRoutes);
-
 app.use('/api/notifications', notificationRoutes)
-
 
 module.exports = app;

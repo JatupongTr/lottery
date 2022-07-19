@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,6 +9,7 @@ import { User } from './user.model';
   providedIn: 'root',
 })
 export class AuthService {
+  private endPoint = environment.endPoint;
   user = new Subject<User>();
   private token: string;
   private isAuthenticated = false;
@@ -33,7 +35,7 @@ export class AuthService {
       password: password,
     };
     this.http
-      .post<{token: string, fetchedUser: any} >('http://localhost:3000/api/users/login', user)
+      .post<{token: string, fetchedUser: any} >(this.endPoint + '/users/login', user)
       .subscribe((res) => {
         const token = res.token;
         this.token = token;
@@ -54,7 +56,7 @@ export class AuthService {
       username: username,
       password: password
     }
-    this.http.post("http://localhost:3000/api/users/signup", user)
+    this.http.post(this.endPoint + "/users/signup", user)
       .subscribe(response => {
         console.log(response)
       }, error => {

@@ -38,7 +38,7 @@ export class AgentsService {
 
   getAgents() {
     this.http
-      .get<{ message: string; agents: any }>('http://localhost:3000/api/agents')
+      .get<{ message: string; agents: any }>(this.endPoint + "/agents")
       .pipe(
         map((agentData) => {
           return agentData.agents.map((agent) => {
@@ -74,7 +74,7 @@ export class AgentsService {
       name: string;
       imagePath: string;
       order: [];
-    }>('http://localhost:3000/api/agents/' + id);
+    }>(this.endPoint + "/agents/" + id);
   }
 
   addAgent(code: string, name: string, imagePath: string) {
@@ -87,7 +87,7 @@ export class AgentsService {
 
     this.http
       .post<{ message: string; agentId: string }>(
-        'http://localhost:3000/api/agents',
+        this.endPoint + "/agents",
         agent
       )
       .subscribe((responseData) => {
@@ -102,7 +102,7 @@ export class AgentsService {
 
   deleteAgent(agentId: string) {
     this.http
-      .delete('http://localhost:3000/api/agents/' + agentId)
+      .delete(this.endPoint + "/agents/" + agentId)
       .subscribe(() => {
         const updatedAgents = this.agents.filter(
           (agent) => agent.id !== agentId
@@ -125,7 +125,7 @@ export class AgentsService {
       imagePath: imagePath,
     };
     this.http
-      .put('http://localhost:3000/api/agents/' + id, agent)
+      .put(this.endPoint + "/agents/" + id, agent)
       .subscribe((response) => {
         const updatedAgents = [...this.agents];
         const oldAgentIndex = updatedAgents.findIndex((a) => a.id === agent.id);

@@ -5,8 +5,6 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HalfPayResponse } from './halfPayResponse.model';
-/* import { ItemLimit } from '../settings/setting.model'; */
-/* import { LimitNumber } from '../settings/limitNumber.model'; */
 
 @Injectable({
   providedIn: 'root',
