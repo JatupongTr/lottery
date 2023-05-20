@@ -60,7 +60,7 @@ export class TwoNumbersComponent implements OnInit, OnDestroy {
       this.netPrice,
       value.categories
     );
-    newItems.categoryName = categorySelect.cate_name;
+    newItems.categoryName = categorySelect.description;
     this.itemsService.addItems(newItems);
     form.reset();
   }

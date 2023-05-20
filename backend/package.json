@@ -1,0 +1,15 @@
+{
+  "name": "lottery",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "jquery": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.3",
+    "mongoose": "^6.4.5",
+    "mongoose-unique-validator": "^3.1.0"
+  }
+}

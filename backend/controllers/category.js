@@ -22,15 +22,14 @@ exports.resetCategory = (req, res, next) => {
   let purchaseBalance = 0;
   let purchaseMaximum = 0;
   let categoryId = [
-    "62396645db01ff9ee525f1d5",
-    "62396654db01ff9ee525f1d7",
-    "6239666ddb01ff9ee525f1d9",
-    "6239667edb01ff9ee525f1db",
-    "623966b9db01ff9ee525f1dd",
-    "623966cadb01ff9ee525f1df",
-    "623966e2db01ff9ee525f1e1",
-    "623966f7db01ff9ee525f1e3",
-    "62396709db01ff9ee525f1e5",
+    "64590e1b3c8573ced0c89c2c",
+    "64590e3f3c8573ced0c89c34",
+    "64590e763c8573ced0c89c39",
+    "64590e853c8573ced0c89c3b",
+    "64590eab3c8573ced0c89c41",
+    "64590ebe3c8573ced0c89c43",
+    "64590ece3c8573ced0c89c45",
+    "64590efb3c8573ced0c89c47",
   ];
   for (let i = 0; i < categoryId.length; i++) {
     Category.findOne({ _id: categoryId[i] }).then((category) => {

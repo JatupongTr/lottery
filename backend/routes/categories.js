@@ -11,9 +11,9 @@ router.put("/reset", checkAuth, categoryController.resetCategory);
 router.post("/remove/:id", checkAuth, categoryController.removeHalfPay);
 // clear เลขอั้น
 router.put("/clear", checkAuth, categoryController.clearHalfPay);
-router.get("", checkAuth, categoryController.getCategories);
+router.get("", categoryController.getCategories);
 router.get("/halfpay", checkAuth, categoryController.getHalfPay);
-router.post("", checkAuth, categoryController.createCategory);
+router.post("", categoryController.createCategory);
 router.get("/two", checkAuth, categoryController.getTwoDigits);
 router.get("/running", checkAuth, categoryController.getRunningDigits);
 router.get("/three", checkAuth, categoryController.getThreeDigits);

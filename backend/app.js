@@ -6,17 +6,18 @@ const agentsRoutes = require("./routes/agents");
 const usersRoutes = require("./routes/users");
 const cateRoutes = require("./routes/categories");
 const orderRoutes = require("./routes/orders");
-const rewardRoutes = require('./routes/rewards')
+const rewardRoutes = require("./routes/rewards");
 const countRoutes = require("./routes/countOrder");
-const reportRoutes = require('./routes/reports');
-const notificationRoutes = require('./routes/notifications')
-
+const reportRoutes = require("./routes/reports");
+const notificationRoutes = require("./routes/notifications");
 
 const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://admin:"+ process.env.MONGO_ATLAS_PW +"@cluster0.afesf.mongodb.net/lottery?retryWrites=true&w=majority"
+    "mongodb+srv://simba:" +
+      process.env.MONGO_ATLAS_PW +
+      "@underground.msicxr4.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database");
@@ -46,8 +47,8 @@ app.use("/api/users", usersRoutes);
 app.use("/api/categories", cateRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/count_orders", countRoutes);
-app.use('/api/reports', reportRoutes)
-app.use('/api/rewards', rewardRoutes);
-app.use('/api/notifications', notificationRoutes)
+app.use("/api/reports", reportRoutes);
+app.use("/api/rewards", rewardRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 module.exports = app;

@@ -54,7 +54,7 @@ export class ThreeNumbersComponent implements OnInit {
       // categorySelect,
       value.categories
     )
-    newItems.categoryName = categorySelect.cate_name
+    newItems.categoryName = categorySelect.description
     this.itemsService.addItems(newItems)
     form.reset();
   }
